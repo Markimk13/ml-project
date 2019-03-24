@@ -1,0 +1,83 @@
+Finished creating image datastore of 1875556 images.
+Created bounding box for image 1000/10000.
+Created bounding box for image 2000/10000.
+Created bounding box for image 3000/10000.
+Created bounding box for image 4000/10000.
+Created bounding box for image 5000/10000.
+Created bounding box for image 6000/10000.
+Created bounding box for image 7000/10000.
+Created bounding box for image 8000/10000.
+Created bounding box for image 9000/10000.
+Created bounding box for image 10000/10000.
+Start creating detector 'cod_detector_10000.xml' (round 1).
+
+Automatically setting ObjectTrainingSize to [32, 112]
+Using at most 9569 of 10000 positive samples per stage
+Using at most 19138 negative samples per stage
+
+--cascadeParams--
+Training stage 1 of 10
+[........................................................................]
+Used 9569 positive and 19138 negative samples
+Time to train stage 1: 412 seconds
+
+Training stage 2 of 10
+[........................................................................]
+Used 9569 positive and 19138 negative samples
+Time to train stage 2: 784 seconds
+
+Training stage 3 of 10
+[........................................................................]
+Used 9569 positive and 19138 negative samples
+Time to train stage 3: 986 seconds
+
+Training stage 4 of 10
+[........................................................................]
+Used 9569 positive and 19138 negative samples
+Time to train stage 4: 1153 seconds
+
+Training stage 5 of 10
+[........................................................................]
+Used 9569 positive and 19138 negative samples
+Time to train stage 5: 1442 seconds
+
+Training stage 6 of 10
+[........................................................................]
+Used 9569 positive and 19138 negative samples
+Time to train stage 6: 2301 seconds
+
+Training stage 7 of 10
+[........................................................................]
+Used 9569 positive and 19138 negative samples
+Time to train stage 7: 2842 seconds
+
+Training stage 8 of 10
+[........................................................................]
+Used 9569 positive and 19138 negative samples
+Time to train stage 8: 4150 seconds
+
+Training stage 9 of 10
+[........................................................................]
+Used 9569 positive and 19138 negative samples
+Time to train stage 9: 4942 seconds
+
+Training stage 10 of 10
+[........................................................................]
+Used 9559 positive and 19118 negative samples
+Time to train stage 10: 5421 seconds
+
+Training complete
+Finished creating detector 'cod_detector_10000.xml'.
+
+
+trainPosPath = 'Data/trainPos';
+trainNegPath = 'Data/trainNeg/test_challenge/challenge2018';
+
+ObjectTrainingSize = 'Auto';
+NegativeSamplesFactor = 2;
+NumCascadeStages = 10;
+FalseAlarmRate = 0.5;
+TruePositiveRate = 0.995;
+FeatureType = 'HOG';
+
+sample_count = 10000;

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<!-- Created using Computer Vision System Toolbox(tm) for MATLAB(R) -->
+<!-- Version 9.5.0.1033004 (R2018b) Update 2 -->
+<!-- Compatible with OpenCV 3.4 -->
+<cascade>
+  <stageType>BOOST</stageType>
+  <featureType>LBP</featureType>
+  <height>32</height>
+  <width>32</width>
+  <stageParams>
+    <boostType>GAB</boostType>
+    <minHitRate>9.4999998807907104e-01</minHitRate>
+    <maxFalseAlarm>6.9999998807907104e-01</maxFalseAlarm>
+    <weightTrimRate>9.4999999999999996e-01</weightTrimRate>
+    <maxDepth>1</maxDepth>
+    <maxWeakCount>100</maxWeakCount></stageParams>
+  <featureParams>
+    <maxCatCount>256</maxCatCount>
+    <featSize>1</featSize></featureParams>
+  <stageNum>2</stageNum>
+  <stages>
+    <!-- stage 0 -->
+    <_>
+      <maxWeakCount>1</maxWeakCount>
+      <stageThreshold>9.1812282800674438e-01</stageThreshold>
+      <weakClassifiers>
+        <_>
+          <internalNodes>
+            0 -1 1 -1 -77606937 -213657533 -674245937 -208942869
+            -397676153 -274727973 2080374783</internalNodes>
+          <leafValues>
+            -9.9782961606979370e-01 9.1812282800674438e-01</leafValues></_></weakClassifiers></_>
+    <!-- stage 1 -->
+    <_>
+      <maxWeakCount>2</maxWeakCount>
+      <stageThreshold>-1.5714839100837708e-01</stageThreshold>
+      <weakClassifiers>
+        <_>
+          <internalNodes>
+            0 -1 0 1073725439 1071644667 2068307967 1073730551 -3409409
+            1005320895 -1025 -1073743105</internalNodes>
+          <leafValues>
+            -8.5655313730239868e-01 8.7002098560333252e-01</leafValues></_>
+        <_>
+          <internalNodes>
+            0 -1 2 -1 -201334785 -1055947125 -7354873 -4194305 -7345681
+            -104072561 2080369647</internalNodes>
+          <leafValues>
+            -1. 6.9940477609634399e-01</leafValues></_></weakClassifiers></_></stages>
+  <features>
+    <_>
+      <rect>
+        11 23 7 3</rect></_>
+    <_>
+      <rect>
+        29 1 1 8</rect></_>
+    <_>
+      <rect>
+        29 11 1 7</rect></_></features></cascade>
+</opencv_storage>

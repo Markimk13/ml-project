@@ -1,0 +1,124 @@
+Loading table for 5000 images.
+Finished loading table for 5000 images.
+Start creating detector 'cod_detector_5000.xml' (round 1).
+
+Automatically setting ObjectTrainingSize to [32, 111]
+Using at most 4730 of 5000 positive samples per stage
+Using at most 9460 negative samples per stage
+
+--cascadeParams--
+Training stage 1 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 1: 657 seconds
+
+Training stage 2 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 2: 1251 seconds
+
+Training stage 3 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 3: 2022 seconds
+
+Training stage 4 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 4: 2144 seconds
+
+Training stage 5 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 5: 2373 seconds
+
+Training stage 6 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 6: 2590 seconds
+
+Training stage 7 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 7: 2696 seconds
+
+Training stage 8 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 8: 3009 seconds
+
+Training stage 9 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 9: 3153 seconds
+
+Training stage 10 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 10: 3008 seconds
+
+Training stage 11 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 11: 3083 seconds
+
+Training stage 12 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 12: 3453 seconds
+
+Training stage 13 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 13: 3637 seconds
+
+Training stage 14 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 14: 3951 seconds
+
+Training stage 15 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 15: 4280 seconds
+
+Training stage 16 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 16: 4469 seconds
+
+Training stage 17 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 17: 4901 seconds
+
+Training stage 18 of 20
+[........................................................................]
+Used 4730 positive and 9460 negative samples
+Time to train stage 18: 5182 seconds
+
+Training stage 19 of 20
+[........................................................................]
+Used 4728 positive and 9456 negative samples
+Time to train stage 19: 5428 seconds
+
+Training stage 20 of 20
+[........................................................................]
+Used 4714 positive and 9428 negative samples
+Time to train stage 20: 5738 seconds
+
+Training complete
+Finished creating detector 'cod_detector_5000.xml'.
+
+
+trainPosPath = 'Data/trainPos/mnt/ramdisk/max/90kDICT32px';
+trainNegPath = 'Data/trainNeg/test_challenge/challenge2018';
+
+ObjectTrainingSize = 'Auto';
+NegativeSamplesFactor = 2;
+NumCascadeStages = 20;
+FalseAlarmRate = 0.2;
+TruePositiveRate = 0.997;
+FeatureType = 'HOG';
+
+sample_count = 5000;
