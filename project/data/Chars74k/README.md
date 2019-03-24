@@ -1,2 +1,8 @@
-# Letter Localization
-My project for [Machine Learning using MATLAB](https://www.mmsp.uni-konstanz.de/teaching/courses/winter-20182019/machine-learning-using-matlab/)
+# Chars74k
+The data of http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/
+
+
+Download the subfolders:
+
+* Fnt: http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/EnglishFnt.tgz
+* Nature: http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/EnglishImg.tgz
