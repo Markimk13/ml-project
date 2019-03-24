@@ -1,8 +1,1 @@
-# Chars74k
-The data of http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/
-
-
-Download the subfolders:
-
-* Fnt: http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/EnglishFnt.tgz
-* Nature: http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/EnglishImg.tgz
+# Selected images from [Google Open Images Dataset V4](https://storage.googleapis.com/openimages/web/download.html)
