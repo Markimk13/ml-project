@@ -3,10 +3,10 @@ function [trainPosPath, trainNegPath, testPath, height, width, negMode, negImgsP
 
     % TODO group parameters into options
     
-    trainPosPath = 'Data/trainPos/mnt/ramdisk/max/90kDICT32px';
+    trainPosPath = 'data/pos/mnt/ramdisk/max/90kDICT32px';
     % delete neg_file when updating trainNegPath
-    trainNegPath = 'Data/trainNeg/test_challenge/challenge2018';
-    testPath = 'Data/test';
+    trainNegPath = 'data/neg/test_challenge/challenge2018';
+    testPath = 'data/test';
     height = 100;
     width = 100;
     
