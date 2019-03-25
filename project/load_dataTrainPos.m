@@ -21,7 +21,7 @@ function [data] = load_dataTrainPos(backupFile, dataPath, mode)
 
     % find height and width of all bounding boxes
     m = length(imageFilenames);
-    sizes = cell(m, 2);
+    sizes = zeros([m, 2], 'uint8');
     for i = 1:m
         img = imread(imageFilenames{i});
         bb = get_bounding_box(img);
@@ -33,6 +33,8 @@ function [data] = load_dataTrainPos(backupFile, dataPath, mode)
     height = size_avg(1);
     width = size_avg(2);
     img_size = [size_avg, 3];
+    
+    % init the data to return
     data = zeros([m, img_size], 'uint8');
     
     fprintf('Loading training data of %s (%d images) ...\n', path, m);
@@ -44,7 +46,7 @@ function [data] = load_dataTrainPos(backupFile, dataPath, mode)
         
         % set the img from gray to rgb
         if length(size(img)) == 2
-            data(i,:,:,:) = cat(3, img, img, img);
+            img = cat(3, img, img, img);
         end
         
         if strcmp(mode, 'crop') || strcmp(mode, 'resize')
@@ -52,7 +54,7 @@ function [data] = load_dataTrainPos(backupFile, dataPath, mode)
             img = img(bb(1)+(1:bb(3)),bb(2)+(1:bb(4)),:);
             
             % resize if the mode is 'resize' or the bb does not fit in the img_size
-            if strcmp(mode, 'resize') || bb(3) > height && bb(4) > width
+            if strcmp(mode, 'resize') || bb(3) > height || bb(4) > width
                 img_height = min(height, bb(3)*width/bb(4));
                 img_width = min(width, bb(4)*height/bb(3));
                 img = imresize(img, [img_height, img_width]);

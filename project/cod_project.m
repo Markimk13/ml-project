@@ -5,8 +5,7 @@ clear; clc; close all;
 pos = imageDatastore(trainPosPath, 'IncludeSubfolders', true, 'FileExtensions', {'.jpg', '.png'});
 ImageFilename = pos.Files;
 idx = randperm(length(ImageFilename));
-idx = idx(1:5000);
-ImageFilename = ImageFilename(idx);
+ImageFilename = ImageFilename(idx(1:5000));
 
 letter = zeros(length(ImageFilename), 4);
 for i = 1:length(ImageFilename)

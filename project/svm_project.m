@@ -2,9 +2,11 @@
 [deleted_old_variables] = init();
 [~, ~, ~, featureFile, modelFile] = init_filenames();
 if deleted_old_variables
-    [data_train, height, width, y, data_test, options] = load_data(@svm_params);
+    [data_train, y, data_test, options] = load_data(@svm_params);
     use_hog_visus = options.use_hog_visus;
 end
+height = size(data_train, 2);
+width = size(data_train, 3);
 
 %% 2. Extract/Load features.
 if isfile(featureFile)
