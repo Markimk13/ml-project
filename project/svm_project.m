@@ -2,7 +2,7 @@
 [deleted_old_variables] = init();
 [~, ~, ~, featureFile, modelFile] = init_filenames();
 if deleted_old_variables
-    [data_train, y, data_test, options] = load_data(@svm_params);
+    [data_train, y, data_test, options] = load_data(@svm_params, @svm_filenames, '0');
     use_hog_visus = options.use_hog_visus;
 end
 height = size(data_train, 2);

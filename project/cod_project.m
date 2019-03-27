@@ -10,7 +10,7 @@ ImageFilename = ImageFilename(idx(1:5000));
 letter = zeros(length(ImageFilename), 4);
 for i = 1:length(ImageFilename)
     img = imread(ImageFilename{i});
-    letter(i,:) = get_bounding_box(img);
+    letter(i,:) = get_translatedBB(get_bounding_box(img));
 end
 table_pos = table(ImageFilename, letter);
 

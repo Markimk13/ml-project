@@ -1,0 +1,66 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Letter Localization}
+
+\author{\IEEEauthorblockN{Markus K\"ohler}
+\IEEEauthorblockA{\textit{University of Konstanz}\\
+Konstanz, Germany \\
+markus.koehler@uni-konstanz.de}
+}
+
+\maketitle
+
+\begin{abstract}
+The abstract of this paper.
+\end{abstract}
+
+\begin{IEEEkeywords}
+letter, localization, SVM, HOG, IoU
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+Computer-printed letters can be found everywhere in our cities, e.g. on traffic signs, stores and advertisement posters. 
+
+This paper is dedicated to the question how to find these letters on any input image using Machine Learning. To keep it more simple, we only want to detect the 62 characters 0-9, A-Z, a-z. Although it is true that our detector might also be able to detect some hand-written letters, we restrict our search space to the computer-printed versions of the letters. Also, we are only interested in the locations of the letters, not in their classification. Another restriction is that we only use rectangular bounding boxes and we do not take into account that a letter may be rotated.
+
+\section{Data}
+
+\subsection{Image selection}
+
+\subsection{Image manipulation}
+
+\subsection{HOG features}
+
+\subsection{Features from image segmentation}
+
+\section{Models}
+
+\subsection{Support Vector Machines (SVM)}
+
+\subsection{Cascade Object Detector}
+
+\section{Evaluation}
+
+\subsection{Non-maximum suppression}
+
+\subsection{Intersection over Union (IoU)}
+
+\section{Framework}
+
+\begin{thebibliography}{00}
+\bibitem{b1} T. E. de Campos, B. R. Babu and M. Varma, ``Character recognition in natural images'', In Proceedings of the International Conference on Computer Vision Theory and Applications (VISAPP), Lisbon, Portugal, February 2009. http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/.
+\end{thebibliography}
+
+\end{document}

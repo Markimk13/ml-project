@@ -1,9 +1,5 @@
 function [bounding_boxes] = svm_predict(model, data, bb_sizeY, bb_sizeX)
 
-    % TODO
-    % try to use HOG features for different image sizes
-    % try out the stop sign example
-
     factor_start = 1;
     factor_scale = 1.1;
     factor_rounds = 15;
@@ -14,13 +10,14 @@ function [bounding_boxes] = svm_predict(model, data, bb_sizeY, bb_sizeX)
         factors(i) = factors(i-1) / factor_scale;
     end
     
+    % TODO also use angles to rotate the image
 
     %sizeY = [10 40];
     %sizeX = [10 20 30 40];
     %sizeYX = [10 10; 20 20; 30 30];
     
-    strideY = 8;
-    strideX = 8;
+    strideYStart = 8;
+    strideXStart = 8;
     
     bounding_boxes = cell(size(data, 1), 1);
     for i = 1:length(data)
@@ -35,8 +32,11 @@ function [bounding_boxes] = svm_predict(model, data, bb_sizeY, bb_sizeX)
         ps = [];
         for i_factors = 1:size(factors, 1)
             factor = factors(i_factors);
-            img_size = [floor(factor * height), floor(factor * width)];
+            img_size = ceil(factor * [height, width]);
             img_resized = imresize(img, img_size);
+            
+            strideY = ceil(factor * strideYStart);
+            strideX = ceil(factor * strideXStart);
             
             m_y = 1+floor((img_size(1)-bb_sizeY)/strideY);
             m_x = 1+floor((img_size(2)-bb_sizeX)/strideX);
@@ -75,12 +75,12 @@ function [bounding_boxes] = svm_predict(model, data, bb_sizeY, bb_sizeX)
         
         m = size(bbs, 1);
         take_bbs = zeros(m, 1);
-        fprintf("\tStarted maximum supression with %d bounding boxes.\n", m);
+        fprintf("\tStarted non-maximum suppression with %d bounding boxes.\n", m);
         for j = 1:m
             k = 1;
             overlap_found = false;
             while k<j && ~overlap_found
-                if overlapBB(bbs(j,:), bbs(k,:), 0.5)
+                if take_bbs(k) == 1 && overlapBB(bbs(j,:), bbs(k,:), 0.5)
                 %if bboxOverlapRatio(bbs(j,:), bbs(k,:), 'Min') >= 0.5
                     overlap_found = true;
                 end
@@ -92,7 +92,7 @@ function [bounding_boxes] = svm_predict(model, data, bb_sizeY, bb_sizeX)
             end
             
             if mod(j, 100) == 0
-                fprintf("\t\tFinished maximum supression for bb %d.\n", j);
+                fprintf("\t\tFinished non-maximum suppression for bb %d.\n", j);
             end
         end
         

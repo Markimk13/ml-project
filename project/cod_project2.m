@@ -53,7 +53,7 @@ for i = 1:length(letters)
         if found_letter(j) == 1
             filenames{index} = ImageFilename{j};
             img = imread(ImageFilename{j});
-            letter(index,:) = get_bounding_box(img);
+            letter(index,:) = get_translatedBB(get_bounding_box(img));
             index = index + 1;
         end
     end
@@ -92,32 +92,3 @@ for i = 1:length(letters)
 
     fprintf("Finished creating detector '%s'.\n", detector_name); 
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -47,7 +47,7 @@ else
             end
         end
         
-        bbs(j,:) = get_bounding_box(img);
+        bbs(j,:) = get_translatedBB(get_bounding_box(img));
         if mod(j, 1000) == 0
             fprintf("Created bounding box for image %d/%d.\n", j, m);
         end

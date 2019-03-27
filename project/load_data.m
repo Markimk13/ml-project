@@ -1,13 +1,13 @@
-function [data_train, y, data_test, options] = load_data(params_func)
+function [data_train, y, data_test, options] = load_data(params_func, backup_func, letter)
     %% 1. Get hyper-parameters and related data
-    [trainPosPath, trainNegPath, testPath, ~, ~, negMode, negImgsPerFile, ~, negFactor, options] ...
+    [trainPosPath, trainNegPath, testPath, ~, ~, maxNegResizeFactor, negImgsPerFile, ~, negFactor, options] ...
         = params_func();
 
-    [dataTrainPosFile, dataTrainNegFile, dataTestFile, ~, ~] = init_filenames();
+    [dataTrainPosFile, dataTrainNegFile, dataTestFile, ~, ~] = backup_func();
     
     %% 2. Load training data.
-    [data_train, y] = load_dataTrain(dataTrainPosFile, trainPosPath, 'crop', ...
-            dataTrainNegFile, trainNegPath, negMode, negImgsPerFile, negFactor);
+    [data_train, y] = load_dataTrain(dataTrainPosFile, trainPosPath, letter, 'crop', ...
+            dataTrainNegFile, trainNegPath, maxNegResizeFactor, negImgsPerFile, negFactor);
 
     fprintf('Finished loading training data: %d images\n', size(data_train, 1));
 
