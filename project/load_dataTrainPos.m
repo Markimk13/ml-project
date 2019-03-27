@@ -16,10 +16,7 @@ function [data] = load_dataTrainPos(backupFile, dataStore, mode)
     fprintf('Loading pos data (%d images) ...\n', m);
     
     % read the data
-    data = zeros([m, height, width, 3], 'uint8');
-    for i = 1:m
-        data(i,:,:,:) = read(transformed);
-    end
+    data = get_imagesFromDataStore(transformed, m, height, width);
     
     fprintf('Finished loading pos data (%d images).\n', m);
     

@@ -10,32 +10,39 @@ FeatureType = 'HOG';
 
 % delete backups of cod4 when updating file paths
 trainPosPath = 'data/pos/Chars74k/Fnt';
-trainNegPath = 'data/neg/Selected';
+trainNegPath = 'data/neg/GoogleOpenImage';
+backupFolder = 'data/cod_saved/';
 
 possible_letters = ['0':'9' 'A':'Z' 'a':'z'];
-letters = ['0'];
+letters = ['0':'9' 'A':'Z' 'a':'z'];
 for i = 1:length(letters)
+    fprintf("Start preparing for detector for letter %c.\n", letters(i));
+    
     % decide for what letter the detector is
     letter_index = find(possible_letters == letters(i));
-    pos_file = ['data/cod_saved/data_trainPos_cod4_' char(string(letter_index)) '.mat'];
-    neg_file = ['data/cod_saved/data_trainNeg_cod4_' char(string(letter_index)) '.mat'];
+    pos_folder = [backupFolder 'data_trainPos_cod4_' char(string(letter_index))];
+    neg_file = [backupFolder 'data_trainNeg_cod4_' char(string(letter_index)) '.mat'];
 
+    if isfolder(pos_folder)
+        pos = imageDatastore(pos_folder, 'FileExtensions', '.png');
+    else
+        [pos, ~] = load_dataStore(trainPosPath, trainNegPath, letter_index);
+        [pos, m, height, width] = transform_dataStorePos(pos, 'locate');
+        data = get_imagesFromDataStore(pos, m, height, width);
+        pos = create_dataStoreInFolder(data, pos_folder);
+    end
+    
     % load the data stores
-    if isfile(pos_file) && isfile(neg_file)
-        loaded = load(pos_file);
-        pos = loaded.pos;
+    if isfile(neg_file)
         loaded = load(neg_file);
         neg = loaded.neg;
     else
-        [pos, neg] = load_dataStore(trainPosPath, trainNegPath, letter_index);
-        pos = transform_dataStorePos(pos, 'crop');
-
-        save(pos_file, 'pos');
+        [~, neg] = load_dataStore(trainPosPath, trainNegPath, letter_index);
         save(neg_file, 'neg');
     end
     
     % load the bounding boxes
-    imageFilenames = pos.UnderlyingDatastore.Files;
+    imageFilenames = pos.Files;
     letter_bbs = zeros(length(imageFilenames), 4);
     for j = 1:length(imageFilenames)
         img = read(pos);
@@ -73,6 +80,7 @@ for i = 1:length(letters)
             round = round + 1;
         end
     end
-
+    
+    copyfile(detector_name, [backupFolder char(detector_name)]);
     fprintf("Finished creating detector '%s'.\n", detector_name); 
 end

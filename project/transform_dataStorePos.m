@@ -11,10 +11,7 @@ function [transformed, m, height, width] = transform_dataStorePos(dataStore, mod
     
     mPerImg = 1;
     resizeFactor = 1;
-    if strcmp(mode, 'locate')
-        mPerImg = 10;
-        
-    elseif strcmp(mode, 'crop') || strcmp(mode, 'resize')
+    if strcmp(mode, 'crop') || strcmp(mode, 'resize')
         resizeFactor = 4;
         
         % find height and width of all bounding boxes
@@ -31,6 +28,8 @@ function [transformed, m, height, width] = transform_dataStorePos(dataStore, mod
         width = size_max(2);
         
     elseif strcmp(mode, 'locate')
+        mPerImg = 10;
+        
         img = imread(imageFilenames{1});
         height = ceil(size(img, 1)/resizeFactor);
         width = ceil(size(img, 2)/resizeFactor);
@@ -47,7 +46,7 @@ function [transformed, m, height, width] = transform_dataStorePos(dataStore, mod
         transformed = combine(transformed, ...
                 transform(dataStore, @(img) transform_dataTrainPos(img, ...
                         height, width, mode, resizeFactor)));
-        fprintf('\tFinished round %d ...\n', i);
+        fprintf('\tFinished round %d.\n', i);
     end
     
     fprintf('Finished transforming pos data (%d images).\n', mPerImg*m);
