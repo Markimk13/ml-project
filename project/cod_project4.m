@@ -10,7 +10,7 @@ FeatureType = 'HOG';
 
 % delete backups of cod4 when updating file paths
 trainPosPath = 'data/pos/Chars74k/Fnt';
-trainNegPath = 'data/neg/GoogleOpenImage';
+trainNegPath = 'data/neg/Selected';
 backupFolder = 'data/cod_saved/';
 
 possible_letters = ['0':'9' 'A':'Z' 'a':'z'];

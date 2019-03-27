@@ -15,8 +15,8 @@ function [data] = get_imagesFromDataStore(dataStore, m, height, width)
                 data(index,:,:,:) = img(ys, xs, :);
                 index = index + 1;
         
-                if mod(index, 500)
-                    fprintf("/tRead image %d from dataStore.\n", index);
+                if mod(index, 500) == 0
+                    fprintf("\tRead image %d from dataStore.\n", index);
                 end
             end
         end

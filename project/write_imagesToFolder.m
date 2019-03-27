@@ -15,8 +15,8 @@ function write_imagesToFolder(data, folder)
         img = reshape(data(i,:,:,:), size_data(2:4));
         imwrite(img, sprintf(format, folder, i));
         
-        if mod(i, 500)
-            fprintf("/tWrote image %d to folder.\n", i);
+        if mod(i, 500) == 0
+            fprintf("\tWrote image %d to folder.\n", i);
         end
     end
     

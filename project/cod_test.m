@@ -1,4 +1,4 @@
-detectorPath = 'cod_detector_letter1_0.xml';
+detectorPath = 'data/cod_saved/1_001/cod_detector_letter1_0.xml';
 %1.
 %imgPath = 'data/pos/Chars74k/Fnt/Sample001/img001-00001.png';
 %2.
