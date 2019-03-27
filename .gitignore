@@ -3,3 +3,4 @@
 *.asv
 *.synctex.gz
 *.mat
+*_trainCascadeTemp*
