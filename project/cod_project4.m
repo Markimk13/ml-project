@@ -54,7 +54,7 @@ for i = 1:length(letters)
     detector_name = sprintf("cod_detector_letter%d_%c.xml", letter_index, letters(i));
     finished = false;
     round = 1;
-    while ~finished && round < 1000
+    while ~finished && round < 3
         try   
             fprintf("Start creating detector '%s' (round %d).\n", detector_name, round);
             try
