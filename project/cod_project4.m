@@ -14,7 +14,8 @@ trainNegPath = 'data/neg/Selected';
 backupFolder = 'data/cod_saved/';
 
 possible_letters = ['0':'9' 'A':'Z' 'a':'z'];
-letters = ['0':'9' 'A':'Z' 'a':'z'];
+%letters = ['0':'9' 'A':'Z' 'a':'z'];
+letters = ['a':'z'];
 for i = 1:length(letters)
     fprintf("Start preparing for detector for letter %c.\n", letters(i));
     

@@ -1,6 +1,6 @@
 %% 1. Load data
-[deleted_old_variables] = init();
-[~, ~, ~, featureFile, modelFile] = init_filenames();
+[deleted_old_variables] = svm_init();
+[~, ~, ~, featureFile, modelFile] = svm_filenames();
 if deleted_old_variables
     [data_train, y, data_test, options] = load_data(@svm_params, @svm_filenames, '0');
     use_hog_visus = options.use_hog_visus;
