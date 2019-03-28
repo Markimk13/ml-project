@@ -50,6 +50,9 @@ So one way to handle those challenges is to find similarities of letters in all 
 
 \section{Data}
 
+\noindent
+Firstly, we describe where we get the data from and how we organize and transform it before we use it in our models.
+
 \subsection{Image selection}\label{sec:img-sel}
 
 The selection of the data consists of 3 parts. The GitHub page ``image-text-localization-recognition'' \cite{bib:github} was very helpful for image selection. \\[-5pt]
@@ -66,22 +69,22 @@ Thirdly, we need test data which are images which we could also have added to th
 
 We used some images of ``Google Open Images V4'' \cite{bib:openImg} again and some of ``ctw1500'' \cite{bib:ctw}. Additionally, we created a very simple test example just consisting of some randomly distributed letters with white background.
 
-\subsection{HOG features}
+\subsection{HOG features}\label{sec:hog}
 
 One technique to get a more abstract representation of the images, which still contains the information about the shape of the letters, is HOG feature extraction. Since the contrast between the border of the images and their background is usually pretty high, this piece of information is also contained in the HOG features.
 
 An advantage of this technique is that we do not have to care about the colors of the images. We also have reduced the dimensions of the data set by a lot.
 
-An issue of this technique is that differences in the fonts of the same letter are still visible in the HOG features. So it is necessary that the data set \cite{bib:chars74k} contains a lot of different fonts. Also the differences between the letters are still visible. Since we later want to use a SVM with Gaussian kernel, we have to train a separate model for each letter since the differences  between the letters are too huge to fit all in one model. Another issue is that we have to use a fixed aspect ratio of a model, but it is no problem for the data set \cite{bib:chars74k} since all images have the same size.
+An issue in this technique is that differences in the fonts of the same letter are still visible in the HOG features. So it is necessary that the data set \cite{bib:chars74k} contains a lot of different fonts. Also the differences between the letters are still visible. Since we later want to use an SVM with Gaussian kernel, we have to train a separate model for each letter since the differences  between the letters are too huge to fit all in one model. Another issue is that we have to use a fixed aspect ratio of a model, but it is no problem for the data set \cite{bib:chars74k} since all images have the same size.
 
 \subsection{Image manipulation}
 
-We still are able to do some manipulation of the images before we extract HOG features from them. Since it is very easy to find the most narrow bounding boxes for the letters in data set \cite{bib:chars74k}, we can easily create new training examples out of them. We implemented 4 options to do so. All options have the possibility to resize the images by a certain factor (with fixed aspect ratio):
+We still are able to do some manipulation of the images before we extract HOG features from them. Since it is very easy to find the most narrow bounding boxes for the letters in data set \cite{bib:chars74k}, we can easily create new training examples out of them. Firstly, the images may be rescaled by a certain factor (with fixed aspect ratio). Secondly, we implemented 4 options for further operations:
 \begin{enumerate}
-\item plain: Only check if all images have the same size.
-\item resize: Resize all images to the average size of the bounding boxes
-\item crop:
-\item locate:
+\item plain: Do not change the images. Only check if all images have the same size.
+\item crop: Crop the bounding box of each image and set it to the center of a white image with the maximum height and width among all bounding boxes.
+\item resize: Do the same as in `crop', but also rescale the image until height or width of the bounding box hits the border of the white image.
+\item locate: Relocate the bounding box somewhere randomly within the original image. Here is also the option to make more than one copy for each image.
 \end{enumerate}
 There would have even been the possibility to use a negative example as a background and lay all the black pixels over it. \\[-5pt]
 
@@ -89,17 +92,64 @@ As already mentioned in \ref{sec:img-sel}, we use every negative example more th
 
 \section{Models}
 
+\noindent
+Now, we can use the data to train several models.
+
 \subsection{Support Vector Machine (SVM)}
+
+%what is an SVM?
+
+As mentioned in \ref{sec:hog} before, we train a separate model for each letter. 
+
+%RBF vs. Gaussian
+%other hyper-parameters
 
 \subsection{Cascade Object Detector}
 
+%what is a COD?
+
+We also train a separate model for each letter here.
+
 \section{Evaluation}
 
-\subsection{Non-maximum suppression}
+\noindent
+After we have trained our models, we can now use them on the test data. Firstly, we scan through the whole image and predict the output for each segment (\ref{sec:slide}). Then we need to remove overlapping bounding boxes which do not give us more information (\ref{sec:non-max-sup}). In the next step, we have to reduce the results of all 62 models to one final result (\ref{sec:many-to-one}) which we can finally evaluate with some metric (\ref{sec:iou}). The Cascade Object Detector does the first 2 steps for us automatically. We only need to set the hyper-parameters.
 
-\subsection{Intersection over Union (IoU)}
+\subsection{Pyramid and sliding windows}\label{sec:slide}
+
+We have a slider with a fixed size here. We use it to slide over the whole test image and predict the output in the SVM for each segment of the image where the slider stopped. For every segment, which the SVM has predicted as positive example, we remember its borders as a bounding box and how high the score was. We repeat this process for the whole pyramid which is created by creating smaller copies of the test image.
+
+%hyper parameters
+
+\subsection{Non-maximum suppression}\label{sec:non-max-sup}
+
+Since many predicted bounding boxes from the previous step may overlap, we have to reduce them. We do this by first selecting the bounding boxes with the highest scores and later only choosing one with a lower score if it overlaps with a previous one by a maximum percentage which we set to 50\%.  
+
+\subsection{Many letters to one location}\label{sec:many-to-one} %choose a better section name
+
+%still missing
+
+\subsection{Intersection over Union (IoU)}\label{sec:iou}
+
+The metric we used is called ``Intersection over Union''. As the name says, it calculates the union of all ground truth bounding boxes and the intersection area between this union and the union of the predicted bounding boxes which is always smaller than the first one. So we get a value from 0 to 1.
 
 \section{Framework}
+
+At the end, we will give a short overview about our framework.
+
+\subsection{Support Vector Machine (SVM)}
+
+The executable script is named \texttt{svm\_project.m}. Some parameters for this can be controlled in \texttt{svm\_params.m}. The paths for the .mat files, where data, features and model can be stored, are controlled in \texttt{svm\_filenames.m}. If you want to delete some of the older values, you can control this in \texttt{init\_params.m}.
+
+The script loads and manipulates the data, extracts the HOG features, trains one model for one letter, predicts the bounding boxes for the test data (which needs more time than training the model) and visualizes the first test example.
+
+\subsection{Cascade Object Detector}
+
+The executable script is named \texttt{cod\_project.m}. All parameters are controlled inside the script here.
+
+There are also other deprecated scripts, namely \texttt{cod\_project2.m}, \texttt{cod\_project3.m}, \texttt{cod\_projectGrid.m}, \texttt{cod\_evaluateGrid.m}.
+
+% also add pictures and tables everywhere
 
 \begin{thebibliography}{00}
 \bibitem{bib:github} https://github.com/whitelok/image-text-localization-recognition
