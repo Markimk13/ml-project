@@ -1,6 +1,8 @@
 function [img] = transform_dataTrainPos(oldImg, height, width, mode, resizeFactor)
 
+    % resize the image to a useful size
     img = oldImg;
+    img = imresize(img, [size(img,1), size(img,2)]/resizeFactor);
     
     % set the img from gray to rgb
     if length(size(img)) == 2
@@ -9,14 +11,16 @@ function [img] = transform_dataTrainPos(oldImg, height, width, mode, resizeFacto
     
     % nothing to do in this mode
     if (strcmp(mode, 'plain'))
+        if height ~= size(img, 1) || width ~= size(img, 2)
+            error("Incorrect image size");
+        end
         return;
     end
     
     % init the size for the image to return
     img_size = [height, width, 3];
     
-    % resize the image and get its bounding box
-    img = imresize(img, [size(img,1), size(img,2)]/resizeFactor);
+    % get the bounding box of the image
     bb = get_bounding_box(img);
     
     % reduce img to the bounding box

@@ -33,6 +33,11 @@ function [transformed, m, height, width] = transform_dataStorePos(dataStore, mod
         img = imread(imageFilenames{1});
         height = ceil(size(img, 1)/resizeFactor);
         width = ceil(size(img, 2)/resizeFactor);
+        
+    elseif strcmp(mode, 'plain')
+        img = imread(imageFilenames{1});
+        height = ceil(size(img, 1)/resizeFactor);
+        width = ceil(size(img, 2)/resizeFactor);
     end
     
     fprintf('Transforming pos data (%d images à %d rounds) ...\n', m, mPerImg);

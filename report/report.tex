@@ -50,7 +50,7 @@ So one way to handle those challenges is to find similarities of letters in all 
 
 \section{Data}
 
-\subsection{Image selection}
+\subsection{Image selection}\label{sec:img-sel}
 
 The selection of the data consists of 3 parts. The GitHub page ``image-text-localization-recognition'' \cite{bib:github} was very helpful for image selection. \\[-5pt]
 
@@ -76,14 +76,16 @@ An issue of this technique is that differences in the fonts of the same letter a
 
 \subsection{Image manipulation}
 
-We still are able to do some manipulation of the images before we extract HOG features from them. Since it is very easy to find the most narrow bounding boxes for the letters in data set \cite{bib:chars74k}, we can easily create new training examples out of them. We implemented 4 options to do so:
+We still are able to do some manipulation of the images before we extract HOG features from them. Since it is very easy to find the most narrow bounding boxes for the letters in data set \cite{bib:chars74k}, we can easily create new training examples out of them. We implemented 4 options to do so. All options have the possibility to resize the images by a certain factor (with fixed aspect ratio):
 \begin{enumerate}
-\item plain:
+\item plain: Only check if all images have the same size.
+\item resize: Resize all images to the average size of the bounding boxes
 \item crop:
-\item resize:
 \item locate:
 \end{enumerate}
-There would have even be the possibility to use a negative example as a background for 
+There would have even been the possibility to use a negative example as a background and lay all the black pixels over it. \\[-5pt]
+
+As already mentioned in \ref{sec:img-sel}, we use every negative example more than once by cropping a random part with the size of the positive examples. The other positive examples, that are not containing the letter for a model, are also used as negative examples.
 
 \section{Models}
 
