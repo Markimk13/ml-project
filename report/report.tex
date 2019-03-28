@@ -29,19 +29,19 @@ The abstract of this paper.
 letter, localization, SVM, HOG, IoU
 \end{IEEEkeywords}
 
-\section{Introduction}
+\section{Introduction}\label{sec:intro}
 
 Computer-printed letters can be found everywhere in our cities, e.g. on traffic signs, stores and advertisement posters. The variety of those letters is huge. Although the same letter can appear in different sizes, colors, fonts, text styles and so on, humans are usually very good at locating and classifying them.
 
-\subsection{Goal}
+\subsection{Goal}\label{sec:goals}
 
 This paper is dedicated to the question how to locate these letters on any input image using Machine Learning. We do not care about classifying these letters afterwards. To keep it more simple, we only want to detect the 62 characters \mbox{0-9, A-Z, a-z}. Although it is true that our detector might also be able to detect some hand-written letters, we restrict our search space to the computer-printed versions of the letters. Another restriction is that we only use rectangular bounding boxes and we do not take into account that a letter may be rotated.
 
-\subsection{Challenges}
+\subsection{Challenges}\label{sec:challenges}
 
-In spite of those restrictions from above, there are still some challenges to handle:
+In spite of those restrictions in \ref{sec:goals}, there are still some challenges to handle:
 \begin{itemize}
-\item As mentioned above, there are many properties of the letters themselves which make them differently.
+\item As mentioned in \ref{sec:intro}, there are many properties of the letters themselves which make them differently.
 \item The aspect ratio of a letter may also vary, especially, if the perspective of view changes. Then also the letter may also be distorted.
 \item The 62 letters have very different shapes and aspect ratios. So it might not be possible only to train one model for all letters in order to get good results.
 \item The background of the bounding boxes containing the letter may also vary or even contain parts of other letters.
@@ -52,7 +52,18 @@ So one way to handle those challenges is to find similarities of letters in all 
 
 \subsection{Image selection}
 
+\noindent
+The selection of the data consists of 3 parts. \\[-10pt]
+
+Firstly, we need positive training examples which contain letters and we also know their positions within the images. It is an advantage if those letters already fulfill most of the properties described in \ref{sec:challenges}. Otherwise, we need to construct them out of the available examples or we have a feature extraction technique which removes those properties. 
+
+Secondly, we also need negative training examples which should not contain any kind of letters. One single letter usually contains a small space in a whole image where we want to locate the letters. So we can use a part of the image as one negative training example which means that we can reuse the same image for different parts of it and we need less initial images if they are large enough.
+
+Thirdly, we need test data which are images which we could also have added to the training examples. There should be easier and more difficult examples such that we may easier see where the evaluated model has its problems.
+
 \subsection{Image manipulation}
+
+
 
 \subsection{HOG features}
 
