@@ -11,7 +11,7 @@ max_idx = [size(ObjectTrainingSize, 1) + 1; size(NegativeSamplesFactor, 1); ...
         size(TruePositiveRate, 1); size(FeatureType, 1)];
 idx = ones(size(max_idx));
 
-test_labels = load('Data/test/Selected/labels.mat');
+test_labels = load('data/test/Selected/labels.mat');
 ImageFilename = test_labels.labels.imageFilename;
 bboxes = test_labels.labels.letter;
 

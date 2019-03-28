@@ -1,5 +1,5 @@
 clear; clc; close all;
-[trainPosPath, trainNegPath, ~, ~, ~, ~, ~, ~, ~, ~] = cod_params();
+[trainPosPath, trainNegPath] = cod_params();
 
 ObjectTrainingSize = 'Auto';
 NegativeSamplesFactor = 2;
@@ -9,9 +9,9 @@ TruePositiveRate = 0.997;
 FeatureType = 'HOG';
 
 sample_count = 5000;
-table_pos_file = sprintf("Data/data_trainPos_cod3_%d.mat", sample_count);
+table_pos_file = sprintf("data/data_trainPos_cod3_%d.mat", sample_count);
 % delete neg_file when updating trainNegPath
-neg_file = "Data/data_trainNeg_cod.mat";
+neg_file = "data/data_trainNeg_cod3.mat";
 
 if isfile(table_pos_file)
     fprintf('Loading table for %d images.\n', sample_count);
@@ -68,7 +68,7 @@ end
 detector_name = sprintf("cod_detector_%d.xml", sample_count);
 finished = false;
 round = 1;
-while ~finished && round < 1000
+while ~finished && round < 3
     try   
         fprintf("Start creating detector '%s' (round %d).\n", detector_name, round);
         try
@@ -96,36 +96,3 @@ while ~finished && round < 1000
 end
 
 fprintf("Finished creating detector '%s'.\n", detector_name);     
- 
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

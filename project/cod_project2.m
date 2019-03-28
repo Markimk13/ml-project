@@ -1,7 +1,5 @@
 clear; clc; close all;
-[~, trainNegPath, ~, ~, ~, ~, ~, ~, ~, ~] = cod_params();
-% delete pos_file when updating trainPosPath
-trainPosPath = 'Data/trainPos/Chars74k/Fnt';
+[trainPosPath, trainNegPath] = cod_params();
 
 ObjectTrainingSize = 'Auto';
 NegativeSamplesFactor = 2;
@@ -11,9 +9,9 @@ TruePositiveRate = 0.995;
 FeatureType = 'HOG';
 
 
-pos_file = "Data/data_trainPos_cod2.mat";
+pos_file = "data/data_trainPos_cod2.mat";
 % delete neg_file when updating trainNegPath
-neg_file = "Data/data_trainNeg_cod.mat";
+neg_file = "data/data_trainNeg_cod2.mat";
 
 if isfile(pos_file)
     loaded = load(pos_file);
@@ -63,7 +61,7 @@ for i = 1:length(letters)
     detector_name = sprintf("cod_detector_letter%d_%c.xml", letters(i), letters(i));
     finished = false;
     round = 1;
-    while ~finished && round < 1000
+    while ~finished && round < 3
         try   
             fprintf("Start creating detector '%s' (round %d).\n", detector_name, round);
             try

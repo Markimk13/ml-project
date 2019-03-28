@@ -10,12 +10,6 @@ function [bounding_boxes] = svm_predict(model, data, bb_sizeY, bb_sizeX)
         factors(i) = factors(i-1) / factor_scale;
     end
     
-    % TODO also use angles to rotate the image
-
-    %sizeY = [10 40];
-    %sizeX = [10 20 30 40];
-    %sizeYX = [10 10; 20 20; 30 30];
-    
     strideYStart = 8;
     strideXStart = 8;
     
