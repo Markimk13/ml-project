@@ -1,12 +1,15 @@
-detectorPath = 'data/cod_saved/1_001/cod_detector_letter1_0.xml';
 %1.
 %imgPath = 'data/pos/Chars74k/Fnt/Sample001/img001-00001.png';
 %2.
-imgPath = 'data/test/Selected/test.png';
+%imgPath = 'data/test/Selected/test.png';
 %3.
-%imgPath = 'data/test/Selected/00cb389da529ba46.jpg';
+imgPath = 'data/test/Selected/000d3e755ce7542c.jpg';
 
-[img, bb] = cod_predict(detectorPath, imgPath);
+%detectorPath = 'data/cod_saved/cod_detector_letter4_3.xml';
+%[img, bb] = cod_predict(detectorPath, imgPath);
+
+folderPath = 'data/cod_saved';
+[img, bb] = cod_predictAll(folderPath, imgPath);
 
 figure;
 imshow(img);
