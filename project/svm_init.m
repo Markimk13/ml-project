@@ -1,4 +1,4 @@
-function [deleted_old_data_variables] = init()
+function [deleted_old_data_variables] = svm_init()
 
     [delete_old_data_variables, ~,~,~,~,~] = init_params();
 
@@ -13,7 +13,8 @@ function [deleted_old_data_variables] = init()
             delete_old_test_files, delete_old_feature_files, delete_old_model_files] ...
         = init_params();
     
-    [dataTrainPosFile, dataTrainNegFile, dataTestFile, featureFile, modelFile] = init_filenames();
+    [dataTrainPosFile, dataTrainNegFile, dataTestFile, featureFile, ...
+            modelFile] = svm_filenames();
     
     if delete_old_trainPos_files
         delete(dataTrainPosFile);
