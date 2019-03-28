@@ -52,22 +52,38 @@ So one way to handle those challenges is to find similarities of letters in all 
 
 \subsection{Image selection}
 
-\noindent
-The selection of the data consists of 3 parts. \\[-10pt]
+The selection of the data consists of 3 parts. The GitHub page ``image-text-localization-recognition'' \cite{bib:github} was very helpful for image selection. \\[-5pt]
 
-Firstly, we need positive training examples which contain letters and we also know their positions within the images. It is an advantage if those letters already fulfill most of the properties described in \ref{sec:challenges}. Otherwise, we need to construct them out of the available examples or we have a feature extraction technique which removes those properties. 
+Firstly, we need positive training examples which contain letters and we also know their positions within the images. It is an advantage if those letters already fulfill most of the properties described in \ref{sec:challenges}. Otherwise, we need to construct them out of the available examples or we have a feature extraction technique which removes those properties.
+
+We used a part of the data set ``Chars74k'' \cite{bib:chars74k} of 62992 computer-generated images. Each image has the size 128x128 and contains exactly one character of \mbox{0-9, A-Z, a-z} with a specific font and may be italic, bold, both or normal. Each character occurs in 1016 images. \\[-5pt]
 
 Secondly, we also need negative training examples which should not contain any kind of letters. One single letter usually contains a small space in a whole image where we want to locate the letters. So we can use a part of the image as one negative training example which means that we can reuse the same image for different parts of it and we need less initial images if they are large enough.
 
+We used two subsets of the data set ``Google Open Images V4'' \cite{bib:openImg} which contains more than 9 million images with a high diversity of shown scenes. One subset contains 100 images which do not contain any letters and the other one contains the first 2627 images. \\[-5pt]
+
 Thirdly, we need test data which are images which we could also have added to the training examples. There should be easier and more difficult examples such that we may easier see where the evaluated model has its problems.
 
-\subsection{Image manipulation}
-
-
+We used some images of ``Google Open Images V4'' \cite{bib:openImg} again and some of ``ctw1500'' \cite{bib:ctw}. Additionally, we created a very simple test example just consisting of some randomly distributed letters with white background.
 
 \subsection{HOG features}
 
-\subsection{Features from image segmentation}
+One technique to get a more abstract representation of the images, which still contains the information about the shape of the letters, is HOG feature extraction. Since the contrast between the border of the images and their background is usually pretty high, this piece of information is also contained in the HOG features.
+
+An advantage of this technique is that we do not have to care about the colors of the images. We also have reduced the dimensions of the data set by a lot.
+
+An issue of this technique is that differences in the fonts of the same letter are still visible in the HOG features. So it is necessary that the data set \cite{bib:chars74k} contains a lot of different fonts. Also the differences between the letters are still visible. Since we later want to use a SVM with Gaussian kernel, we have to train a separate model for each letter since the differences  between the letters are too huge to fit all in one model. Another issue is that we have to use a fixed aspect ratio of a model, but it is no problem for the data set \cite{bib:chars74k} since all images have the same size.
+
+\subsection{Image manipulation}
+
+We still are able to do some manipulation of the images before we extract HOG features from them. Since it is very easy to find the most narrow bounding boxes for the letters in data set \cite{bib:chars74k}, we can easily create new training examples out of them. We implemented 4 options to do so:
+\begin{enumerate}
+\item plain:
+\item crop:
+\item resize:
+\item locate:
+\end{enumerate}
+There would have even be the possibility to use a negative example as a background for 
 
 \section{Models}
 
@@ -84,7 +100,10 @@ Thirdly, we need test data which are images which we could also have added to th
 \section{Framework}
 
 \begin{thebibliography}{00}
-\bibitem{b1} T. E. de Campos, B. R. Babu and M. Varma, ``Character recognition in natural images'', In Proceedings of the International Conference on Computer Vision Theory and Applications (VISAPP), Lisbon, Portugal, February 2009. http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/.
+\bibitem{bib:github} https://github.com/whitelok/image-text-localization-recognition
+\bibitem{bib:chars74k} T. E. de Campos, B. R. Babu and M. Varma, ``Character recognition in natural images'', In Proceedings of the International Conference on Computer Vision Theory and Applications (VISAPP), Lisbon, Portugal, February 2009. http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/.
+\bibitem{bib:openImg} https://storage.googleapis.com/openimages/web/download.html
+\bibitem{bib:ctw} https://github.com/Yuliang-Liu/Curve-Text-Detector
 \end{thebibliography}
 
 \end{document}
