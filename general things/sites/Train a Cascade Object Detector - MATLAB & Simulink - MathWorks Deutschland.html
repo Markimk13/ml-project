@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html -->
+<html class="wf-futurapt-n4-active wf-futurapt-n5-active wf-museoslab-n7-active wf-futurapt-i5-active wf-futurapt-n7-active wf-futurapt-i7-active wf-futurapt-i4-active wf-automate-n4-active wf-minionprosubhead-n4-active wf-active"><head class="at-element-marker"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Train a Cascade Object Detector
+- MATLAB &amp; Simulink
+- MathWorks Deutschland</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6.css" rel="stylesheet" type="text/css">
+<link href="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_lg.css" rel="stylesheet" media="screen and (min-width: 1200px)">
+<link href="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_md.css" rel="stylesheet" media="screen and (min-width: 992px) and (max-width: 1199px)">
+<link href="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_sm+xs.css" rel="stylesheet" media="screen and (max-width: 991px)">
+<link href="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_sm.css" rel="stylesheet" media="screen and (min-width: 768px) and (max-width: 991px)">
+<link href="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_xs.css" rel="stylesheet" media="screen and (max-width: 767px)">
+<link href="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_offcanvas.css" rel="stylesheet" type="text/css">
+<link href="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_crux.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" async="" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/f.txt"></script><script type="text/javascript" async="" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/elqCfg.min.js.Download"></script><script async="" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/uwt.js.Download"></script><script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/quant.js.Download" async="" type="text/javascript"></script><script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/186030155234771" async=""></script><script async="" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/fbevents.js.Download"></script><script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/jquery-latest.js.Download"></script>
+<script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/jquery.mobile.custom.min.js.Download"></script>
+<script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/bootstrap.min.js.Download"></script>
+<script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/global.js.Download"></script>
+<script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/xvy5baa.js.Download"></script>
+<style type="text/css">.tk-museo-slab{font-family:"museo-slab",serif;}.tk-futura-pt{font-family:"futura-pt","Arial","Helvetica",sans-serif;}.tk-automate{font-family:"automate",sans-serif;}.tk-minion-pro-subhead{font-family:"minion-pro-subhead",serif;}</style><style type="text/css">@font-face{font-family:museo-slab;src:url(//fonts.mathworks.com/k/0e548aec395bd99926a27577e842e818def6ba83-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/0e548aec395bd99926a27577e842e818def6ba83-d.woff) format("woff"),url(//fonts.mathworks.com/k/0e548aec395bd99926a27577e842e818def6ba83-a.otf) format("opentype");font-weight:700;font-style:normal;}@font-face{font-family:futura-pt;src:url(//fonts.mathworks.com/k/87868ea7533b245fa343d5fd2e370ee0daee1db8-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/87868ea7533b245fa343d5fd2e370ee0daee1db8-d.woff) format("woff"),url(//fonts.mathworks.com/k/87868ea7533b245fa343d5fd2e370ee0daee1db8-a.otf) format("opentype");font-weight:500;font-style:normal;}@font-face{font-family:futura-pt;src:url(//fonts.mathworks.com/k/fa63f4ee95571fac0c3fde550489d0874f44e7d1-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/fa63f4ee95571fac0c3fde550489d0874f44e7d1-d.woff) format("woff"),url(//fonts.mathworks.com/k/fa63f4ee95571fac0c3fde550489d0874f44e7d1-a.otf) format("opentype");font-weight:500;font-style:italic;}@font-face{font-family:futura-pt;src:url(//fonts.mathworks.com/k/78f589bb61056c7dc2c42601e2fd59aa96941141-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/78f589bb61056c7dc2c42601e2fd59aa96941141-d.woff) format("woff"),url(//fonts.mathworks.com/k/78f589bb61056c7dc2c42601e2fd59aa96941141-a.otf) format("opentype");font-weight:700;font-style:normal;}@font-face{font-family:futura-pt;src:url(//fonts.mathworks.com/k/599bfc6908295758da16f495738fa5c76ccf9542-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/599bfc6908295758da16f495738fa5c76ccf9542-d.woff) format("woff"),url(//fonts.mathworks.com/k/599bfc6908295758da16f495738fa5c76ccf9542-a.otf) format("opentype");font-weight:700;font-style:italic;}@font-face{font-family:futura-pt;src:url(//fonts.mathworks.com/k/0ffa5e8c8eb076cc21ede9987250dfa4f2af4438-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/0ffa5e8c8eb076cc21ede9987250dfa4f2af4438-d.woff) format("woff"),url(//fonts.mathworks.com/k/0ffa5e8c8eb076cc21ede9987250dfa4f2af4438-a.otf) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:futura-pt;src:url(//fonts.mathworks.com/k/3f4899217323502feaae94c179311206f731a52e-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/3f4899217323502feaae94c179311206f731a52e-d.woff) format("woff"),url(//fonts.mathworks.com/k/3f4899217323502feaae94c179311206f731a52e-a.otf) format("opentype");font-weight:400;font-style:italic;}@font-face{font-family:automate;src:url(//fonts.mathworks.com/k/5206f40617c623d40dd6b3ccbaacecaf00952a16-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/5206f40617c623d40dd6b3ccbaacecaf00952a16-d.woff) format("woff"),url(//fonts.mathworks.com/k/5206f40617c623d40dd6b3ccbaacecaf00952a16-a.otf) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:minion-pro-subhead;src:url(//fonts.mathworks.com/k/d4d1694195e6776198a56670eb3252a367c04b04-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/d4d1694195e6776198a56670eb3252a367c04b04-d.woff) format("woff"),url(//fonts.mathworks.com/k/d4d1694195e6776198a56670eb3252a367c04b04-a.otf) format("opentype");font-weight:400;font-style:normal;}</style><script>try{Typekit.load();}catch(e){}</script>
+<!-- BEGIN Adobe DTM -->
+<script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/satelliteLib-e8d23c2e444abadc572df06537e2def59c01db09.js.Download"></script><script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/mbox-contents-95c6a4d9c82a8d20476522984666120b54192e9b.js.Download"></script><script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/satellite-58fe08cb64746d190500a115.js.Download"></script><script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/satellite-56972e2c64746d54aa00cb73.js.Download"></script><style id="at-makers-style" class="at-flicker-control">
+.mboxDefault {visibility:hidden;}
+</style><script async="" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-1023777138');
+</script><script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/last-event-tag-latest.min.js.Download"></script>
+<script>AdCloudEvent("B1441C8B533095C00A490D4D@AdobeOrg","mathwgbl");</script>
+<!-- END Adobe DTM -->
+<link href="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_de.css" rel="stylesheet" type="text/css">
+<link href="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/doc_center.css" rel="stylesheet" type="text/css">
+<link href="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/doc_center_print.css" rel="stylesheet" type="text/css" media="print">
+<script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/matlab_dialog.js.Download"></script>
+<script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/openwith.js.Download"></script>
+<style>
+.examples_short_list a.btn {display: none;}
+</style>
+<script xmlns="http://www.w3.org/1999/xhtml" type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "BreadcrumbList",
+"itemListElement":
+[{
+"@type": "ListItem",
+"position": 1,
+"item": {
+"@id": "../index.html",
+"name": "Computer Vision Toolbox"
+}
+}
+,
+{
+"@type": "ListItem",
+"position": 2,
+"item": {
+"@id": "../deep-learning-semantic-segmentation-and-detection.html",
+"name": "Deep Learning, Semantic Segmentation, and Detection"
+}
+}
+,
+{
+"@type": "ListItem",
+"position": 3,
+"item": {
+"@id": "../object-detection-using-features.html",
+"name": "Object Detection Using Features"
+}
+}]
+}</script><script xmlns="http://www.w3.org/1999/xhtml" type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "BreadcrumbList",
+"itemListElement":
+[{
+"@type": "ListItem",
+"position": 1,
+"item": {
+"@id": "../index.html",
+"name": "Computer Vision Toolbox"
+}
+}
+,
+{
+"@type": "ListItem",
+"position": 2,
+"item": {
+"@id": "../deep-learning-semantic-segmentation-and-detection.html",
+"name": "Deep Learning, Semantic Segmentation, and Detection"
+}
+}]
+}</script><script xmlns="http://www.w3.org/1999/xhtml" type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "ItemList",
+"name": "VisibleBreadcrumbs",
+"itemListElement":
+[
+"object-detection-using-features",
+"deep-learning-semantic-segmentation-and-detection"
+],
+"itemListOrder": "http://schema.org/ItemListOrderAscending"
+}
+</script>
+<meta xmlns="http://www.w3.org/1999/xhtml" http-equiv="Content-Script-Type" content="text/javascript">
+<meta xmlns="http://www.w3.org/1999/xhtml" name="toctype" itemprop="pagetype" content="ug">
+<meta xmlns="http://www.w3.org/1999/xhtml" name="infotype" itemprop="infotype" content="ex">
+<meta xmlns="http://www.w3.org/1999/xhtml" name="description" itemprop="description" content="Train a custom classifier"><script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/l10n.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/docscripts.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/f1help.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/mw.toc_2.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/mw.imagescaling.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/mw.imageanimation.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/mw.breadcrumb.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/jquery.highlight.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/underscore-min.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/examples.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/doc_omniture.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/overload.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/helpservices.js.Download"></script>
+<!-- Additions/overrides from the doc side -->
+<script type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/docsearch.js.Download"></script>
+<script type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/jquery.toggleval.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/MathRenderer.js.Download"></script><style type="text/css">math { visibility: hidden; }</style><link type="text/css" rel="stylesheet" href="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/main.css"><script type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/dojo.js.Download"></script>
+<script type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/jquery.cookie.js.Download"></script>
+<script type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/akamai-country-code.js.Download"></script>
+<script type="text/javascript">
+var domainCountryCodeMap = new Map();
+var countryCodeToDomainMap = new Map();
+domainCountryCodeMap.set('www.mathworks.com', 'www');
+countryCodeToDomainMap.set('www','www.mathworks.com')
+domainCountryCodeMap.set('www.mathworks.com', 'www');
+countryCodeToDomainMap.set('www','www.mathworks.com')
+domainCountryCodeMap.set('la.mathworks.com', 'la');
+countryCodeToDomainMap.set('la','la.mathworks.com')
+domainCountryCodeMap.set('au.mathworks.com', 'au');
+countryCodeToDomainMap.set('au','au.mathworks.com')
+domainCountryCodeMap.set('de.mathworks.com', 'de');
+countryCodeToDomainMap.set('de','de.mathworks.com')
+domainCountryCodeMap.set('nl.mathworks.com', 'nl');
+countryCodeToDomainMap.set('nl','nl.mathworks.com')
+domainCountryCodeMap.set('ww2.mathworks.cn', 'ww2');
+countryCodeToDomainMap.set('ww2','ww2.mathworks.cn')
+domainCountryCodeMap.set('se.mathworks.com', 'se');
+countryCodeToDomainMap.set('se','se.mathworks.com')
+domainCountryCodeMap.set('se.mathworks.com', 'se');
+countryCodeToDomainMap.set('se','se.mathworks.com')
+domainCountryCodeMap.set('fr.mathworks.com', 'fr');
+countryCodeToDomainMap.set('fr','fr.mathworks.com')
+domainCountryCodeMap.set('de.mathworks.com', 'de');
+countryCodeToDomainMap.set('de','de.mathworks.com')
+domainCountryCodeMap.set('in.mathworks.com', 'in');
+countryCodeToDomainMap.set('in','in.mathworks.com')
+domainCountryCodeMap.set('uk.mathworks.com', 'uk');
+countryCodeToDomainMap.set('uk','uk.mathworks.com')
+domainCountryCodeMap.set('it.mathworks.com', 'it');
+countryCodeToDomainMap.set('it','it.mathworks.com')
+domainCountryCodeMap.set('jp.mathworks.com', 'jp');
+countryCodeToDomainMap.set('jp','jp.mathworks.com')
+domainCountryCodeMap.set('kr.mathworks.com', 'kr');
+countryCodeToDomainMap.set('kr','kr.mathworks.com')
+domainCountryCodeMap.set('nl.mathworks.com', 'nl');
+countryCodeToDomainMap.set('nl','nl.mathworks.com')
+domainCountryCodeMap.set('nl.mathworks.com', 'nl');
+countryCodeToDomainMap.set('nl','nl.mathworks.com')
+domainCountryCodeMap.set('au.mathworks.com', 'au');
+countryCodeToDomainMap.set('au','au.mathworks.com')
+domainCountryCodeMap.set('se.mathworks.com', 'se');
+countryCodeToDomainMap.set('se','se.mathworks.com')
+domainCountryCodeMap.set('www.mathworks.com', 'www');
+countryCodeToDomainMap.set('www','www.mathworks.com')
+domainCountryCodeMap.set('es.mathworks.com', 'es');
+countryCodeToDomainMap.set('es','es.mathworks.com')
+domainCountryCodeMap.set('se.mathworks.com', 'se');
+countryCodeToDomainMap.set('se','se.mathworks.com')
+domainCountryCodeMap.set('ch.mathworks.com', 'ch');
+countryCodeToDomainMap.set('ch','ch.mathworks.com')
+domainCountryCodeMap.set('uk.mathworks.com', 'uk');
+countryCodeToDomainMap.set('uk','uk.mathworks.com')
+var countrySubdomains = {
+US: {name: 'United States', subdomain: 'www'},
+AD: {name: 'Andorra', subdomain: 'es'},
+AR: {name: 'Argentina', subdomain: 'la'},
+AU: {name: 'Australia', subdomain: 'au'},
+AT: {name: 'Austria', subdomain: 'de'},
+BE: {name: 'Belgium', subdomain: 'nl'},
+BO: {name: 'Bolivia', subdomain: 'la'},
+BV: {name: 'Bouvet Islands', subdomain: 'se'},
+CA: {name: 'Canada', subdomain: 'www'},
+CL: {name: 'Chile', subdomain: 'la'},
+CN: {name: 'China', subdomain: 'cn'},
+CX: {name: 'Christmas Island', subdomain: 'au'},
+CC: {name: 'Cocos-Keeling Islands', subdomain: 'au'},
+CO: {name: 'Colombia', subdomain: 'la'},
+CR: {name: 'Costa Rica', subdomain: 'la'},
+DK: {name: 'Denmark', subdomain: 'se'},
+DO: {name: 'Dominican Republic', subdomain: 'la'},
+EC: {name: 'Ecuador', subdomain: 'la'},
+SV: {name: 'El Salvador', subdomain: 'la'},
+EE: {name: 'Estonia', subdomain: 'se'},
+FO: {name: 'Faroe Islands', subdomain: 'se'},
+FJ: {name: 'Fiji', subdomain: 'au'},
+FI: {name: 'Finland', subdomain: 'se'},
+FR: {name: 'France', subdomain: 'fr'},
+GF: {name: 'French Guiana', subdomain: 'fr'},
+PF: {name: 'French Polynesia', subdomain: 'fr'},
+DE: {name: 'Germany', subdomain: 'de'},
+GL: {name: 'Greenland', subdomain: 'se'},
+GP: {name: 'Guadalupe', subdomain: 'fr'},
+GT: {name: 'Guatemala', subdomain: 'la'},
+HN: {name: 'Honduras', subdomain: 'la'},
+IS: {name: 'Iceland', subdomain: 'se'},
+IN: {name: 'India', subdomain: 'in'},
+IE: {name: 'Ireland', subdomain: 'uk'},
+IT: {name: 'Italy', subdomain: 'it'},
+JP: {name: 'Japan', subdomain: 'jp'},
+KR: {name: 'Korea', subdomain: 'kr'},
+LV: {name: 'Latvia', subdomain: 'se'},
+LI: {name: 'Liechtenstein', subdomain: 'ch'},
+LT: {name: 'Lithuania', subdomain: 'se'},
+LU: {name: 'Luxembourg', subdomain: 'nl'},
+MQ: {name: 'Martinique', subdomain: 'fr'},
+YT: {name: 'Mayotte Island', subdomain: 'fr'},
+MX: {name: 'Mexico', subdomain: 'la'},
+MC: {name: 'Monaco', subdomain: 'fr'},
+NL: {name: 'Netherlands', subdomain: 'nl'},
+NC: {name: 'New Caledonia', subdomain: 'fr'},
+NZ: {name: 'New Zealand', subdomain: 'au'},
+NI: {name: 'Nicaragua', subdomain: 'la'},
+NO: {name: 'Norway', subdomain: 'se'},
+PA: {name: 'Panama', subdomain: 'la'},
+PG: {name: 'Papua New Guinea', subdomain: 'au'},
+PY: {name: 'Paraguay', subdomain: 'la'},
+PE: {name: 'Peru', subdomain: 'la'},
+PT: {name: 'Portugal', subdomain: 'www'},
+PR: {name: 'Puerto Rico', subdomain: 'la'},
+RE: {name: 'Reunion Island', subdomain: 'fr'},
+ES: {name: 'Spain', subdomain: 'es'},
+LK: {name: 'Sri Lanka', subdomain: 'in'},
+SE: {name: 'Sweden', subdomain: 'se'},
+CH: {name: 'Switzerland', subdomain: 'ch'},
+GB: {name: 'United Kingdom', subdomain: 'uk'},
+UY: {name: 'Uruguay', subdomain: 'la'},
+VA: {name: 'Vatican City', subdomain: 'it'},
+VE: {name: 'Venezuela', subdomain: 'la'},
+};
+var domainUtils = {
+isExemptUrl: function (url) {
+if(window.overrideDomainSelector){
+return true;
+}
+var exemptions = [
+'/api/parts/',
+'nocookie=true',
+'client=addons',
+'requestedDomain'
+];
+return exemptions.some(function (exemption) {
+return url.indexOf(exemption) != -1;
+});
+},
+endsWith: function( str, suffix ) {
+return str.substring( str.length - suffix.length, str.length ) === suffix;
+},
+getDomain: function (url) {
+var segments = url.split('/');
+return segments[2];
+},
+getSubdomain: function (domain) {
+return domainCountryCodeMap.get(domain);
+},
+setCookies: function (domain, lang) {
+var domainCookie = 'mathworks.com';
+if (this.endsWith(location.host, 'mathworks.cn')) {
+domainCookie = 'mathworks.cn';
+}
+var selectedSubdomain = this.getSubdomain(domain);
+if (this.endsWith(domain, 'mathworks.cn')) {
+selectedSubdomain = 'cn';
+}
+if (selectedSubdomain === 'www') {
+// This is what ePS did in EQUUS and Ruby, so...
+// we're just following suit.
+selectedSubdomain = 'us';
+}
+if (selectedSubdomain !== 'cn' && selectedSubdomain !== 'ch') {
+lang = '';
+}
+var cookieNames = this.getCookieNames(domain);
+var expires = new Date();
+expires.setFullYear(expires.getFullYear() + 68);
+var myJSON = JSON.stringify({
+domain: selectedSubdomain,
+lang: lang,
+v: 2
+});
+$.cookie(cookieNames.mwaPrefsCookieName, myJSON, {path: '/', expires: 20*365, domain: domainCookie});
+},
+getCookieNames: function (domain) {
+var mwaLoginCookieName = 'mwa';
+var mwaPrefsCookieName = 'mwa_prefs';
+var subdomainSuffix = '';
+if (subdomainSuffix != "") {
+mwaLoginCookieName = mwaLoginCookieName + subdomainSuffix;
+mwaPrefsCookieName = mwaPrefsCookieName + subdomainSuffix;
+}
+return {
+mwaLoginCookieName: mwaLoginCookieName,
+mwaPrefsCookieName: mwaPrefsCookieName,
+};
+},
+switchDomain: function (targetDomain, targetLang) {
+var targetUri = location.pathname;
+targetLang = this.getValidLang(this.getSubdomain(targetDomain), targetLang);
+var url = '//' + targetDomain;
+url += targetUri + location.search;
+url = url.replace(/requestedDomain=[a-z]?[a-z]?&?/, '');
+url = url.replace(/\&$/, '');
+url = url.replace(/\?$/, '');
+var requestedDomainParam = 'requestedDomain=' + targetLang;
+if (url.indexOf('?') > -1) {
+url = url + '&' + requestedDomainParam;
+} else {
+url = url + '?' + requestedDomainParam;
+}
+window.location = url;
+},
+getPrefCookie: function(currentDomain) {
+var cookieNames = this.getCookieNames(currentDomain);
+// regex from: https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie
+var cookieRegex = new RegExp("(?:(?:^|.*;\\s*)"+cookieNames.mwaPrefsCookieName+"\\s*\\=\\s*([^;]*).*$)|^.*$");
+if (document.cookie) {
+var cookieValue = document.cookie.replace(cookieRegex, "$1");
+if (cookieValue) {
+return JSON.parse(decodeURIComponent(cookieValue));
+}
+}
+return "";
+},
+getPrefDomain: function (currentDomain) {
+var mwaPrefsCookieJsonObject = this.getPrefCookie(currentDomain);
+var visitorPrefDomain;
+if (!!mwaPrefsCookieJsonObject) {
+visitorPrefDomain = mwaPrefsCookieJsonObject.domain;
+if (visitorPrefDomain === 'us') {
+visitorPrefDomain = 'www';
+}else if (visitorPrefDomain === 'cn') {
+visitorPrefDomain = 'ww2';
+}
+}
+return countryCodeToDomainMap.get(visitorPrefDomain);
+},
+getPrefLang: function (currentDomain) {
+var mwaPrefsCookieJsonObject = this.getPrefCookie(currentDomain);
+var multilingualDomainLanguageSupport = {};
+multilingualDomainLanguageSupport['ch'] = ['en','de','fr'];
+multilingualDomainLanguageSupport['cn'] = ['zh','en'];
+var currentDomainLangOptions = multilingualDomainLanguageSupport[mwaPrefsCookieJsonObject.domain];
+if (currentDomainLangOptions) {
+var cookiePrefLang = mwaPrefsCookieJsonObject.lang;
+if (currentDomainLangOptions.indexOf(cookiePrefLang) >= 0) {
+return cookiePrefLang;
+} else {
+return currentDomainLangOptions[0];
+}
+}
+return '';
+},
+getCookieVersion: function (currentDomain) {
+var mwaPrefsCookieJsonObject = this.getPrefCookie(currentDomain);
+return mwaPrefsCookieJsonObject.v;
+},
+getTargetDomainForCookies: function() {
+var targetDomain = "";
+if (this.endsWith(location.host, 'mathworks.cn')) {
+targetDomain = window.location.protocol + "//" + countryCodeToDomainMap.get('www');
+}else{
+targetDomain = window.location.protocol + "//" + countryCodeToDomainMap.get('ww2');
+}
+return targetDomain;
+},
+getValidLang: function (subdomain, lang) {
+var multilingualDomainLanguageSupport = {};
+multilingualDomainLanguageSupport['ch'] = ['en','de','fr'];
+multilingualDomainLanguageSupport['cn'] = ['zh','en'];
+multilingualDomainLanguageSupport['ww2'] = ['zh','en'];
+var currentDomainLangOptions = multilingualDomainLanguageSupport[subdomain];
+if (currentDomainLangOptions) {
+if (currentDomainLangOptions.indexOf(lang) >= 0) {
+return lang;
+} else {
+return currentDomainLangOptions[0];
+}
+}
+return '';
+},
+isDefaultLang: function (subdomain, lang) {
+var multilingualDomainLanguageDefault = {};
+multilingualDomainLanguageDefault['ch'] = 'en';
+multilingualDomainLanguageDefault['cn'] = 'zh';
+multilingualDomainLanguageDefault['ww2'] = 'zh';
+var currentDomainLang = multilingualDomainLanguageDefault[subdomain];
+if (currentDomainLang) {
+if (currentDomainLang === lang) {
+return true;
+} else {
+return false;
+}
+} else if (lang) {
+return false;
+}
+return true;
+}
+};
+$(window).on('load', function() {
+var currentUrl = window.location.href;
+var currentDomain = domainUtils.getDomain(currentUrl);
+var currentSubdomain = domainUtils.getSubdomain(currentDomain);
+var requestedDomainLangRegEx = RegExp('[?&]requestedDomain=([^&]*)').exec(window.location.search);
+if (requestedDomainLangRegEx) {
+var setLang = domainUtils.getValidLang(currentSubdomain, requestedDomainLangRegEx[1])
+domainUtils.setCookies(currentDomain, setLang);
+var URLWithoutRequestedDomain = window.location.href.replace(/requestedDomain=[a-z]?[a-z]?&?/, '');
+URLWithoutRequestedDomain = URLWithoutRequestedDomain.replace(/\&$/, '');
+URLWithoutRequestedDomain = URLWithoutRequestedDomain.replace(/\?$/, '');
+history.replaceState({}, document.title, URLWithoutRequestedDomain);
+window.location = URLWithoutRequestedDomain;
+}
+$('body').on('click', '.domain_selector_link', function (e) {
+e.preventDefault();
+var selectedDomain = domainUtils.getDomain(this.href);
+var selectedLang = $(this).data('lang');
+domainUtils.setCookies(selectedDomain, selectedLang);
+domainUtils.switchDomain(selectedDomain, selectedLang);
+});
+var currentCountryText =
+$('a[data-subdomain=\'' + currentSubdomain + '\'][data-default-lang=\'true\'][data-selected-text]')
+.data('selected-text');
+$('#countrySelectorButtonText').text(currentCountryText);
+var visitorPrefDomain = domainUtils.getPrefDomain(currentDomain);
+var visitorPrefLang = domainUtils.getPrefLang(currentDomain);
+var akamaiCountryCode;
+var akamaiprofile = CQ_Analytics.ClientContextMgr.getRegisteredStore('akamaiprofile');
+if (akamaiprofile) {
+akamaiCountryCode = akamaiprofile.getProperty('countryCode');
+}
+var recommendedSubdomain;
+var recommendedLink;
+if (akamaiCountryCode) {
+if (countrySubdomains[akamaiCountryCode] !== undefined) {
+recommendedSubdomain = countrySubdomains[akamaiCountryCode].subdomain;
+} else {
+recommendedSubdomain = 'www';
+}
+if (recommendedSubdomain === 'us') {
+recommendedSubdomain = 'www';
+}else if (recommendedSubdomain === 'cn') {
+recommendedSubdomain = 'ww2';
+}
+recommendedLink = $('a[data-subdomain=\'' + recommendedSubdomain + '\'][data-recommended-text]');
+} else if (visitorPrefDomain) {
+recommendedSubdomain = domainUtils.getSubdomain(visitorPrefDomain);
+if (visitorPrefLang) {
+recommendedLink = $('a[data-subdomain=\'' + recommendedSubdomain + '\'][data-lang=\'' + visitorPrefLang + '\']');
+} else {
+recommendedLink = $('a[data-subdomain=\'' + recommendedSubdomain + '\'][data-default-lang=\'true\']');
+}
+}
+if (!recommendedLink) {
+recommendedSubdomain = 'www';
+recommendedLink = $('a[data-subdomain=\'' + recommendedSubdomain + '\'][data-recommended-text]');
+}
+$('.recommended-country').text(recommendedLink.data('recommended-text'));
+$('#recommended_domain_button').attr('href', recommendedLink.attr('href'));
+$('#recommended_domain_button').attr('data-lang', recommendedLink.attr('data-lang'));
+$('body').on('click', '#recommended_domain_button', function (e) {
+e.preventDefault();
+var selectedDomain = domainUtils.getDomain(this.href);
+var selectedLang = $(this).data('lang');
+domainUtils.setCookies(selectedDomain, selectedLang);
+domainUtils.switchDomain(selectedDomain, selectedLang);
+});
+$('a.worldwide_link').attr('href', recommendedLink.attr('href'));
+$('a.worldwide_link').data('lang', recommendedLink.data('lang'));
+$('body').on('click', 'a.worldwide_link', function (e) {
+e.preventDefault();
+var selectedDomain = domainUtils.getDomain(this.href);
+var selectedLang = $(this).data('lang');
+domainUtils.setCookies(selectedDomain, selectedLang);
+var href = e.target.getAttribute('href');
+var worldwideLink = '/company/worldwide.html?s_tid=dmselect_cta&requestedDomain=';
+if(href) {
+location.href = href + worldwideLink;
+}
+});
+if (akamaiCountryCode === 'CN') {
+$('#china_performance_alert').show();
+}
+var crossDomain = "";
+if(domainUtils.endsWith(currentDomain, '.mathworks.cn')){
+crossDomain = countryCodeToDomainMap.get('www');
+}else{
+crossDomain = countryCodeToDomainMap.get('ww2');
+}
+if ((!domainUtils.endsWith(currentDomain, '.mathworks.com') && !domainUtils.endsWith(currentDomain, '.mathworks.cn')) || domainUtils.isExemptUrl(currentUrl)) {
+return;
+}
+if (!visitorPrefDomain) {
+if (akamaiCountryCode) {
+var akamaiDeterminedSubdomain = $('a[data-country-code=\'' + akamaiCountryCode + '\']').data('subdomain');
+if ((akamaiCountryCode.toLowerCase() === currentSubdomain) || (akamaiDeterminedSubdomain === currentSubdomain)) {
+domainUtils.setCookies(currentDomain, "");
+} else {
+$('#country-unselected').modal('show');
+}
+return;
+}
+if (currentSubdomain === 'www') {
+domainUtils.setCookies(currentDomain, '');
+} else {
+$('#country-unselected').modal('show');
+}
+} else if (akamaiCountryCode === 'CN' && !(visitorPrefDomain === 'CN') && !domainUtils.getCookieVersion(currentDomain)) {
+$('#country-unselected').modal('show');
+}
+});
+</script> <script type="text/javascript">
+/*T&T Metadata v3 ==>Response Plugin*/
+window.ttMETA=(typeof(window.ttMETA)!="undefined")?window.ttMETA:[];window.ttMETA.push({"CampaignName":"","CampaignId":"","RecipeName":"","RecipeId":"","OfferId":"","OfferName":"","MboxName":"target-global-mbox"});
+</script><script type="text/javascript">
+var test_name= "";
+var tntRecipeName= "";
+</script><script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/satellite-5a6285a664746d3edc002109.js.Download"></script><script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/s-code-contents-73da148cb454c4f6e395aa8df704854c99540662.js.Download"></script><script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/f(1).txt"></script></head>
+  
+<body id="responsive_offcanvas" class="no_animate" style="">
+
+  <!-- Mobile TopNav: Start -->
+<div class="header visible-xs visible-sm" id="header_mobile" translate="no" style="">
+<nav class="navbar navbar-default" role="navigation">
+<div class="container-fluid">
+<div class="row">
+<div class="col-xs-12">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle topnav_toggle" data-toggle="collapse" data-target="#topnav_collapse">
+<span class="sr-only">Toggle Main Navigation</span>
+<span class="icon-menu"></span>
+</button>
+<a href="https://de.mathworks.com/?s_tid=gn_logo" class="svg_link navbar-brand">
+<img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/pic-header-mathworks-logo.svg" class="mw_logo" alt="MathWorks">
+</a>
+</div>
+</div>
+</div>
+<div class="row visible-xs visible-sm">
+<div class="col-xs-12">
+<div class="navbar-collapse collapse" id="topnav_collapse">
+<ul class="nav navbar-nav" id="topnav">
+<li class="headernav_login dropdown">
+<a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#" class="dropdown-toggle" data-toggle="dropdown">
+Markus
+<b class="caret"></b>
+</a>
+<ul class="dropdown-menu">
+<li class="mwa-nav_account"><a href="https://de.mathworks.com/mwaccount/?s_tid=gn_myac">Eigener Account</a></li>
+<li class="mwa-nav_associate"><a href="https://de.mathworks.com/licensecenter/workflows/associate_license?s_tid=gn_aslc">Lizenz zuordnen</a></li>
+<li class="mwa-nav_community"><a href="https://de.mathworks.com/matlabcentral/profile/authors/my_profile/?s_tid=gn_comm">Mein Community Profil</a></li>
+<li class="mwa-nav_logout"><a href="https://de.mathworks.com/login/logout?uri=http://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html" id="mwa-log_out">Abmelden</a></li>
+</ul>
+</li>
+<li class="topnav_products "><a href="https://de.mathworks.com/products.html?s_tid=gn_ps">Produkte</a></li>
+<li class="topnav_solutions "><a href="https://de.mathworks.com/solutions.html?s_tid=gn_sol">Lösungen</a></li>
+<li class="topnav_academia "><a href="https://de.mathworks.com/academia.html?s_tid=gn_acad">Forschung und Lehre</a></li>
+<li class="topnav_support "><a href="https://de.mathworks.com/support.html?s_tid=gn_supp">Support</a></li>
+<li class="topnav_community "><a href="https://de.mathworks.com/matlabcentral/?s_tid=gn_mlc">Community</a></li>
+<li class="topnav_events "><a href="https://de.mathworks.com/company/events.html?s_tid=gn_ev">Veranstaltungen</a></li>
+<li class="headernav_contact"><a href="https://de.mathworks.com/company/aboutus/contact_us.html?s_tid=gn_cntus">Kontakt</a></li>
+<li class="headernav_store"><a href="https://de.mathworks.com/store?s_cid=store_top_nav&amp;s_tid=gn_store">Store</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</div>
+<!-- Mobile TopNav: End -->
+<!-- Desktop TopNav: Start -->
+<div class="header hidden-xs hidden-sm" id="header_desktop" translate="no">
+<nav class="navbar navbar-default" role="navigation">
+<div class="container-fluid">
+<div class="row">
+<div class="col-xs-12">
+<div class="collapse navbar-collapse" id="headernav_collapse">
+<ul class="nav navbar-nav navbar-right" id="headernav">
+<li class="headernav_contact"><a href="https://de.mathworks.com/company/aboutus/contact_us.html?s_tid=gn_cntus">Kontakt</a></li>
+<li class="headernav_store"><a href="https://de.mathworks.com/store?s_cid=store_top_nav&amp;s_tid=gn_store">Store</a></li>
+<li class="headernav_login dropdown">
+<a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#" class="dropdown-toggle" data-toggle="dropdown">
+Markus
+<b class="caret"></b>
+</a>
+<ul class="dropdown-menu">
+<li class="mwa-nav_account"><a href="https://de.mathworks.com/mwaccount/?s_tid=gn_myac">Eigener Account</a></li>
+<li class="mwa-nav_associate"><a href="https://de.mathworks.com/licensecenter/workflows/associate_license?s_tid=gn_aslc">Lizenz zuordnen</a></li>
+<li class="mwa-nav_community"><a href="https://de.mathworks.com/matlabcentral/profile/authors/my_profile/?s_tid=gn_comm">Mein Community Profil</a></li>
+<li class="mwa-nav_logout"><a href="https://de.mathworks.com/login/logout?uri=http://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html" id="mwa-log_out">Abmelden</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-12">
+<div class="navbar-header">
+<div class="logo_container hidden-xs hidden-sm">
+<a href="https://de.mathworks.com/?s_tid=gn_logo" class="svg_link pull-left">
+<img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/pic-header-mathworks-logo.svg" class="mw_logo" alt="MathWorks">
+</a>
+</div>
+<div class="navbar-collapse collapse hidden-xs hidden-sm">
+<ul class="nav navbar-nav" id="topnav">
+<li class="topnav_products "><a href="https://de.mathworks.com/products.html?s_tid=gn_ps">Produkte</a></li>
+<li class="topnav_solutions "><a href="https://de.mathworks.com/solutions.html?s_tid=gn_sol">Lösungen</a></li>
+<li class="topnav_academia "><a href="https://de.mathworks.com/academia.html?s_tid=gn_acad">Forschung und Lehre</a></li>
+<li class="topnav_support "><a href="https://de.mathworks.com/support.html?s_tid=gn_supp">Support</a></li>
+<li class="topnav_community "><a href="https://de.mathworks.com/matlabcentral/?s_tid=gn_mlc">Community</a></li>
+<li class="topnav_events "><a href="https://de.mathworks.com/company/events.html?s_tid=gn_ev">Veranstaltungen</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</div>
+<!-- Desktop TopNav: End -->
+<!-- Conjoined Header: Start -->
+<div class="sticky_header_container includes_subnav affix-top">
+<!-- Section Header: Start -->
+<div class="section_header level_3">
+<div class="container-fluid">
+<div class="row" id="mobile_search_row">
+<div class="col-xs-12 has_horizontal_local_nav" id="section_header_title">
+<div class="section_header_content">
+<div class="section_header_title add_cursor_pointer">
+<p class="h1">Documentation</p>
+</div>
+<button type="button" class="navbar-toggle collapsed subnav visible-xs" data-toggle="collapse" data-target=".mobile_subnav_content"> <span class="icon-arrow-down icon_24"></span> </button>
+</div>
+<div class="crux_nav_container hidden-xs">
+<div class="crux_nav">
+<ul xmlns="http://www.w3.org/1999/xhtml" id="crux_nav_desktop"><li id="crux_nav_documentation" class="crux_nav_active active"><a>All</a></li><li id="crux_nav_example"><a href="https://de.mathworks.com/help/vision/examples.html?category=object-detection-using-features">Examples</a></li><li id="crux_nav_function"><a href="https://de.mathworks.com/help/vision/referencelist.html?type=function&amp;category=object-detection-using-features">Functions</a></li><li id="crux_nav_block"><a href="https://de.mathworks.com/help/vision/referencelist.html?type=block&amp;category=object-detection-using-features">Blocks</a></li><li id="crux_nav_app"><a href="https://de.mathworks.com/help/vision/referencelist.html?type=app&amp;category=object-detection-using-features">Apps</a></li><li role="presentation" class="dropdown" id="topnav_more" style="display: none;"><a class="dropdown-toggle" data-toggle="dropdown" href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#" role="button" aria-haspopup="true" aria-expanded="false"> More <span class="caret"></span></a><ul class="dropdown-menu"></ul></li></ul>
+</div>
+</div>
+</div>
+<div class="col-xs-12" id="mobile_search">
+<div class="search_nested_content_container">
+<div id="search_scope_doc" class="collapse in">
+<form id="docsearch_form" name="docsearch_form" method="get" data-release="R2019a" data-language="en" action="https://de.mathworks.com/help/search.html">
+<div class="input-group tokenized_search_field">
+<label class="sr-only">Search MATLAB Documentation</label>
+<input type="text" class="form-control conjoined_search" autocomplete="off" name="qdoc" placeholder="Search R2019a Documentation" id="docsearch">
+<div class="input-group-btn">
+<button type="button" class="btn btn_search_adjacent dropdown-toggle" data-toggle="dropdown" tabindex="-1"><span class="caret"></span><span class="search_scope_label">Documentation</span></button>
+<ul class="dropdown-menu list-unstyled dropdown-menu-right" role="menu">
+<!-- <li data-toggle="collapse" data-target="#search_scope_doc"><a href="#">Documentation</a></li> -->
+<li data-toggle="collapse" data-target="#search_scope_support" class="doc_search_scope_trigger"><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#">Support</a></li>
+<li data-toggle="collapse" data-target="#search_scope_site" class="doc_search_scope_trigger"><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#">MathWorks</a></li>
+</ul>
+<script>
+$(".doc_search_scope_trigger").click(function() {
+$("#search_scope_doc").removeClass("in");
+$("#search").val($("#docsearch").val());
+$("#query").val($("#docsearch").val());
+});
+</script>
+<button type="submit" name="submitsearch" id="submitsearch" class="btn icon-search btn_search_adjacent btn_search icon_16" tabindex="-1" disabled=""></button>
+</div>
+</div>
+</form>
+</div>
+<div id="search_scope_support" class="collapse">
+<form id="support_search" action="https://de.mathworks.com/support/search_results.html" method="get" accept-charset="utf-8">
+<div class="input-group">
+<label class="sr-only">Search All Support Resources</label>
+<input id="suggestion" type="hidden" name="suggestion" value="">
+<span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+<input id="search" class="form-control conjoined_search" type="text" name="q" placeholder="Search All Support Resources" autocomplete="off">
+<div class="input-group-btn">
+<button type="button" class="btn btn_search_adjacent dropdown-toggle" data-toggle="dropdown" tabindex="-1"><span class="caret"></span><span class="search_scope_label">Support</span></button>
+<ul class="dropdown-menu list-unstyled dropdown-menu-right" role="menu">
+<li data-toggle="collapse" data-target="#search_scope_doc" class="support_search_scope_trigger"><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#">Documentation</a></li>
+<!--<li data-toggle="collapse" data-target="#search_scope_support"><a href="#">Support</a></li>-->
+<li data-toggle="collapse" data-target="#search_scope_site" class="support_search_scope_trigger"><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#">MathWorks</a></li>
+</ul>
+<script>
+$(".support_search_scope_trigger").click(function() {
+$("#search_scope_support").removeClass("in");
+$("#docsearch").val($("#search").val());
+$("#query").val($("#search").val());
+});
+</script>
+<button type="submit" name="submitsearch" id="support_submitsearch" class="btn icon-search btn_search_adjacent btn_search icon_16" tabindex="-1"></button>
+</div>
+</div>
+</form>
+</div>
+<div id="search_scope_site" class="collapse">
+<form name="search" id="site_search" class="site_search" action="https://de.mathworks.com/search/site_search.html" method="get">
+<div class="input-group">
+<label class="sr-only">MathWorks-Suche</label>
+<input type="hidden" name="c[]" value="entire_site">
+<input type="text" name="q" id="query" class="form-control conjoined_search" placeholder="MathWorks-Suche" autocomplete="off" \="">
+<div class="input-group-btn">
+<button type="button" class="btn btn_search_adjacent dropdown-toggle" data-toggle="dropdown" tabindex="-1"><span class="caret"></span><span class="search_scope_label">MathWorks</span></button>
+<ul class="dropdown-menu list-unstyled dropdown-menu-right" role="menu">
+<li data-toggle="collapse" data-target="#search_scope_doc" class="site_search_scope_trigger"><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#">Documentation</a></li>
+<li data-toggle="collapse" data-target="#search_scope_support" class="site_search_scope_trigger"><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#">Support</a></li>
+<!--<li data-toggle="collapse" data-target="#search_scope_site" class="support_search_scope_trigger"><a href="#">MathWorks</a></li>-->
+</ul>
+<script>
+$(".site_search_scope_trigger").click(function() {
+$("#search_scope_site").removeClass("in");
+$("#search").val($("#query").val());
+$("#docsearch").val($("#query").val());
+});
+</script>
+<button type="submit" id="searchbutton" class="btn icon-search btn_search_adjacent btn_search icon_16" tabindex="-1"></button>
+</div>
+</div>
+</form>
+</div>
+</div>
+<button class="btn icon-remove btn_search pull-right icon_32 visible-xs" data-toggle="collapse" href="#mobile_search" aria-expanded="false" aria-controls="mobile_search"></button>
+</div>
+<div class="visible-xs" id="search_actuator">
+<button class="btn icon-search btn_search pull-right icon_16" data-toggle="collapse" href="#mobile_search" aria-expanded="false" aria-controls="mobile_search"></button>
+</div>
+</div>
+<script>
+$(".section_header_title").click(function(){
+$(window.location).attr('href', '../../index.html');
+});
+</script>
+<!-- Section Header: End -->
+<!-- Mobile Local Nav: Start -->
+<div class="row visible-xs" id="mobile_subnav">
+<div class="col-xs-12">
+<div class="navbar-collapse collapse mobile_subnav_content">
+<div class="crux_nav_container">
+<div class="crux_nav">
+<ul xmlns="http://www.w3.org/1999/xhtml" class="nav navbar-nav subnav" id="crux_nav_mobile"><li id="crux_nav_mobile_documentation" class="crux_nav_active"><a>All</a></li><li id="crux_nav_mobile_example"><a href="https://de.mathworks.com/help/vision/examples.html?category=object-detection-using-features">Examples</a></li><li id="crux_nav_mobile_function"><a href="https://de.mathworks.com/help/vision/referencelist.html?type=function&amp;category=object-detection-using-features">Functions</a></li><li id="crux_nav_mobile_block"><a href="https://de.mathworks.com/help/vision/referencelist.html?type=block&amp;category=object-detection-using-features">Blocks</a></li><li id="crux_nav_mobile_app"><a href="https://de.mathworks.com/help/vision/referencelist.html?type=app&amp;category=object-detection-using-features">Apps</a></li></ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Mobile Local Nav: End -->
+</div>
+</div>
+<!-- Horo Nav: Start -->
+<div class="horizontal_nav">
+<div class="horizontal_nav_container">
+<div class="offcanvas_actuator active" data-toggle="offcanvas" data-target="#sidebar" id="nav_toggle">
+<button type="button" class="btn">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-menu"></span>
+</button>
+<a href="javascript:void(0)" class="offcanvas_actuator_label" id="translation_icon-menu" tabindex="0"></a>
+<a href="javascript:void(0)" class="offcanvas_actuator_close" tabindex="0"></a>
+</div>
+<div class="offcanvas_horizontal_nav">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12 hidden-xs hidden-sm">
+<div class="cta_box">
+<ul class="list-inline">
+<li class="cta_item cta_item_general"><a href="https://de.mathworks.com/campaigns/products/trials.html?prodcode=VP&amp;s_iid=doc_trial_VP_tb" class="icon-download">Trials</a></li>
+<li class="cta_item cta_item_general"><a href="https://de.mathworks.com/support/web_downloads_bounce.html?s_cid=1008_degr_docdn_270055" class="icon-download">Product Updates</a></li>
+<li class="cta_item cta_item_general"><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#" class="icon-globe" data-toggle="modal" data-target="#translation_modal">Translate This Page</a></li></ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Horo Nav: End -->
+</div>
+<!-- Conjoined Header: End -->
+
+  <div class="row-offcanvas row-offcanvas-left active">
+  
+    <div class="sidebar-offcanvas" id="sidebar" role="navigation">
+      <nav class="offcanvas_nav" role="navigation">
+          <ul xmlns="http://www.w3.org/1999/xhtml" class="nav_breadcrumb"><li itemscope="" itemtype="http://www.data-vocabulary.org/Breadcrumb" itemprop="breadcrumb"><a href="https://de.mathworks.com/help/index.html" itemprop="url"><span itemprop="title">Documentation Home</span></a></li></ul>
+<ul xmlns="http://www.w3.org/1999/xhtml" class="nav_disambiguation"><li><a href="https://de.mathworks.com/help/vision/index.html">Computer Vision Toolbox</a>
+</li>
+<li itemscope="" itemtype="http://www.data-vocabulary.org/Breadcrumb" itemprop="breadcrumb"><a href="https://de.mathworks.com/help/vision/deep-learning-semantic-segmentation-and-detection.html" itemprop="url"><span itemprop="title">Deep Learning, Semantic Segmentation, and Detection</span></a></li><li itemscope="" itemtype="http://www.data-vocabulary.org/Breadcrumb" itemprop="breadcrumb"><a href="https://de.mathworks.com/help/vision/object-detection-using-features.html" itemprop="url"><span itemprop="title">Object Detection Using Features</span></a></li></ul><ul xmlns="http://www.w3.org/1999/xhtml" class="nav_disambiguation"><li><a href="https://de.mathworks.com/help/vision/index.html">Computer Vision Toolbox</a>
+</li>
+<li><a href="https://de.mathworks.com/help/vision/deep-learning-semantic-segmentation-and-detection.html" itemprop="url">Deep Learning, Semantic Segmentation, and Detection</a></li></ul><ul xmlns="http://www.w3.org/1999/xhtml" class="nav_scrollspy nav">
+<li class="nav_scrollspy_function active"><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#responsive_offcanvas">Train a Cascade Object Detector</a></li>
+<li class="nav_scrollspy_title" id="SSPY810-section">On this page</li>
+<!--ADD_REFENTRY_TITLE_HERE 11--><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#btu4aja-1" class="intrnllnk">Why Train a Detector?</a></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#btu4ayz-1" class="intrnllnk">What Kinds of Objects Can You Detect?</a></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#btugex8" class="intrnllnk">How Does the Cascade Classifier Work?</a></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#btu4a7b" class="intrnllnk">Create a Cascade Classifier Using the trainCascadeObjectDetector</a><ul class="nav"><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#btu5vlv" class="intrnllnk">Considerations when Setting Parameters</a></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#btu4e5l-1" class="intrnllnk">Feature Types Available for Training</a></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#btu4ez9-1" class="intrnllnk">Supply Positive Samples</a></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#btu4ez9-2" class="intrnllnk">Supply Negative Images</a></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#btu4e04" class="intrnllnk">Choose the Number of Stages</a></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#bueb84g" class="intrnllnk">Training Time of Detector</a></li></ul></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#btvfgwy" class="intrnllnk">Troubleshooting</a><ul class="nav"><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#btvfgxe-1" class="intrnllnk">What if you run out of positive samples?</a></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#btvfgxe-2" class="intrnllnk">What to do if you run out of negative samples?</a></li></ul></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#btuo74_" class="intrnllnk">Examples</a></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#bvdjapz" class="intrnllnk">Train Stop Sign Detector</a></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#d117e23088" class="intrnllnk">Related Topics</a></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#d117e23093" class="intrnllnk">External Websites</a></li></ul>
+
+      </nav>
+      <script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/offcanvas.js.Download"></script>
+    </div>
+
+    <!-- MOBILE CTA - Begin -->
+    <!-- MOBILE CTA - End -->
+
+
+    <div class="content_container" id="content_container">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12">
+                       
+
+
+
+
+
+                   
+    
+                    <div id="TranslationIsOn">
+  <div class="alert alert-info"> <span class="alert_icon icon-alert-info-reverse"></span>
+    <h3>This is machine translation</h3>
+      <p></p><div translate="no"> 
+    	  Translated by <a href="http://aka.ms/MicrosoftTranslatorAttribution" target="_blank"> <img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/msft_logo.png" alt="Microsoft" style="height:auto; width:100px; margin-top:-3px; display:inline-block;"> </a>
+    	  <span id="counter" style="color:red"> </span>
+         </div>
+         Mouseover text to see original. Click the button below to return to the English version of the page.
+      <p></p>
+      <p></p><div id="translation_exist"> <font size="2">
+    	 	Note: This page has been translated by <span translate="no">MathWorks</span>. <a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html" id="trLink">Click here to see</a> <br>
+            To view all translated materials including this page, select <span id="country">Country</span> from the country navigator on the bottom of this page. </font>
+    	</div>
+      <p></p>
+    <button type="button" id="pageBack" translate="no" onclick="back2english()" class="btn btn-sm btn_secondary pull-right"> Back to English </button>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<!-- Translation Modal: START -->
+<div class="modal fade" id="translation_modal" tabindex="-1" role="dialog" aria-labelledby="translation_modal_label" translate="no">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h3 class="modal-title" id="translation_modal_label">Translate This Page</h3>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <select name="to" id="target-language" class="form-control"> 
+            <option value="languages" disabled="" selected="">Select Language</option>
+            <option value="bg">Bulgarian</option>
+            <option value="ca">Catalan</option>
+            <option value="zh-CHS">Chinese Simplified</option>
+            <option value="zh-CHT">Chinese Traditional</option>
+            <option value="cs">Czech</option>
+            <option value="da">Danish</option>
+            <option value="nl">Dutch</option>
+            <option value="en">English</option>
+            <option value="et">Estonian</option>
+            <option value="fi">Finnish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="el">Greek</option>
+            <option value="ht">Haitian Creole</option>
+            <option value="hi">Hindi</option>
+            <option value="mww">Hmong Daw</option>
+            <option value="hu">Hungarian</option>
+            <option value="id">Indonesian</option>
+            <option value="it">Italian</option>
+            <option value="ja">Japanese</option>
+            <option value="ko">Korean</option>
+            <option value="lv">Latvian</option>
+            <option value="lt">Lithuanian</option>
+            <option value="ms">Malay</option>
+            <option value="mt">Maltese</option>
+            <option value="no">Norwegian</option>
+            <option value="pl">Polish</option>
+            <option value="pt">Portuguese</option>
+            <option value="ro">Romanian</option>
+            <option value="ru">Russian</option>
+            <option value="sk">Slovak</option>
+            <option value="sl">Slovenian</option>
+            <option value="es">Spanish</option>
+            <option value="sv">Swedish</option>
+            <option value="th">Thai</option>
+            <option value="tr">Turkish</option>
+            <option value="uk">Ukrainian</option>
+            <option value="vi">Vietnamese</option>
+            <option value="cy">Welsh</option>
+          </select>
+        </div>
+        <small class="add_font_color_general">
+        <p class="add_margin_5"><strong>MathWorks Machine Translation</strong></p>
+        <p>The automated translation of this page is provided by a general purpose third party translator tool.</p>
+        <p>MathWorks does not warrant, and disclaims all liability for, the accuracy, suitability, or fitness for purpose of the translation.</p>
+        </small> </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="translateBtn" onclick="thisPageTranslate()">Translate</button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  html body { /*overflow-y:visible;*/ }
+  #TranslationIsOn { display:none; }
+</style>
+
+<script>
+
+function thisPageTranslate(language) {
+			
+    var targetLanguage;
+
+    if (language) {
+    	targetLanguage = language;
+    }
+    else {
+    	targetLanguage = $("#target-language option:selected").val();
+        if (!helpbrowser()){
+    	setCookie("targetLang", targetLanguage, '/help');
+    }
+    }
+    
+    $('#translation_exist').hide();
+    
+    if (targetLanguage == "ja" || targetLanguage == "zh-CHS" || targetLanguage == "ko") {
+    	  var enURL = (window.location.href.indexOf(".html") > -1)? window.location.href : window.location.href+"index.html";
+    	  
+    	  var lang2country = {"ja":"Japan", "zh-CHS":"China", "ko":"Korea"};
+    	  $('#country').text(lang2country[targetLanguage]);
+    	  
+    	  var lang2locale = {"ja":"ja_JP", "zh-CHS":"zh_CN", "ko":"ko_KR"};
+    	  trFile = enURL.replace(/\.html.*/, "_"+lang2locale[targetLanguage]+".html");
+		    
+    	  $.ajax({
+    			type: 'HEAD',
+    			url: trFile,
+    			success: function() {
+    	  			var trURL = enURL.replace(/\.html.*/, ".html?lang="+lang2locale[targetLanguage]);
+    			    $('#trLink').prop('href', trURL);
+        			$('#translation_exist').show();
+				}
+		  });
+    }
+    
+    $('#translation_modal').modal('hide');
+    $(".icon-globe").hide();
+    
+    $.ajax({
+      url: "https://www.microsoftTranslator.com/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**&ui=true&settings=Manual&from=en",
+      dataType: "script"})
+        .done(function() {
+		       Microsoft.Translator.Widget.Translate('en', targetLanguage, onProgress, null, onComplete); 
+        })     
+
+    if (targetLanguage !== "en") {
+    	 $("#TranslationIsOn").show();
+    }
+}
+
+  function onProgress(value) {
+       document.getElementById('counter').innerHTML = Math.round(value) + "%";
+  }
+  	  
+  function onComplete() {
+  	   $("#counter").hide();
+  }
+  
+$('#target-language').on('change', function() {
+    $('#translateBtn').prop('disabled', false);
+});
+
+  function setTargetLangBasedLocale() {
+   	var locale = (navigator.language || navigator.userLanguage).toLowerCase();
+   	var localeLang = locale.split('-',1);
+    var num_langOptions = document.getElementById("target-language").length; 
+       
+    //default lang is set based on navigator's locale. If locale is English or no match found, set as "Select Language". 
+    
+    if (localeLang != "en") {
+    		var i = 0;
+  	    while (i<num_langOptions) {
+  		      var lang = document.getElementById("target-language").options[i].value; 
+  			    if ((lang == localeLang && localeLang != "zh") ||(lang == "zh-CHS" && locale == "zh-cn") || (lang == "zh-CHT" && locale == "zh-tw")) {
+  				 	    document.getElementById("target-language").options[i].selected = true;
+  				 	    break;
+  			    }
+  			    i++;
+  	    }
+  	  }
+  	  
+  	if ($("#target-language option:selected").val() == "languages")
+  		$('#translateBtn').prop('disabled', true);
+
+  } // setTargetLangBasedLocale
+
+	function back2english() {
+    if (!helpbrowser()){
+		setCookie("targetLang", "", '/help');
+    }
+		location.reload();
+	} 
+	
+	function setCookie(name, value, path) {
+    document.cookie = name + "=" + value + "; path=" + path + ";";
+	}
+
+	function getCookie(name) {
+    var cname = name + "=";
+    var all = document.cookie.split(';');
+    for(var i = 0; i <all.length; i++) {
+        var c = all[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(cname.length, c.length);
+        }
+    }
+    return null;
+	}
+
+  function helpbrowser() {
+    var docURL = window.location.href;
+    return docURL.includes("\/releases\/");
+  }
+
+  $(document).ready(function() {
+    $(".cta_box .list-inline").append('<li class="cta_item cta_item_general"><a href="#" class="icon-globe" data-toggle="modal" data-target="#translation_modal">Translate This Page</a></li>');
+    
+    var cookie_targetLang;
+   
+    if (helpbrowser()){
+      setTargetLangBasedLocale();
+    }
+    else {
+      cookie_targetLang = getCookie("targetLang");
+    if (cookie_targetLang){
+    	(window.location.href.indexOf("html?lang=en") > -1)? setCookie("targetLang", "", '/help'): thisPageTranslate(cookie_targetLang);
+    }
+    else {
+    	setTargetLangBasedLocale();
+    }
+    }
+  });
+</script>
+<style>
+  #WidgetFloaterPanels { display:none !important; }
+</style>
+<!-- Translation Modal: END --> 
+               
+<section xmlns="http://www.w3.org/1999/xhtml" id="doc_center_content" lang="en"><div id="pgtype-topic">                
+
+       
+<section itemprop="content"><h2 class="title r2019a" itemprop="title content" id="btuep9d">Train a Cascade Object Detector</h2><section itemprop="content"><h3 class="title" id="btu4aja-1">Why Train a Detector?</h3><p>The <a href="https://de.mathworks.com/help/vision/ref/vision.cascadeobjectdetector-system-object.html"><code class="class">vision.CascadeObjectDetector</code></a> System object comes with several pretrained
+classifiers for detecting frontal faces, profile faces, noses, eyes,
+and the upper body. However, these classifiers are not always sufficient
+for a particular application. Computer
+            Vision Toolbox™ provides
+the <a href="https://de.mathworks.com/help/vision/ref/traincascadeobjectdetector.html"><code class="function">trainCascadeObjectDetector</code></a> function
+to train a custom classifier.</p>
+<div class="informalfigure"><div id="d117e22619" class="mediaobject"><p><img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/traincascadeobjectdetector_overview.png" alt="" height="250" width="1168"></p></div></div><p></p></section><section itemprop="content"><h3 class="title" id="btu4ayz-1">What Kinds of Objects Can You Detect?</h3><p>The Computer
+            Vision Toolbox cascade object detector
+can detect object categories whose aspect ratio does not vary significantly.
+Objects whose aspect ratio remains fixed include faces, stop signs,
+and cars viewed from one side.</p><p>The <a href="https://de.mathworks.com/help/vision/ref/vision.cascadeobjectdetector-system-object.html"><code class="class">vision.CascadeObjectDetector</code></a> System object detects objects in images
+by sliding a window over the image. The detector then uses a cascade
+classifier to decide whether the window contains the object of interest.
+The size of the window varies to detect objects at different scales,
+but its aspect ratio remains fixed. The detector is very sensitive
+to out-of-plane rotation, because the aspect ratio changes for most
+3-D objects. Thus, you need to train a detector for each orientation
+of the object. Training a single detector to handle all orientations
+will not work.</p></section><section itemprop="content"><h3 class="title" id="btugex8">How Does the Cascade Classifier Work?</h3><p>The cascade classifier consists of stages, where each stage
+is an ensemble of weak learners. The weak learners are simple classifiers
+called <em class="firstterm">decision stumps</em>. Each stage is trained
+using a technique called boosting. <em class="firstterm">Boosting</em> provides
+the ability to train a highly accurate classifier by taking a weighted
+average of the decisions made by the weak learners.</p><p>Each stage of the classifier labels the region defined by the
+current location of the sliding window as either positive or negative. <em class="firstterm">Positive</em> indicates
+that an object was found and <em class="firstterm">negative</em> indicates
+no objects were found. If the label is negative, the classification
+of this region is complete, and the detector slides the window to
+the next location. If the label is positive, the classifier passes
+the region to the next stage. The detector reports an object found
+at the current window location when the final stage classifies the
+region as positive.</p><p>The stages are designed to reject negative samples as fast as
+possible. The assumption is that the vast majority of windows do not
+contain the object of interest. Conversely, true positives are rare
+and worth taking the time to verify. </p>
+<div class="itemizedlist"><ul><li><p>A <em class="firstterm">true positive</em> occurs when
+a positive sample is correctly classified.</p></li><li><p>A <em class="firstterm">false positive</em> occurs when
+a negative sample is mistakenly classified as positive.</p></li><li><p>A <em class="firstterm">false negative</em> occurs when
+a positive sample is mistakenly classified as negative.</p></li></ul></div><p>
+To work well, each stage in the cascade must have a
+low false negative rate. If a stage incorrectly labels an object as
+negative, the classification stops, and you cannot correct the mistake.
+However, each stage can have a high false positive rate. Even if the
+detector incorrectly labels a nonobject as positive, you can correct
+the mistake in subsequent stages.</p><p>The overall false positive rate of the cascade classifier is <span class="inlineequation"><span class="inlinemediaobject"><span><span class="MathEquation" style="font-size: 15px;"><span class="MathRoot HBox" style="display: inline-block; position: relative;"><span class="MathRow HBox" style="display: inline-block; position: relative; font-size: 15px;"><span class="MathScript HBox" style="display: inline-block; position: relative; font-size: 15px;"><span class="MathRow HBox" style="display: inline-block; position: relative; font-size: 15px;"><span class="MathText MathTextBox text" style="position: relative; margin-left: 0.2em; margin-right: 0.2em;">f</span></span><span class="VBox" style="display: inline-block; position: relative; text-align: left; vertical-align: 5px;"><span class="MathRow HBox" style="display: block; position: relative; font-size: 10px; margin-top: 0px;"><span class="MathText MathTextBox text" style="position: relative;">s</span></span></span></span></span></span></span></span></span></span>,
+where <span class="inlineequation"><span class="inlinemediaobject"><span><span class="MathEquation" style="font-size: 15px;"><span class="MathRoot HBox" style="display: inline-block; position: relative;"><span class="MathRow HBox" style="display: inline-block; position: relative; font-size: 15px;"><span class="MathText MathTextBox text" style="position: relative; margin-left: 0.2em; margin-right: 0.2em;">f</span></span></span></span></span></span></span> is
+the false positive rate per stage in the range (0 1), and <span class="inlineequation"><span class="inlinemediaobject"><span><span class="MathEquation" style="font-size: 15px;"><span class="MathRoot HBox" style="display: inline-block; position: relative;"><span class="MathRow HBox" style="display: inline-block; position: relative; font-size: 15px;"><span class="MathText MathTextBox text" style="position: relative;">s</span></span></span></span></span></span></span> is
+the number of stages. Similarly, the overall true positive rate is <span class="inlineequation"><span class="inlinemediaobject"><span><span class="MathEquation" style="font-size: 15px;"><span class="MathRoot HBox" style="display: inline-block; position: relative;"><span class="MathRow HBox" style="display: inline-block; position: relative; font-size: 15px;"><span class="MathScript HBox" style="display: inline-block; position: relative; font-size: 15px;"><span class="MathRow HBox" style="display: inline-block; position: relative; font-size: 15px;"><span class="MathText MathTextBox text" style="position: relative; margin-right: 0.03em;">t</span></span><span class="VBox" style="display: inline-block; position: relative; text-align: left; vertical-align: 5px;"><span class="MathRow HBox" style="display: block; position: relative; font-size: 10px; margin-top: 0px;"><span class="MathText MathTextBox text" style="position: relative;">s</span></span></span></span></span></span></span></span></span></span>,
+where <span class="inlineequation"><span class="inlinemediaobject"><span><span class="MathEquation" style="font-size: 15px;"><span class="MathRoot HBox" style="display: inline-block; position: relative;"><span class="MathRow HBox" style="display: inline-block; position: relative; font-size: 15px;"><span class="MathText MathTextBox text" style="position: relative; margin-right: 0.03em;">t</span></span></span></span></span></span></span> is
+the true positive rate per stage in the range (0 1]. Thus, adding
+more stages reduces the overall false positive rate, but it also reduces
+the overall true positive rate.</p></section><section itemprop="content"><h3 class="title" id="btu4a7b">Create a Cascade Classifier Using the <code class="literal">trainCascadeObjectDetector</code></h3><p>Cascade classifier training requires a set of positive samples and a set of negative images.
+            You must provide a set of positive images with regions of interest specified to be used
+            as positive samples. You can use the <strong class="app"><a href="https://de.mathworks.com/help/vision/ref/imagelabeler-app.html">Image Labeler</a></strong>
+            to label objects of interest with bounding boxes. The Image Labeler outputs a table to
+            use for positive samples. You also must provide a set of negative images from which the
+            function generates negative samples automatically. To achieve acceptable detector
+            accuracy, set the number of stages, feature type, and other function parameters.</p>
+<div class="informalfigure"><div id="d117e22714" class="mediaobject"><p><img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/traincascadeobjectdetector_training.png" alt="" height="378" width="699"></p></div></div><p></p><section itemprop="content"><h4 class="title" id="btu5vlv">Considerations when Setting Parameters</h4><p>Select the function parameters to optimize the number of stages,
+the false positive rate, the true positive rate, and the type of features
+to use for training. When you set the parameters, consider these tradeoffs.</p>
+<div class="table-responsive"><table class="table table-condensed"><colgroup><col class="tcol1" width="50%"><col class="tcol2" width="50%"></colgroup><thead><tr><th>Condition</th><th>Consideration</th></tr></thead><tbody><tr><td>A large training set (in the thousands).</td><td>Increase the number of stages and set a higher false positive
+rate for each stage.</td></tr><tr><td>A small training set.</td><td>Decrease the number of stages and set a lower false positive
+rate for each stage.</td></tr><tr><td>To reduce the probability of missing an object.</td><td>Increase the true positive rate. However, a high true positive
+rate can prevent you from achieving the desired false positive rate
+per stage, making the detector more likely to produce false detections.</td></tr><tr><td>To reduce the number of false detections.</td><td>Increase the number of stages or decrease the false alarm rate
+per stage.</td></tr></tbody></table></div><p>
+</p></section><section itemprop="content"><h4 class="title" id="btu4e5l-1">Feature Types Available for Training</h4><p>Choose the feature that suits the type of object detection you
+need. The <a href="https://de.mathworks.com/help/vision/ref/traincascadeobjectdetector.html"><code class="function">trainCascadeObjectDetector</code></a> supports
+three types of features: Haar, local binary patterns (LBP), and histograms
+of oriented gradients (HOG). Haar and LBP features are often used
+to detect faces because they work well for representing fine-scale
+textures. The HOG features are often used to detect objects such as
+people and cars. They are useful for capturing the overall shape of
+an object. For example, in the following visualization of the HOG
+features, you can see the outline of the bicycle.</p>
+<div class="informalfigure"><div id="d117e22762" class="mediaobject"><p><img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/traincascadeobjectdetector_bicyclehog.png" alt="" height="263" width="881"></p></div></div><p></p><p>You might need to run the <code class="function">trainCascadeObjectDetector</code> function
+multiple times to tune the parameters. To save time, you can use LBP
+or HOG features on a small subset of your data. Training a detector
+using Haar features takes much longer. After that, you can run the
+Haar features to see if the accuracy improves.</p></section><section itemprop="content"><h4 class="title" id="btu4ez9-1">Supply Positive Samples</h4><p>To create positive samples easily, you can use the <strong class="app"><a href="https://de.mathworks.com/help/vision/ref/imagelabeler-app.html">Image
+                    Labeler</a></strong> app. The Image Labeler provides an easy way to label positive
+                samples by interactively specifying rectangular regions of interest (ROIs).</p>
+<div class="informalfigure"><div id="d117e22779" class="mediaobject"><p><img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/traincascade_labeler.png" alt="" height="201" width="175"></p></div></div><p></p><p>You can also specify positive samples manually in one of two
+ways. One way is to specify rectangular regions in a larger image.
+The regions contain the objects of interest. The other approach is
+to crop out the object of interest from the image and save it as a
+separate image. Then, you can specify the region to be the entire
+image. You can also generate more positive samples from existing ones
+by adding rotation or noise, or by varying brightness or contrast.</p></section><section itemprop="content"><h4 class="title" id="btu4ez9-2">Supply Negative Images</h4><p>Negative samples are not specified explicitly. Instead, the <a href="https://de.mathworks.com/help/vision/ref/traincascadeobjectdetector.html"><code class="function">trainCascadeObjectDetector</code></a> function automatically
+generates negative samples from user-supplied negative images that
+do not contain objects of interest. Before training each new stage,
+the function runs the detector consisting of the stages already trained
+on the negative images. Any objects detected from these image are
+false positives, which are used as negative samples. In this way,
+each new stage of the cascade is trained to correct mistakes made
+by previous stages.</p><p></p>
+<div class="informalfigure"><div id="d117e22794" class="mediaobject"><p><img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/traincascadeobjectdetector_negativeimages.png" alt="" height="246" width="1105"></p></div></div><p></p><p>As more stages are added, the detector's overall false positive
+rate decreases, causing generation of negative samples to be more
+difficult. For this reason, it is helpful to supply as many negative
+images as possible. To improve training accuracy, supply negative
+images that contain backgrounds typically associated with the objects
+of interest. Also, include negative images that contain nonobjects
+similar in appearance to the objects of interest. For example, if
+you are training a stop-sign detector, include negative images that
+contain road signs and shapes similar to a stop sign.</p></section><section itemprop="content"><h4 class="title" id="btu4e04">Choose the Number of Stages</h4><p>There is a trade-off between fewer stages with a lower false
+positive rate per stage or more stages with a higher false positive
+rate per stage. Stages with a lower false positive rate are more complex
+because they contain a greater number of weak learners. Stages with
+a higher false positive rate contain fewer weak learners. Generally,
+it is better to have a greater number of simple stages because at
+each stage the overall false positive rate decreases exponentially.
+For example, if the false positive rate at each stage is 50%, then
+the overall false positive rate of a cascade classifier with two stages
+is 25%. With three stages, it becomes 12.5%, and so on. However, the
+greater the number of stages, the greater the amount of training data
+the classifier requires. Also, increasing the number of stages increases
+the false negative rate. This increase results in a greater chance
+of rejecting a positive sample by mistake. Set the false positive
+rate (<code class="argument">FalseAlarmRate</code>) and the number of stages,
+(<code class="argument">NumCascadeStages</code>) to yield an acceptable overall
+false positive rate. Then you can tune these two parameters experimentally.</p><p>Training can sometimes terminate early. For example, suppose
+that training stops after seven stages, even though you set the number
+of stages parameter to 20. It is possible that the function cannot
+generate enough negative samples. If you run the function again and
+set the number of stages to seven, you do not get the same result.
+The results between stages differ because the number of positive and
+negative samples to use for each stage is recalculated for the new
+number of stages.</p></section><section itemprop="content"><h4 class="title" id="bueb84g">Training Time of Detector</h4><p>Training a good detector requires thousands of training samples.
+Large amounts of training data can take hours or even days to process.
+During training, the function displays the time it took to train each
+stage in the MATLAB<sup>®</sup> Command Window. Training time depends on
+the type of feature you specify. Using Haar features takes much longer
+than using LBP or HOG features.</p></section></section><section itemprop="content"><h3 class="title" id="btvfgwy">Troubleshooting</h3><section itemprop="content"><h4 class="title" id="btvfgxe-1">What if you run out of positive samples?</h4><p>The <a href="https://de.mathworks.com/help/vision/ref/traincascadeobjectdetector.html"><code class="function">trainCascadeObjectDetector</code></a> function
+automatically determines the number of positive samples to use to
+train each stage. The number is based on the total number of positive
+samples supplied by the user and the values of the <code class="argument">TruePositiveRate</code> and <code class="argument">NumCascadeStages</code> parameters.</p><p>The number of available positive samples used to train each
+stage depends on the true positive rate. The rate specifies what percentage
+of positive samples the function can classify as negative. If a sample
+is classified as a negative by any stage, it never reaches subsequent
+stages. For example, suppose you set the <code class="argument">TruePositiveRate</code> to <code class="literal">0.9</code>,
+and all of the available samples are used to train the first stage.
+In this case, 10% of the positive samples are rejected as negatives,
+and only 90% of the total positive samples are available for training
+the second stage. If training continues, then each stage is trained
+with fewer and fewer samples. Each subsequent stage must solve an
+increasingly more difficult classification problem with fewer positive
+samples. With each stage getting fewer samples, the later stages are
+likely to overfit the data.</p><p>Ideally, use the same number of samples to train each stage.
+To do so, the number of positive samples used to train each stage
+must be less than the total number of available positive samples.
+The only exception is that when the value of <code class="argument">TruePositiveRate</code> times
+the total number of positive samples is less than 1, no positive samples
+are rejected as negatives.</p><p>The function calculates the number of positive samples to use
+at each stage using the following formula: </p><div itemprop="content"><p class="programlistingindent">number of
+positive samples = <a href="https://de.mathworks.com/help/matlab/ref/floor.html"><code class="function">floor</code></a>(<code class="argument">totalPositiveSamples</code> /
+(1 + (<code class="argument">NumCascadeStages</code> - 1) * (1 - <code class="argument">TruePositiveRate</code>))) </p></div>This
+calculation does not guarantee that the same number of positive samples
+are available for each stage. The reason is that it is impossible
+to predict with certainty how many positive samples will be rejected
+as negatives. The training continues as long as the number of positive
+samples available to train a stage is greater than 10% of the number
+of samples the function determined automatically using the preceding
+formula. If there are not enough positive samples the training stops
+and the function issues a warning. The function also outputs a classifier
+consisting of the stages that it had trained up to that point. If
+the training stops, you can add more positive samples. Alternatively,
+you can increase <code class="argument">TruePositiveRate</code>. Reducing the
+number of stages can also work, but such reduction can also result
+in a higher overall false alarm rate. <p></p></section><section itemprop="content"><h4 class="title" id="btvfgxe-2">What to do if you run out of negative samples?</h4><p>The function calculates the number of negative samples used
+at each stage. This calculation is done by multiplying the number
+of positive samples used at each stage by the value of <code class="argument">NegativeSamplesFactor</code>.</p><p>Just as with positive samples, there is no guarantee that the
+calculated number of negative samples are always available for a particular
+stage. The <code class="function">trainCascadeObjectDetector</code> function
+generates negative samples from the negative images. However, with
+each new stage, the overall false alarm rate of the cascade classifier
+decreases, making it less likely to find the negative samples.</p><p>The training continues as long as the number of negative samples
+available to train a stage is greater than 10% of the calculated number
+of negative samples. If there are not enough negative samples, the
+training stops and the function issues a warning. It outputs a classifier
+consisting of the stages that it had trained up to that point. When
+the training stops, the best approach is to add more negative images.
+Alternatively, you can reduce the number of stages or increase the
+false positive rate.</p></section></section><section itemprop="content"><h3 class="title" id="btuo74_">Examples</h3><p><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#" onclick="return toggleexpander(&#39;d117e22889_block&#39;,&#39;d117e22889_expandable_text&#39;);"><img style="border:0;" id="d117e22889_expandable_text" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/arrow_right.gif"></a>&nbsp;<a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#" onclick="return toggleexpander(&#39;d117e22889_block&#39;,&#39;d117e22889_expandable_text&#39;);">Train a Five-Stage Stop-Sign Detector</a></p><div class="expander" style="display:none; padding-left:4px;" id="d117e22889_block"><p>This example shows you how to set up and train a five-stage,
+stop-sign detector, using 86 positive samples. The default value for <code class="argument">TruePositiveRate</code> is <code class="literal">0.995</code>.</p><p>Step 1: Load the positive samples data from a MAT-file. In this
+example, file names and bounding boxes are contained in the array
+of structures labeled <code class="literal">'data'</code>.</p><div class="code_responsive"><pre class="programlisting">load('stopSigns.mat');</pre></div><p></p><p>Step 2: Add the image directory to the MATLAB path.</p><div class="code_responsive"><pre class="programlisting">imDir = fullfile(matlabroot,'toolbox','vision','visiondata','stopSignImages');
+addpath(imDir);</pre></div><p></p><p>Step 3: Specify the folder with negative images.</p><div class="code_responsive"><pre class="programlisting">negativeFolder = fullfile(matlabroot,'toolbox','vision','visiondata','nonStopSigns');</pre></div><p></p><p>Step 4: Train the detector.</p><div class="code_responsive"><pre class="programlisting">trainCascadeObjectDetector('stopSignDetector.xml',data,negativeFolder,'FalseAlarmRate',0.2,'NumCascadeStages',5);</pre></div><p></p><p>Computer
+            Vision Toolbox software returns the following
+message:</p>
+<div class="informalfigure"><div id="d117e22932" class="mediaobject"><p><img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/train_cascade_output.jpg" alt="" height="426" width="611"></p></div></div><p>All 86 positive samples
+were used to train each stage. This high rate occurs because the true
+positive rate is very high relative to the number of positive samples.</p></div><p><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#" onclick="return toggleexpander(&#39;d117e22937_block&#39;,&#39;d117e22937_expandable_text&#39;);"><img style="border:0;" id="d117e22937_expandable_text" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/arrow_right.gif"></a>&nbsp;<a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#" onclick="return toggleexpander(&#39;d117e22937_block&#39;,&#39;d117e22937_expandable_text&#39;);">Train a Five-Stage Stop-Sign Detector with a Decreased True
+Positive Rate</a></p><div class="expander" style="display:none; padding-left:4px;" id="d117e22937_block"><p>This example shows you how to train a stop-sign detector on
+the same data set as the first example, (steps 1–3), but with
+the <code class="argument">TruePositiveRate</code> decreased to 0.98.</p><p>Step 4: Train the detector.</p><div class="code_responsive"><pre class="programlisting">trainCascadeObjectDetector('stopSignDetector_tpr0_98.xml',data,negativeFolder,...
+'FalseAlarmRate',0.2,'NumCascadeStages', 5,...
+'TruePositiveRate', 0.98);</pre></div><p></p>
+<div class="informalfigure"><div id="d117e22953" class="mediaobject"><p><img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/traincascadeobjectdetector_example2.png" alt="" height="421" width="603"></p></div></div><p>Only 79 of the total
+86 positive samples were used to train each stage. This lowered rate
+occurs because the true positive rate was low enough for the function
+to start rejecting some of the positive samples as false negatives.</p></div><p><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#" onclick="return toggleexpander(&#39;d117e22958_block&#39;,&#39;d117e22958_expandable_text&#39;);"><img style="border:0;" id="d117e22958_expandable_text" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/arrow_right.gif"></a>&nbsp;<a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#" onclick="return toggleexpander(&#39;d117e22958_block&#39;,&#39;d117e22958_expandable_text&#39;);">Train a Ten-Stage Stop-Sign Detector</a></p><div class="expander" style="display:none; padding-left:4px;" id="d117e22958_block"><p>This example shows you how to train a stop-sign detector on
+the same data set as the first example, (steps 1–3), but with
+the number of stages increased to 10.</p><p>Step 4: Train the detector.</p><div class="code_responsive"><pre class="programlisting">trainCascadeObjectDetector('stopSignDetector_10stages.xml',data,negativeFolder,...
+'FalseAlarmRate',0.2,'NumCascadeStages',10);</pre></div><p></p>
+<div class="informalfigure"><div id="d117e22971" class="mediaobject"><p><img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/traincascadeobjectdetector_example3.png" alt="" height="619" width="606"></p></div></div><p>In this case, <code class="argument">NegativeSamplesFactor</code> was
+set to 2, therefore the number of negative samples used to train each
+stage was 172. Notice that the function generated only 33 negative
+samples for stage 6 and was not able to train stage 7 at all. This
+condition occurs because the number of negatives in stage 7 was less
+than 17, (roughly half of the previous number of negative samples).
+The function produced a stop-sign detector with 6 stages, instead
+of the 10 previously specified. The resulting overall false alarm
+rate is 0.2<sup>7</sup>=1.28e-05, while the expected
+false alarm rate is 1.024e-07.</p><p>At this point, you can add more negative images, reduce the
+number of stages, or increase the false positive rate. For example,
+you can increase the false positive rate, <code class="argument">FalseAlarmRate</code>,
+to 0.5. The expected overall false-positive rate in this case is 0.0039.</p><p>Step 4: Train the detector.</p><div class="code_responsive"><pre class="programlisting">trainCascadeObjectDetector('stopSignDetector_10stages_far0_5.xml',data,negativeFolder,...
+'FalseAlarmRate',0.5,'NumCascadeStages',10);</pre></div><p></p>
+<div class="informalfigure"><div id="d117e22993" class="mediaobject"><p><img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/traincascadeobjectdetector_example4.png" alt="" height="687" width="610"></p></div></div><p>This time the function
+trains eight stages before the threshold reaches the overall false
+alarm rate of 0.000587108 and training stops.</p></div></section><section itemprop="content"><h3 class="title" id="bvdjapz">Train Stop Sign Detector</h3><div class="pull-right examples_short_list" style="width:250px; margin-left: 10px; margin-bottom: 10px;"><div data-pane="metadata" style="margin-bottom: 0px;" class="panel metadata_container"><div class="panel-body metadata_content" style="padding-top:0px; padding-bottom:0px;"><div class="row"><div class="col-xs-12"><a class="btn btn_secondary btn-block visible-xs" href="matlab:openExample(&#39;vision/TrainAStopSignDetectorExample&#39;)" style="display: inline-block;">Try it in MATLAB</a><div class="pull-right hidden-xs"><div class="btn-group"><button class="btn btn_color_blue dropdown-toggle dropdown-toggle" data-toggle="dropdown" href="#">Try This Example <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right"><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#" class="analyticsOpenWith">Try it in your browser</a></li><li><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#">Try it in MATLAB</a></li></ul></div></div></div></div></div></div></div><script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "DigitalDocument",
+          "headline": "Train Stop Sign Detector",
+          "description": "Load the positive samples data from a MAT file. The file contains a table specifying bounding boxes for several object categories. The table was exported from the Training Image Labeler app.",
+          "thumbnailURL": "../../examples/vision/win64/TrainAStopSignDetectorExample_01.png",
+          "genre": "Live Script",
+          "isBasedOn": {
+          "@type": "Product",
+          "name": "MATLAB"
+
+        },
+          "isPartOf": {
+          "@type": "CreativeWork",
+          "url": "train-a-cascade-object-detector.html"
+
+        },
+          "identifier": "vision.TrainAStopSignDetectorExample",
+          "name": "TrainAStopSignDetectorExample",
+          "url": "train-a-cascade-object-detector.html#bvdjapz"
+
+        }</script><script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "PropertyValue",
+          "name": "open_command",
+          "value": "matlab:openExample('vision/TrainAStopSignDetectorExample')"
+
+        }</script><script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "ItemList",
+          "name": "ExampleSourceFiles",
+
+        "itemListElement":
+        [
+        "TrainAStopSignDetectorExample.mlx"
+        ],
+        "itemListOrder": "http://schema.org/ItemListOrderAscending"
+        }
+        </script><div itemscope="" itemtype="http://www.mathworks.com/help/schema/MathWorksDocPage/Example" itemprop="example" class="em_example"><meta itemprop="exampleid" content="vision-TrainAStopSignDetectorExample"><meta itemprop="exampletitle" content="Train Stop Sign Detector"></div><span id="TrainAStopSignDetectorExample" class="anchor_target"></span><p class="shortdesc">Load the positive samples data from a MAT file. The file contains a table specifying bounding boxes for several object categories. The table was exported from the <code class="literal">Training Image Labeler</code> app.</p><p>Load positive samples.</p><div class="code_responsive"><div class="programlisting"><div class="codeinput"><pre>load(<span style="color:#A020F0">'stopSignsAndCars.mat'</span>);</pre></div></div></div><p>Select the bounding boxes for stop signs from the table.</p><div class="code_responsive"><div class="programlisting"><div class="codeinput"><pre>positiveInstances = stopSignsAndCars(:,1:2);</pre></div></div></div><p>Add the image folder to the MATLAB path.</p><div class="code_responsive"><div class="programlisting"><div class="codeinput"><pre>imDir = fullfile(matlabroot,<span style="color:#A020F0">'toolbox'</span>,<span style="color:#A020F0">'vision'</span>,<span style="color:#A020F0">'visiondata'</span>,<span style="color:#0000FF">...</span>
+    <span style="color:#A020F0">'stopSignImages'</span>);
+addpath(imDir);</pre></div></div></div><p>Specify the folder for negative images.</p><div class="code_responsive"><div class="programlisting"><div class="codeinput"><pre>negativeFolder = fullfile(matlabroot,<span style="color:#A020F0">'toolbox'</span>,<span style="color:#A020F0">'vision'</span>,<span style="color:#A020F0">'visiondata'</span>,<span style="color:#0000FF">...</span>
+    <span style="color:#A020F0">'nonStopSigns'</span>);</pre></div></div></div><p>Create an <code class="literal">imageDatastore</code> object containing negative images.</p><div class="code_responsive"><div class="programlisting"><div class="codeinput"><pre>negativeImages = imageDatastore(negativeFolder);</pre></div></div></div><p>Train a cascade object detector called 'stopSignDetector.xml' using HOG features. NOTE: The command can take several minutes to run.</p><div class="code_responsive"><div class="programlisting"><div class="codeinput"><pre>trainCascadeObjectDetector(<span style="color:#A020F0">'stopSignDetector.xml'</span>,positiveInstances, <span style="color:#0000FF">...</span>
+    negativeFolder,<span style="color:#A020F0">'FalseAlarmRate'</span>,0.1,<span style="color:#A020F0">'NumCascadeStages'</span>,5);</pre></div></div></div><div class="code_responsive"><div class="programlisting"><div class="codeoutput"><pre>Automatically setting ObjectTrainingSize to [35, 32]
+Using at most 42 of 42 positive samples per stage
+Using at most 84 negative samples per stage
+
+--cascadeParams--
+Training stage 1 of 5
+[........................................................................]
+Used 42 positive and 84 negative samples
+Time to train stage 1: 0 seconds
+
+Training stage 2 of 5
+[........................................................................]
+Used 42 positive and 84 negative samples
+Time to train stage 2: 0 seconds
+
+Training stage 3 of 5
+[........................................................................]
+Used 42 positive and 84 negative samples
+Time to train stage 3: 3 seconds
+
+Training stage 4 of 5
+[........................................................................]
+Used 42 positive and 84 negative samples
+Time to train stage 4: 6 seconds
+
+Training stage 5 of 5
+[........................................................................]
+Used 42 positive and 17 negative samples
+Time to train stage 5: 15 seconds
+
+Training complete
+</pre></div></div></div><p>Use the newly trained classifier to detect a stop sign in an image.</p><div class="code_responsive"><div class="programlisting"><div class="codeinput"><pre>detector = vision.CascadeObjectDetector(<span style="color:#A020F0">'stopSignDetector.xml'</span>);</pre></div></div></div><p>Read the test image.</p><div class="code_responsive"><div class="programlisting"><div class="codeinput"><pre>img = imread(<span style="color:#A020F0">'stopSignTest.jpg'</span>);</pre></div></div></div><p>Detect a stop sign.</p><div class="code_responsive"><div class="programlisting"><div class="codeinput"><pre>bbox = step(detector,img);</pre></div></div></div><p>Insert bounding box rectangles and return the marked image.</p><div class="code_responsive"><div class="programlisting"><div class="codeinput"><pre> detectedImg = insertObjectAnnotation(img,<span style="color:#A020F0">'rectangle'</span>,bbox,<span style="color:#A020F0">'stop sign'</span>);</pre></div></div></div><p>Display the detected stop sign.</p><div class="code_responsive"><div class="programlisting"><div class="codeinput"><pre>figure; imshow(detectedImg);</pre></div></div></div><div class="informalfigure"><div id="d117e23078" class="mediaobject"><p><img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/TrainAStopSignDetectorExample_01.png" alt="" width="800"></p></div></div><p>Remove the image directory from the path.</p><div class="code_responsive"><div class="programlisting"><div class="codeinput"><pre>rmpath(imDir);</pre></div></div></div><div class="procedure"></div></section>
+<h2 id="d117e23088">Related Topics</h2><ul><li><a href="https://de.mathworks.com/help/vision/ug/get-started-with-the-image-labeler.html" class="a">Get Started with the Image Labeler</a></li></ul>
+<h2 id="d117e23093">External Websites</h2><ul><li><a href="https://www.mathworks.com/matlabcentral/fileexchange/39627-cascade-trainer--specify-ground-truth--train-a-detector" target="_blank">Cascade
+Trainer</a></li></ul>
+</section>
+</div><div class="clearfix"></div>
+<div align="center" class="feedbackblock"><iframe id="doc_survey" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/bounce_hub_help.html" style=""></iframe></div><script type="text/javascript" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/docsurvey.js.Download"></script>
+
+</section>
+<div class="modal fade" id="matlab-command-dialog" tabindex="-1" role="dialog" aria-labelledby="matlabCommandDialogLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">MATLAB Command</h4>
+      </div>
+      <div class="modal-body" id="dialog-body">
+        <p>You clicked a link that corresponds to this MATLAB command: </p>
+        <pre id="dialog-matlab-command"></pre>
+        <p>Run the command by entering it in the MATLAB Command Window.
+        Web browsers do not support MATLAB commands.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn_secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+<div id="location_content" style="display:none;"></div>
+
+
+<div class="modal fade" id="country-unselected" translate="no">
+<div id="country-select-container">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <object type="image/svg+xml" width="167px" class="mw_logo" alt="MathWorks" data="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/pic-header-mathworks-logo2.svg">
+          <img alt="MathWorks" width="167px" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/pic-header-mathworks-logo.png">
+        </object>
+      </div>
+      <div class="modal-body">
+        <div class="row add_margin_40">
+          <div class="col-xs-12">
+            <h1 class="icon-globe icon_color_secondary">Select a Web Site</h1>
+            <p>Choose a web site to get translated content where available and see local events and offers. Based on your location, we recommend that you select: <strong class="recommended-country">Deutschland</strong>.</p>
+            <a href="https://de.mathworks.com/" id="recommended_domain_button" class="btn btn_color_blue containsResourceName resourceClass-button" data-lang="de">Select <span class="recommended-country">Deutschland</span> web site</a>
+          </div>
+        </div>
+        <p>You can also select a web site from the following list:</p>
+				<div class="alert alert-warning" id="china_performance_alert" style="display:none;"> <span class="alert_icon icon-alert-warning"></span>
+					<h3>How to Get Best Site Performance</h3>
+					<p>Select the China site (in Chinese or English) for best site performance. Other MathWorks country sites are not optimized for visits from your location.</p>
+				</div>
+        <div class="row add_margin_30">
+          <div class="col-sm-4 col-md-3">
+            <h3 class="add_bottom_rule">Americas</h3>
+            <ul class="list-unstyled">
+              <li><a href="https://la.mathworks.com/" class="domain_selector_link" data-country-code="LA" data-subdomain="la" data-lang="es" data-default-lang="true" data-selected-text="América Latina" data-recommended-text="América Latina" data-do-not-rewrite="true">América Latina</a> (Español)</li>
+              <li><a href="https://www.mathworks.com/" class="domain_selector_link" data-country-code="CA" data-subdomain="www" data-lang="en" data-do-not-rewrite="true">Canada</a> (English)</li>
+              <li><a href="https://www.mathworks.com/" class="domain_selector_link" data-country-code="US" data-subdomain="www" data-lang="en" data-default-lang="true" data-selected-text="United States" data-recommended-text="United States" data-do-not-rewrite="true">United States</a> (English)</li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-md-6">
+            <h3 class="add_bottom_rule">Europe</h3>
+            <div class="row">
+              <div class="col-xs-6 col-sm-12 col-md-6">
+                <ul class="list-unstyled add_margin_0_sm">
+                  <li><a href="https://nl.mathworks.com/" class="domain_selector_link" data-country-code="BE" data-subdomain="nl" data-lang="en" data-do-not-rewrite="true">Belgium</a> (English)</li>
+                  <li><a href="https://se.mathworks.com/" class="domain_selector_link" data-country-code="DK" data-subdomain="se" data-lang="en" data-do-not-rewrite="true">Denmark</a> (English)</li>
+                  <li><a href="https://de.mathworks.com/" class="domain_selector_link" data-country-code="DE" data-subdomain="de" data-lang="de" data-default-lang="true" data-selected-text="Deutschland" data-recommended-text="Deutschland" data-do-not-rewrite="true">Deutschland</a> (Deutsch)</li>
+                  <li><a href="https://es.mathworks.com/" class="domain_selector_link" data-country-code="ES" data-subdomain="es" data-lang="es" data-default-lang="true" data-selected-text="España" data-recommended-text="España" data-do-not-rewrite="true">España</a> (Español)</li>
+                  <li><a href="https://se.mathworks.com/" class="domain_selector_link" data-country-code="FI" data-subdomain="se" data-lang="en" data-do-not-rewrite="true">Finland</a> (English)</li>
+                  <li><a href="https://fr.mathworks.com/" class="domain_selector_link" data-country-code="FR" data-subdomain="fr" data-lang="fr" data-default-lang="true" data-selected-text="France" data-recommended-text="France" data-do-not-rewrite="true">France</a> (Français)</li>
+                  <li><a href="https://uk.mathworks.com/" class="domain_selector_link" data-country-code="IE" data-subdomain="uk" data-lang="en" data-do-not-rewrite="true">Ireland</a> (English)</li>
+                  <li><a href="https://it.mathworks.com/" class="domain_selector_link" data-country-code="IT" data-subdomain="it" data-lang="it" data-default-lang="true" data-selected-text="Italia" data-recommended-text="Italia" data-do-not-rewrite="true">Italia</a> (Italiano)</li>
+                  <li><a href="https://nl.mathworks.com/" class="domain_selector_link" data-country-code="LU" data-subdomain="nl" data-lang="en" data-do-not-rewrite="true">Luxembourg</a> (English)</li>
+                </ul>
+              </div>
+              <div class="col-xs-6 col-sm-12 col-md-6">
+                <ul class="list-unstyled">
+                  <li><a href="https://nl.mathworks.com/" class="domain_selector_link" data-country-code="NL" data-subdomain="nl" data-lang="en" data-default-lang="true" data-selected-text="Benelux" data-recommended-text="Netherlands" data-do-not-rewrite="true">Netherlands</a> (English)</li>
+                  <li><a href="https://se.mathworks.com/" class="domain_selector_link" data-country-code="NO" data-subdomain="se" data-lang="en" data-do-not-rewrite="true">Norway</a> (English)</li>
+                  <li><a href="https://de.mathworks.com/" class="domain_selector_link" data-country-code="AT" data-subdomain="de" data-lang="de" data-do-not-rewrite="true">Österreich</a> (Deutsch)</li>
+                  <li><a href="https://www.mathworks.com/" class="domain_selector_link" data-country-code="PT" data-subdomain="www" data-lang="en" data-do-not-rewrite="true">Portugal</a> (English)</li>
+                  <li><a href="https://se.mathworks.com/" class="domain_selector_link" data-country-code="Sweden" data-subdomain="se" data-lang="en" data-default-lang="true" data-selected-text="Nordic" data-recommended-text="Sweden" data-do-not-rewrite="true">Sweden</a> (English)</li>
+                  <li>Switzerland
+                    <ul class="list-unstyled add_indent_20">
+                      <li><a href="https://ch.mathworks.com/" class="domain_selector_link" data-country-code="CH" data-subdomain="ch" data-lang="de" data-selected-text="Schweiz" data-recommended-text="Schweiz" data-do-not-rewrite="true">Deutsch</a></li>
+                      <li><a href="https://ch.mathworks.com/" id="swiss_english" class="domain_selector_link" data-country-code="CH" data-subdomain="ch" data-lang="en" data-default-lang="true" data-selected-text="Switzerland" data-recommended-text="Switzerland" data-do-not-rewrite="true">English</a></li>
+                      <li><a href="https://ch.mathworks.com/" class="domain_selector_link" data-country-code="CH" data-subdomain="ch" data-lang="fr" data-selected-text="Suisse" data-recommended-text="Suisse" data-do-not-rewrite="true">Français</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="https://uk.mathworks.com/" class="domain_selector_link" data-country-code="GB" data-subdomain="uk" data-lang="en" data-default-lang="true" data-selected-text="United Kingdom" data-recommended-text="United Kingdom" data-do-not-rewrite="true">United Kingdom</a> (English)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-3">
+            <h3 class="add_bottom_rule">Asia Pacific</h3>
+            <ul class="list-unstyled">
+              <li><a href="https://au.mathworks.com/" class="domain_selector_link" data-country-code="AU" data-subdomain="au" data-lang="en" data-default-lang="true" data-selected-text="Australia" data-recommended-text="Australia" data-do-not-rewrite="true">Australia</a> (English)</li>
+              <li><a href="https://in.mathworks.com/" class="domain_selector_link" data-country-code="IN" data-subdomain="in" data-lang="en" data-default-lang="true" data-selected-text="India" data-recommended-text="India" data-do-not-rewrite="true">India</a> (English)</li>
+              <li><a href="https://au.mathworks.com/" class="domain_selector_link" data-country-code="NZ" data-subdomain="au" data-lang="en" data-do-not-rewrite="true">New Zealand</a> (English)</li>
+              <li>中国
+                    <ul class="list-unstyled add_indent_20">
+                      <li><a href="https://ww2.mathworks.cn/" class="domain_selector_link" data-country-code="CN" data-subdomain="ww2" data-lang="zh" data-default-lang="true" data-selected-text="中国" data-recommended-text="中国" data-do-not-rewrite="true">简体中文</a></li>
+                      <li><a href="https://ww2.mathworks.cn/" class="domain_selector_link" data-country-code="CN" data-subdomain="ww2" data-lang="en" data-default-lang="true" data-selected-text="China" data-recommended-text="China" data-do-not-rewrite="true">English</a></li>
+                    </ul>
+               </li>
+              <li><a href="https://jp.mathworks.com/" class="domain_selector_link" data-country-code="JP" data-subdomain="jp" data-lang="ja" data-default-lang="true" data-selected-text="日本" data-recommended-text="日本" data-do-not-rewrite="true">日本</a> (日本語)</li>
+              <li><a href="https://kr.mathworks.com/" class="domain_selector_link" data-country-code="KR" data-subdomain="kr" data-lang="ko" data-default-lang="true" data-selected-text="한국" data-recommended-text="한국" data-do-not-rewrite="true">한국</a> (한국어)</li>
+            </ul>
+          </div>
+        </div>
+        <p class="text-center"><a href="https://de.mathworks.com/" class="worldwide_link">Contact your local office</a></p>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+  
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE CTA - Begin -->
+    <div class="cta_container_mobile visible-sm visible-xs">
+      <div class="container-fluid">      
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="cta_box">
+<ul class="list-inline">
+<li class="cta_item cta_item_general"><a href="https://de.mathworks.com/campaigns/products/trials.html?prodcode=VP&amp;s_iid=doc_trial_VP_tb" class="icon-download">Trials</a></li>
+<li class="cta_item cta_item_general"><a href="https://de.mathworks.com/support/web_downloads_bounce.html?s_cid=1008_degr_docdn_270055" class="icon-download">Product Updates</a></li>
+<li class="cta_item cta_item_general"><a href="https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html#" class="icon-globe" data-toggle="modal" data-target="#translation_modal">Translate This Page</a></li></ul>
+</div> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MOBILE CTA - End -->
+
+        <!-- BODY TRAIL - Begin -->
+        <div class="body_trail_container">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="row"><div class="col-xs-12 col-sm-4"><h5><a href="https://de.mathworks.com/help/vision/index.html?s_cid=doc_ftr">Computer Vision Toolbox Documentation</a></h5>
+<ul class="list-unstyled hidden-xs"><li><a href="https://de.mathworks.com/help/vision/examples.html?s_cid=doc_ftr">Examples</a></li>
+<li><a href="https://de.mathworks.com/help/vision/referencelist.html?type=function&amp;s_cid=doc_ftr">Functions and Other Reference</a></li>
+<li><a href="https://de.mathworks.com/help/vision/release-notes.html?s_cid=doc_ftr">Release Notes</a></li>
+<li><a href="https://de.mathworks.com/help/pdf_doc/vision/index.html?s_cid=doc_ftr">PDF Documentation</a></li>
+</ul>
+</div>
+<div class="col-xs-12 col-sm-4"><h5><a href="https://de.mathworks.com/support.html?s_cid=doc_ftr">Support</a></h5>
+<ul class="list-unstyled hidden-xs"><li><a href="https://de.mathworks.com/matlabcentral/answers/index?s_cid=doc_ftr">MATLAB Answers</a></li><li><a href="https://de.mathworks.com/support/install-matlab.html?s_cid=doc_ftr">Installation Help</a></li><li><a href="https://de.mathworks.com/support/bugreports/?s_cid=doc_ftr">Bug Reports</a></li><li><a href="https://de.mathworks.com/products/availability.html?s_cid=doc_ftr">Product Requirements</a></li><li><a href="https://de.mathworks.com/downloads/?s_cid=doc_ftr">Software Downloads</a></li></ul>
+</div>
+<div class="col-xs-12 col-sm-4">
+<!---- Offer: 10 Best Practices for Deploying AUTOSAR Using Simulink ---->
+<!-- Simulink Coder (RT) -->
+<div class="panel panel_color_transparent panel_color_fill">
+<div class="panel-body">
+<div class="thumbnail add_margin_5">
+<a href="https://www.mathworks.com/campaigns/offers/deep-learning-with-matlab.html?s_iid=doc_eb_VP_footer"><img class="fluid_image" alt="Introducing Deep Learning with MATLAB" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/deep-learning-with-matlab-offer.jpg"></a>
+</div>
+<h4><a href="https://www.mathworks.com/campaigns/offers/deep-learning-with-matlab.html?s_iid=doc_eb_VP_footer">Introducing Deep Learning with MATLAB</a></h4>
+<a class="icon-download" href="https://www.mathworks.com/campaigns/offers/deep-learning-with-matlab.html?s_iid=doc_eb_VP_footer">Download ebook</a>
+</div>
+</div>
+<!-- MATLAB (ML) -->
+</div>
+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- BODY TRAIL - End -->
+
+    <footer id="footer" class="bs-footer">
+        <!-- FAT FOOTER - Begin --> 
+        <div class="container-fluid">
+          <div class="fat_footer_container">
+            <div class="execmatlabweb"> <!--Requried for Doc Test -->
+<div class="row">
+<div class="col-xs-12 col-md-12 col-lg-9 col-lg-push-3 add_margin_20">
+<div class="row">
+<div class="col-xs-12 col-sm-2">
+<h5>Produkte</h5>
+<ul class="list-unstyled">
+<li><a href="https://de.mathworks.com/products/matlab.html?s_tid=hp_ff_p_matlab">MATLAB</a></li>
+<li><a href="https://de.mathworks.com/products/simulink.html?s_tid=hp_ff_p_simulink">Simulink</a></li>
+<li><a href="https://de.mathworks.com/academia/student_version.html?s_tid=hp_ff_p_student">Software für Studierende</a></li>
+<li><a href="https://de.mathworks.com/hardware-support/home.html?s_tid=hp_ff_p_hwsupport">Hardware-Unterstützung</a></li>
+<li><a href="https://de.mathworks.com/matlabcentral/fileexchange/?s_tid=hp_ff_p_fx">File Exchange</a></li>
+</ul>
+</div>
+<div class="col-xs-12 col-sm-2">
+<h5>Testen oder Kaufen</h5>
+<ul class="list-unstyled">
+<li><a href="https://de.mathworks.com/downloads/web_downloads/?s_iid=hp_ff_t_downloads">Downloads</a></li>
+<li><a href="https://de.mathworks.com/campaigns/products/trials.html?s_iid=hp_ff_p_trial">Demo-Software</a></li>
+<li><a href="https://de.mathworks.com/company/aboutus/contact_us/contact_sales.html?s_iid=hp_ff_t_sales">Vertrieb kontaktieren</a></li>
+<li><a href="https://de.mathworks.com/pricing-licensing.html?s_iid=hp_ff_t_pricing">Preise und Lizenzierung</a></li>
+<li><a href="https://de.mathworks.com/store?s_tid=hp_ff_t_buy">Store</a></li>
+</ul>
+</div>
+<div class="col-xs-12 col-sm-2">
+<h5>Lernen</h5>
+<ul class="list-unstyled">
+<li><a href="https://de.mathworks.com/help/?s_tid=hp_ff_l_doc">Dokumentation</a></li>
+<li><a href="https://de.mathworks.com/support/learn-with-matlab-tutorials.html?s_tid=hp_ff_l_tutorials">Tutorials</a></li>
+<li><a href="https://de.mathworks.com/help/examples.html?s_tid=hp_ff_l_examples">Beispiele</a></li>
+<li><a href="https://de.mathworks.com/videos.html?s_tid=hp_ff_l_videos">Videos und Webinare</a></li>
+<li><a href="https://de.mathworks.com/services/training.html?s_tid=hp_ff_l_training">Schulungen</a></li>
+</ul>
+</div>
+<div class="clearfix" id="offcanvas_clearfix" style="display:none"></div>
+<div class="col-xs-12 col-sm-2">
+<h5>Support</h5>
+<ul class="list-unstyled">
+<li><a href="https://de.mathworks.com/support/install-matlab.html?s_tid=hp_ff_s_install">Hilfe zur Installation</a></li>
+<li><a href="https://de.mathworks.com/matlabcentral/answers/index?s_tid=hp_ff_s_answers">Antworten</a></li>
+<li><a href="https://de.mathworks.com/services/consulting.html?s_tid=hp_ff_s_consulting">Consulting</a></li>
+<li><a href="https://de.mathworks.com/licensecenter/?s_tid=hp_ff_s_license">License Center</a></li>
+</ul>
+</div>
+<div class="col-xs-12 col-sm-2">
+<h5>Über MathWorks</h5>
+<ul class="list-unstyled">
+<li><a href="https://de.mathworks.com/company/jobs/opportunities/?s_tid=hp_ff_a_careers">Jobs &amp; Karriere</a></li>
+<li><a href="https://de.mathworks.com/company/newsroom.html?s_tid=hp_ff_a_newsroom">Presse</a></li>
+<li><a href="https://de.mathworks.com/company/aboutus/soc_mission.html?s_tid=hp_ff_a_socialmission">Social Mission</a></li>
+<li><a href="https://de.mathworks.com/company/aboutus/contact_us.html?s_tid=hp_ff_a_contact">Kontakt</a></li>
+<li><a href="https://de.mathworks.com/company.html?s_tid=hp_ff_a_company">Über MathWorks</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-xs-12 col-md-12 col-lg-3 col-lg-pull-9">
+<h4 class="add_font_futura_medium add_margin_0"><span translate="no">MathWorks</span></h4>
+<p><em>Accelerating the pace of engineering and science</em></p>
+<p>MathWorks ist der führende Entwickler von Software für mathematische Berechnungen für Ingenieure und Wissenschaftler.</p>
+<p><a href="https://de.mathworks.com/discovery.html?s_tid=all_disc_mw_ff">Entdecken Sie...</a></p>
+</div>
+</div>
+</div>
+          </div>
+        </div>
+        <!-- FAT FOOTER - End -->
+      <div class="container-fluid">
+       <div class="footer" translate="no">
+<div class="row">
+<div class="col-xs-12 col-lg-9">
+<ul class="countrynav" id="countrynav">
+<li class="footernav_country">
+<a onclick="$(&#39;#country-unselected&#39;).modal(&#39;show&#39;);">
+<span class="icon-globe icon_color_quinary icon_16"></span>Deutschland
+</a>
+</li>
+</ul>
+<div class="clearfix"></div>
+<ul class="footernav">
+<li class="footernav_patents"><a href="https://de.mathworks.com/company/aboutus/policies_statements/patents.html?s_tid=gf_pat">Patente</a></li>
+<li class="footernav_trademarks"><a href="https://de.mathworks.com/company/aboutus/policies_statements/trademarks.html?s_tid=gf_trd">Handelsmarken</a></li>
+<li class="footernav_privacy"><a href="https://de.mathworks.com/company/aboutus/policies_statements.html?s_tid=gf_priv">Datenschutz</a></li>
+<li class="footernav_piracy"><a href="https://de.mathworks.com/company/aboutus/policies_statements/piracy.html?s_tid=gf_pir">Preventing Piracy</a></li>
+<li class="footernav_status"><a href="https://status.mathworks.com/?s_tid=gf_application">Status von Anwendungen</a></li>
+</ul>
+<div class="clearfix"></div>
+<div class="clearfix"></div>
+<p class="copyright" translate="no">© 1994-2019 The MathWorks, Inc.</p>
+</div>
+<div class="clearfix visible-sm add_margin_10"></div>
+<div class="col-xs-12 col-lg-3">
+<div class="social_media">
+<ul class="social_media_icons">
+<li>
+<a href="http://www.facebook.com/MATLAB" target="_blank" class="svg_link">
+<img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/ico-facebook.svg" alt="Facebook" class="ico_facebook">
+</a>
+</li>
+<li>
+<a href="http://www.twitter.com/MATLAB" target="_blank" class="svg_link">
+<img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/ico-twitter.svg" alt="Twitter" class="ico_twitter">
+</a>
+</li>
+<li>
+<a href="https://www.instagram.com/matlab/" class="svg_link" target="_blank">
+<img class="ico_instagram" alt="Instagram" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/ico-instagram.svg">
+</a>
+</li>
+<li>
+<a href="https://www.youtube.com/user/MATLAB" class="svg_link" target="_blank">
+<img class="ico_youtube" alt="YouTube" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/ico-youtube.svg">
+</a>
+</li>
+<li>
+<a href="http://www.linkedin.com/company/the-mathworks_2" target="_blank" class="svg_link">
+<img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/ico-linkedin.svg" alt="LinkedIn" class="ico_linkedin">
+</a>
+</li>
+<li>
+<a href="https://de.mathworks.com/company/rss.html" class="svg_link">
+<img src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/ico-rss.svg" alt="RSS" class="ico_rss">
+</a>
+</li>
+</ul>
+<div class="clearfix"></div>
+<p><em>Folgen Sie uns</em></p>
+</div>
+</div>
+</div>
+</div>
+<div id="cookie-banner-text" style="display:none;">This website uses cookies to improve your user experience, personalize content and ads, and analyze website traffic. By continuing to use this website, you consent to our use of cookies. Please see our <a href="https://de.mathworks.com/company/aboutus/policies_statements.html">Privacy Policy</a> to learn more about cookies and how to change your settings.</div>
+<!-- BEGIN Adobe DTM -->
+<script type="text/javascript">
+try {
+_satellite.pageBottom();
+} catch (e) {
+//something went wrong
+}
+</script><script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/satellite-5672ffbd64746d5bd3002853.js.Download"></script><!--DTM LinkedIn Pixel-->
+<img height="1" width="1" style="display:none;" alt="" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/saved_resource"><script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/8664" type="text/javascript"> </script>
+<!-- END Adobe DTM -->
+      </div>
+    </footer>
+
+  </div>
+
+
+
+<a class="btn btn_color_mediumgray" id="go-top"><span class="icon-arrow-open-up icon_24"></span></a><div id="cookie-banner" class="alert-warning"><div id="cookie-icon" class="text-right"><span class="icon-alert-warning icon_24">&nbsp;</span></div><div id="cookie-text">This website uses cookies to improve your user experience, personalize content and ads, and analyze website traffic. By continuing to use this website, you consent to our use of cookies. Please see our <a href="https://de.mathworks.com/company/aboutus/policies_statements.html">Privacy Policy</a> to learn more about cookies and how to change your settings.</div><div id="cookie-remove"><span class="icon-remove icon_16">&nbsp;</span></div></div><iframe sandbox="allow-scripts allow-same-origin" title="Adobe ID Syncing iFrame" id="destination_publishing_iframe_mathworks_0" name="destination_publishing_iframe_mathworks_0_name" src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/dest5.html" class="aamIframeLoaded" style="display: none; width: 0px; height: 0px;"></iframe><span id="MathEquationRendererScratch" class="MathEquation" style="position: absolute; right: -1000px; bottom: -1000px; white-space: pre-wrap; font-size: 15px;"></span><script src="./Train a Cascade Object Detector - MATLAB &amp; Simulink - MathWorks Deutschland_files/adsct" type="text/javascript"></script></body></html>

@@ -1,0 +1,2197 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)https://de.mathworks.com/help/stats/support-vector-machine-classification.html -->
+<html class="wf-museoslab-n7-active wf-futurapt-n5-active wf-futurapt-i5-active wf-futurapt-n7-active wf-futurapt-i7-active wf-futurapt-n4-active wf-futurapt-i4-active wf-automate-n4-active wf-minionprosubhead-n4-active wf-active"><head class="at-element-marker"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Support Vector Machine Classification
+- MATLAB &amp; Simulink
+- MathWorks Deutschland</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6.css" rel="stylesheet" type="text/css">
+<link href="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_lg.css" rel="stylesheet" media="screen and (min-width: 1200px)">
+<link href="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_md.css" rel="stylesheet" media="screen and (min-width: 992px) and (max-width: 1199px)">
+<link href="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_sm+xs.css" rel="stylesheet" media="screen and (max-width: 991px)">
+<link href="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_sm.css" rel="stylesheet" media="screen and (min-width: 768px) and (max-width: 991px)">
+<link href="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_xs.css" rel="stylesheet" media="screen and (max-width: 767px)">
+<link href="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_offcanvas.css" rel="stylesheet" type="text/css">
+<link href="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_crux.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" async="" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/elqCfg.min.js.Download"></script><script async="" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/uwt.js.Download"></script><script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/quant.js.Download" async="" type="text/javascript"></script><script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/186030155234771" async=""></script><script async="" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/fbevents.js.Download"></script><script type="text/javascript" async="" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/f.txt"></script><script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/jquery-latest.js.Download"></script>
+<script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/jquery.mobile.custom.min.js.Download"></script>
+<script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/bootstrap.min.js.Download"></script>
+<script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/global.js.Download"></script>
+<script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/xvy5baa.js.Download"></script>
+<style type="text/css">.tk-museo-slab{font-family:"museo-slab",serif;}.tk-futura-pt{font-family:"futura-pt","Arial","Helvetica",sans-serif;}.tk-automate{font-family:"automate",sans-serif;}.tk-minion-pro-subhead{font-family:"minion-pro-subhead",serif;}</style><style type="text/css">@font-face{font-family:museo-slab;src:url(//fonts.mathworks.com/k/0e548aec395bd99926a27577e842e818def6ba83-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/0e548aec395bd99926a27577e842e818def6ba83-d.woff) format("woff"),url(//fonts.mathworks.com/k/0e548aec395bd99926a27577e842e818def6ba83-a.otf) format("opentype");font-weight:700;font-style:normal;}@font-face{font-family:futura-pt;src:url(//fonts.mathworks.com/k/87868ea7533b245fa343d5fd2e370ee0daee1db8-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/87868ea7533b245fa343d5fd2e370ee0daee1db8-d.woff) format("woff"),url(//fonts.mathworks.com/k/87868ea7533b245fa343d5fd2e370ee0daee1db8-a.otf) format("opentype");font-weight:500;font-style:normal;}@font-face{font-family:futura-pt;src:url(//fonts.mathworks.com/k/fa63f4ee95571fac0c3fde550489d0874f44e7d1-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/fa63f4ee95571fac0c3fde550489d0874f44e7d1-d.woff) format("woff"),url(//fonts.mathworks.com/k/fa63f4ee95571fac0c3fde550489d0874f44e7d1-a.otf) format("opentype");font-weight:500;font-style:italic;}@font-face{font-family:futura-pt;src:url(//fonts.mathworks.com/k/78f589bb61056c7dc2c42601e2fd59aa96941141-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/78f589bb61056c7dc2c42601e2fd59aa96941141-d.woff) format("woff"),url(//fonts.mathworks.com/k/78f589bb61056c7dc2c42601e2fd59aa96941141-a.otf) format("opentype");font-weight:700;font-style:normal;}@font-face{font-family:futura-pt;src:url(//fonts.mathworks.com/k/599bfc6908295758da16f495738fa5c76ccf9542-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/599bfc6908295758da16f495738fa5c76ccf9542-d.woff) format("woff"),url(//fonts.mathworks.com/k/599bfc6908295758da16f495738fa5c76ccf9542-a.otf) format("opentype");font-weight:700;font-style:italic;}@font-face{font-family:futura-pt;src:url(//fonts.mathworks.com/k/0ffa5e8c8eb076cc21ede9987250dfa4f2af4438-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/0ffa5e8c8eb076cc21ede9987250dfa4f2af4438-d.woff) format("woff"),url(//fonts.mathworks.com/k/0ffa5e8c8eb076cc21ede9987250dfa4f2af4438-a.otf) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:futura-pt;src:url(//fonts.mathworks.com/k/3f4899217323502feaae94c179311206f731a52e-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/3f4899217323502feaae94c179311206f731a52e-d.woff) format("woff"),url(//fonts.mathworks.com/k/3f4899217323502feaae94c179311206f731a52e-a.otf) format("opentype");font-weight:400;font-style:italic;}@font-face{font-family:automate;src:url(//fonts.mathworks.com/k/5206f40617c623d40dd6b3ccbaacecaf00952a16-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/5206f40617c623d40dd6b3ccbaacecaf00952a16-d.woff) format("woff"),url(//fonts.mathworks.com/k/5206f40617c623d40dd6b3ccbaacecaf00952a16-a.otf) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:minion-pro-subhead;src:url(//fonts.mathworks.com/k/d4d1694195e6776198a56670eb3252a367c04b04-l.woff2) format("woff2"),url(//fonts.mathworks.com/k/d4d1694195e6776198a56670eb3252a367c04b04-d.woff) format("woff"),url(//fonts.mathworks.com/k/d4d1694195e6776198a56670eb3252a367c04b04-a.otf) format("opentype");font-weight:400;font-style:normal;}</style><script>try{Typekit.load();}catch(e){}</script>
+<!-- BEGIN Adobe DTM -->
+<script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/satelliteLib-e8d23c2e444abadc572df06537e2def59c01db09.js.Download"></script><script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/mbox-contents-95c6a4d9c82a8d20476522984666120b54192e9b.js.Download"></script><script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/satellite-58fe08cb64746d190500a115.js.Download"></script><script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/satellite-56972e2c64746d54aa00cb73.js.Download"></script><style id="at-makers-style" class="at-flicker-control">
+.mboxDefault {visibility:hidden;}
+</style><script async="" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-1023777138');
+</script><script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/last-event-tag-latest.min.js.Download"></script>
+<script>AdCloudEvent("B1441C8B533095C00A490D4D@AdobeOrg","mathwgbl");</script>
+<!-- END Adobe DTM -->
+<link href="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/site6_de.css" rel="stylesheet" type="text/css">
+<link href="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/doc_center.css" rel="stylesheet" type="text/css">
+<link href="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/doc_center_print.css" rel="stylesheet" type="text/css" media="print">
+<script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/matlab_dialog.js.Download"></script>
+<script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/openwith.js.Download"></script><script type="text/javascript">
+/*T&T Metadata v3 ==>Response Plugin*/
+window.ttMETA=(typeof(window.ttMETA)!="undefined")?window.ttMETA:[];window.ttMETA.push({"CampaignName":"","CampaignId":"","RecipeName":"","RecipeId":"","OfferId":"","OfferName":"","MboxName":"target-global-mbox"});
+</script><script type="text/javascript">
+var test_name= "";
+var tntRecipeName= "";
+</script>
+<style>
+.examples_short_list a.btn {display: none;}
+</style>
+<script xmlns="http://www.w3.org/1999/xhtml" type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "BreadcrumbList",
+"itemListElement":
+[{
+"@type": "ListItem",
+"position": 1,
+"item": {
+"@id": "index.html",
+"name": "Statistics and Machine Learning Toolbox"
+}
+}
+,
+{
+"@type": "ListItem",
+"position": 2,
+"item": {
+"@id": "classification.html",
+"name": "Classification"
+}
+}]
+}</script><script xmlns="http://www.w3.org/1999/xhtml" type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "ItemList",
+"name": "ReferenceEntities",
+"itemListElement":
+[ {
+"@type": "ListItem",
+"position": 1,
+"item": {
+"identifier": "app:Classification Learner",
+"name": "Classification Learner"
+}
+},
+{
+"@type": "ListItem",
+"position": 2,
+"item": {
+"identifier": "function:fitcsvm",
+"name": "fitcsvm"
+}
+},
+{
+"@type": "ListItem",
+"position": 3,
+"item": {
+"identifier": "function:fitSVMPosterior",
+"name": "fitSVMPosterior"
+}
+},
+{
+"@type": "ListItem",
+"position": 4,
+"item": {
+"identifier": "function:predict",
+"name": "predict"
+}
+},
+{
+"@type": "ListItem",
+"position": 5,
+"item": {
+"identifier": "function:templateSVM",
+"name": "templateSVM"
+}
+},
+{
+"@type": "ListItem",
+"position": 6,
+"item": {
+"identifier": "function:fitclinear",
+"name": "fitclinear"
+}
+},
+{
+"@type": "ListItem",
+"position": 7,
+"item": {
+"identifier": "method:ClassificationLinear.predict",
+"name": "predict"
+}
+},
+{
+"@type": "ListItem",
+"position": 8,
+"item": {
+"identifier": "function:templateLinear",
+"name": "templateLinear"
+}
+},
+{
+"@type": "ListItem",
+"position": 9,
+"item": {
+"identifier": "function:fitckernel",
+"name": "fitckernel"
+}
+},
+{
+"@type": "ListItem",
+"position": 10,
+"item": {
+"identifier": "function:predict",
+"name": "predict"
+}
+},
+{
+"@type": "ListItem",
+"position": 11,
+"item": {
+"identifier": "function:templateKernel",
+"name": "templateKernel"
+}
+},
+{
+"@type": "ListItem",
+"position": 12,
+"item": {
+"identifier": "function:fitcecoc",
+"name": "fitcecoc"
+}
+},
+{
+"@type": "ListItem",
+"position": 13,
+"item": {
+"identifier": "function:predict",
+"name": "predict"
+}
+},
+{
+"@type": "ListItem",
+"position": 14,
+"item": {
+"identifier": "function:templateECOC",
+"name": "templateECOC"
+}
+},
+{
+"@type": "ListItem",
+"position": 15,
+"item": {
+"identifier": "object:ClassificationSVM",
+"name": "ClassificationSVM"
+}
+},
+{
+"@type": "ListItem",
+"position": 16,
+"item": {
+"identifier": "object:CompactClassificationSVM",
+"name": "CompactClassificationSVM"
+}
+},
+{
+"@type": "ListItem",
+"position": 17,
+"item": {
+"identifier": "class:classreg.learning.partition.ClassificationPartitionedModel",
+"name": "ClassificationPartitionedModel"
+}
+},
+{
+"@type": "ListItem",
+"position": 18,
+"item": {
+"identifier": "class:ClassificationLinear",
+"name": "ClassificationLinear"
+}
+},
+{
+"@type": "ListItem",
+"position": 19,
+"item": {
+"identifier": "class:classreg.learning.partition.ClassificationPartitionedLinear",
+"name": "ClassificationPartitionedLinear"
+}
+},
+{
+"@type": "ListItem",
+"position": 20,
+"item": {
+"identifier": "object:ClassificationKernel",
+"name": "ClassificationKernel"
+}
+},
+{
+"@type": "ListItem",
+"position": 21,
+"item": {
+"identifier": "object:ClassificationPartitionedKernel",
+"name": "ClassificationPartitionedKernel"
+}
+},
+{
+"@type": "ListItem",
+"position": 22,
+"item": {
+"identifier": "object:ClassificationECOC",
+"name": "ClassificationECOC"
+}
+},
+{
+"@type": "ListItem",
+"position": 23,
+"item": {
+"identifier": "object:CompactClassificationECOC",
+"name": "CompactClassificationECOC"
+}
+},
+{
+"@type": "ListItem",
+"position": 24,
+"item": {
+"identifier": "object:ClassificationPartitionedECOC",
+"name": "ClassificationPartitionedECOC"
+}
+},
+{
+"@type": "ListItem",
+"position": 25,
+"item": {
+"identifier": "class:classreg.learning.partition.ClassificationPartitionedLinearECOC",
+"name": "ClassificationPartitionedLinearECOC"
+}
+},
+{
+"@type": "ListItem",
+"position": 26,
+"item": {
+"identifier": "object:ClassificationPartitionedKernelECOC",
+"name": "ClassificationPartitionedKernelECOC"
+}
+} ],
+"itemListOrder": "http://schema.org/ItemListOrderAscending"
+}
+</script><script xmlns="http://www.w3.org/1999/xhtml" type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "ItemList",
+"name": "UnlistedReferenceEntities",
+"itemListElement":
+[ {
+"@type": "ListItem",
+"position": 1,
+"item": {
+"identifier": "function:loss",
+"name": "loss"
+}
+},
+{
+"@type": "ListItem",
+"position": 2,
+"item": {
+"identifier": "function:crossval",
+"name": "crossval"
+}
+},
+{
+"@type": "ListItem",
+"position": 3,
+"item": {
+"identifier": "function:designecoc",
+"name": "designecoc"
+}
+},
+{
+"@type": "ListItem",
+"position": 4,
+"item": {
+"identifier": "function:discardSupportVectors",
+"name": "discardSupportVectors"
+}
+},
+{
+"@type": "ListItem",
+"position": 5,
+"item": {
+"identifier": "function:compareHoldout",
+"name": "compareHoldout"
+}
+},
+{
+"@type": "ListItem",
+"position": 6,
+"item": {
+"identifier": "method:ClassificationLinear.loss",
+"name": "loss"
+}
+},
+{
+"@type": "ListItem",
+"position": 7,
+"item": {
+"identifier": "function:resume",
+"name": "resume"
+}
+},
+{
+"@type": "ListItem",
+"position": 8,
+"item": {
+"identifier": "function:discardSupportVectors",
+"name": "discardSupportVectors"
+}
+},
+{
+"@type": "ListItem",
+"position": 9,
+"item": {
+"identifier": "function:compareHoldout",
+"name": "compareHoldout"
+}
+},
+{
+"@type": "ListItem",
+"position": 10,
+"item": {
+"identifier": "function:loss",
+"name": "loss"
+}
+},
+{
+"@type": "ListItem",
+"position": 11,
+"item": {
+"identifier": "function:crossval",
+"name": "crossval"
+}
+},
+{
+"@type": "ListItem",
+"position": 12,
+"item": {
+"identifier": "function:compact",
+"name": "compact"
+}
+},
+{
+"@type": "ListItem",
+"position": 13,
+"item": {
+"identifier": "function:compact",
+"name": "compact"
+}
+},
+{
+"@type": "ListItem",
+"position": 14,
+"item": {
+"identifier": "function:compact",
+"name": "compact"
+}
+},
+{
+"@type": "ListItem",
+"position": 15,
+"item": {
+"identifier": "function:fitPosterior",
+"name": "fitPosterior"
+}
+},
+{
+"@type": "ListItem",
+"position": 16,
+"item": {
+"identifier": "function:fitPosterior",
+"name": "fitPosterior"
+}
+},
+{
+"@type": "ListItem",
+"position": 17,
+"item": {
+"identifier": "function:resubEdge",
+"name": "resubEdge"
+}
+},
+{
+"@type": "ListItem",
+"position": 18,
+"item": {
+"identifier": "function:resubLoss",
+"name": "resubLoss"
+}
+},
+{
+"@type": "ListItem",
+"position": 19,
+"item": {
+"identifier": "function:resubMargin",
+"name": "resubMargin"
+}
+},
+{
+"@type": "ListItem",
+"position": 20,
+"item": {
+"identifier": "function:resubPredict",
+"name": "resubPredict"
+}
+},
+{
+"@type": "ListItem",
+"position": 21,
+"item": {
+"identifier": "function:resubEdge",
+"name": "resubEdge"
+}
+},
+{
+"@type": "ListItem",
+"position": 22,
+"item": {
+"identifier": "function:resubLoss",
+"name": "resubLoss"
+}
+},
+{
+"@type": "ListItem",
+"position": 23,
+"item": {
+"identifier": "function:resubMargin",
+"name": "resubMargin"
+}
+},
+{
+"@type": "ListItem",
+"position": 24,
+"item": {
+"identifier": "function:resubPredict",
+"name": "resubPredict"
+}
+},
+{
+"@type": "ListItem",
+"position": 25,
+"item": {
+"identifier": "function:edge",
+"name": "edge"
+}
+},
+{
+"@type": "ListItem",
+"position": 26,
+"item": {
+"identifier": "function:margin",
+"name": "margin"
+}
+},
+{
+"@type": "ListItem",
+"position": 27,
+"item": {
+"identifier": "function:edge",
+"name": "edge"
+}
+},
+{
+"@type": "ListItem",
+"position": 28,
+"item": {
+"identifier": "function:margin",
+"name": "margin"
+}
+},
+{
+"@type": "ListItem",
+"position": 29,
+"item": {
+"identifier": "method:ClassificationLinear.edge",
+"name": "edge"
+}
+},
+{
+"@type": "ListItem",
+"position": 30,
+"item": {
+"identifier": "method:ClassificationLinear.margin",
+"name": "margin"
+}
+},
+{
+"@type": "ListItem",
+"position": 31,
+"item": {
+"identifier": "function:selectModels",
+"name": "selectModels"
+}
+},
+{
+"@type": "ListItem",
+"position": 32,
+"item": {
+"identifier": "method:ClassificationLinear.selectModels",
+"name": "selectModels"
+}
+},
+{
+"@type": "ListItem",
+"position": 33,
+"item": {
+"identifier": "method:ClassificationPartitionedModel.kfoldEdge",
+"name": "kfoldEdge"
+}
+},
+{
+"@type": "ListItem",
+"position": 34,
+"item": {
+"identifier": "method:ClassificationPartitionedModel.kfoldLoss",
+"name": "kfoldLoss"
+}
+},
+{
+"@type": "ListItem",
+"position": 35,
+"item": {
+"identifier": "method:ClassificationPartitionedModel.kfoldfun",
+"name": "kfoldfun"
+}
+},
+{
+"@type": "ListItem",
+"position": 36,
+"item": {
+"identifier": "method:ClassificationPartitionedModel.kfoldMargin",
+"name": "kfoldMargin"
+}
+},
+{
+"@type": "ListItem",
+"position": 37,
+"item": {
+"identifier": "method:ClassificationPartitionedModel.kfoldPredict",
+"name": "kfoldPredict"
+}
+},
+{
+"@type": "ListItem",
+"position": 38,
+"item": {
+"identifier": "function:kfoldEdge",
+"name": "kfoldEdge"
+}
+},
+{
+"@type": "ListItem",
+"position": 39,
+"item": {
+"identifier": "function:kfoldLoss",
+"name": "kfoldLoss"
+}
+},
+{
+"@type": "ListItem",
+"position": 40,
+"item": {
+"identifier": "function:kfoldfun",
+"name": "kfoldfun"
+}
+},
+{
+"@type": "ListItem",
+"position": 41,
+"item": {
+"identifier": "function:kfoldMargin",
+"name": "kfoldMargin"
+}
+},
+{
+"@type": "ListItem",
+"position": 42,
+"item": {
+"identifier": "function:kfoldPredict",
+"name": "kfoldPredict"
+}
+},
+{
+"@type": "ListItem",
+"position": 43,
+"item": {
+"identifier": "method:ClassificationPartitionedLinearECOC.kfoldEdge",
+"name": "kfoldEdge"
+}
+},
+{
+"@type": "ListItem",
+"position": 44,
+"item": {
+"identifier": "method:ClassificationPartitionedLinearECOC.kfoldLoss",
+"name": "kfoldLoss"
+}
+},
+{
+"@type": "ListItem",
+"position": 45,
+"item": {
+"identifier": "method:ClassificationPartitionedLinearECOC.kfoldMargin",
+"name": "kfoldMargin"
+}
+},
+{
+"@type": "ListItem",
+"position": 46,
+"item": {
+"identifier": "method:ClassificationPartitionedLinearECOC.kfoldPredict",
+"name": "kfoldPredict"
+}
+},
+{
+"@type": "ListItem",
+"position": 47,
+"item": {
+"identifier": "method:ClassificationPartitionedLinear.kfoldEdge",
+"name": "kfoldEdge"
+}
+},
+{
+"@type": "ListItem",
+"position": 48,
+"item": {
+"identifier": "method:ClassificationPartitionedLinear.kfoldLoss",
+"name": "kfoldLoss"
+}
+},
+{
+"@type": "ListItem",
+"position": 49,
+"item": {
+"identifier": "method:ClassificationPartitionedLinear.kfoldMargin",
+"name": "kfoldMargin"
+}
+},
+{
+"@type": "ListItem",
+"position": 50,
+"item": {
+"identifier": "method:ClassificationPartitionedLinear.kfoldPredict",
+"name": "kfoldPredict"
+}
+},
+{
+"@type": "ListItem",
+"position": 51,
+"item": {
+"identifier": "function:edge",
+"name": "edge"
+}
+},
+{
+"@type": "ListItem",
+"position": 52,
+"item": {
+"identifier": "function:loss",
+"name": "loss"
+}
+},
+{
+"@type": "ListItem",
+"position": 53,
+"item": {
+"identifier": "function:margin",
+"name": "margin"
+}
+},
+{
+"@type": "ListItem",
+"position": 54,
+"item": {
+"identifier": "function:resume",
+"name": "resume"
+}
+},
+{
+"@type": "ListItem",
+"position": 55,
+"item": {
+"identifier": "function:update",
+"name": "update"
+}
+},
+{
+"@type": "ListItem",
+"position": 56,
+"item": {
+"identifier": "method:classreg.learning.partition.ClassificationPartitionedKernel.kfoldEdge",
+"name": "kfoldEdge"
+}
+},
+{
+"@type": "ListItem",
+"position": 57,
+"item": {
+"identifier": "method:classreg.learning.partition.ClassificationPartitionedKernel.kfoldLoss",
+"name": "kfoldLoss"
+}
+},
+{
+"@type": "ListItem",
+"position": 58,
+"item": {
+"identifier": "method:classreg.learning.partition.ClassificationPartitionedKernel.kfoldMargin",
+"name": "kfoldMargin"
+}
+},
+{
+"@type": "ListItem",
+"position": 59,
+"item": {
+"identifier": "method:classreg.learning.partition.ClassificationPartitionedKernel.kfoldPredict",
+"name": "kfoldPredict"
+}
+},
+{
+"@type": "ListItem",
+"position": 60,
+"item": {
+"identifier": "method:classreg.learning.partition.ClassificationPartitionedKernelECOC.kfoldEdge",
+"name": "kfoldEdge"
+}
+},
+{
+"@type": "ListItem",
+"position": 61,
+"item": {
+"identifier": "method:classreg.learning.partition.ClassificationPartitionedKernelECOC.kfoldLoss",
+"name": "kfoldLoss"
+}
+},
+{
+"@type": "ListItem",
+"position": 62,
+"item": {
+"identifier": "method:classreg.learning.partition.ClassificationPartitionedKernelECOC.kfoldMargin",
+"name": "kfoldMargin"
+}
+},
+{
+"@type": "ListItem",
+"position": 63,
+"item": {
+"identifier": "method:classreg.learning.partition.ClassificationPartitionedKernelECOC.kfoldPredict",
+"name": "kfoldPredict"
+}
+} ],
+"itemListOrder": "http://schema.org/ItemListOrderAscending"
+}
+</script>
+<meta xmlns="http://www.w3.org/1999/xhtml" http-equiv="Content-Script-Type" content="text/javascript">
+<meta xmlns="http://www.w3.org/1999/xhtml" name="toctype" itemprop="pagetype" content="cat">
+<meta xmlns="http://www.w3.org/1999/xhtml" name="infotype" itemprop="infotype" content="cat">
+<meta xmlns="http://www.w3.org/1999/xhtml" name="description" itemprop="description" content="Support vector machines for binary or multiclass classification"><script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/l10n.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/docscripts.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/f1help.js.Download"></script><script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/f(1).txt"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/mw.toc_2.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/mw.imagescaling.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/mw.imageanimation.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/mw.breadcrumb.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/jquery.highlight.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/underscore-min.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/examples.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/doc_omniture.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/overload.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/helpservices.js.Download"></script>
+<!-- Additions/overrides from the doc side -->
+<script type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/docsearch.js.Download"></script>
+<script type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/jquery.toggleval.js.Download"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/MathRenderer.js.Download"></script><style type="text/css">math { visibility: hidden; }</style><link type="text/css" rel="stylesheet" href="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/main.css"><script type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/dojo.js.Download"></script>
+<script type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/jquery.cookie.js.Download"></script>
+<script type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/akamai-country-code.js.Download"></script>
+<script type="text/javascript">
+var domainCountryCodeMap = new Map();
+var countryCodeToDomainMap = new Map();
+domainCountryCodeMap.set('www.mathworks.com', 'www');
+countryCodeToDomainMap.set('www','www.mathworks.com')
+domainCountryCodeMap.set('www.mathworks.com', 'www');
+countryCodeToDomainMap.set('www','www.mathworks.com')
+domainCountryCodeMap.set('la.mathworks.com', 'la');
+countryCodeToDomainMap.set('la','la.mathworks.com')
+domainCountryCodeMap.set('au.mathworks.com', 'au');
+countryCodeToDomainMap.set('au','au.mathworks.com')
+domainCountryCodeMap.set('de.mathworks.com', 'de');
+countryCodeToDomainMap.set('de','de.mathworks.com')
+domainCountryCodeMap.set('nl.mathworks.com', 'nl');
+countryCodeToDomainMap.set('nl','nl.mathworks.com')
+domainCountryCodeMap.set('ww2.mathworks.cn', 'ww2');
+countryCodeToDomainMap.set('ww2','ww2.mathworks.cn')
+domainCountryCodeMap.set('se.mathworks.com', 'se');
+countryCodeToDomainMap.set('se','se.mathworks.com')
+domainCountryCodeMap.set('se.mathworks.com', 'se');
+countryCodeToDomainMap.set('se','se.mathworks.com')
+domainCountryCodeMap.set('fr.mathworks.com', 'fr');
+countryCodeToDomainMap.set('fr','fr.mathworks.com')
+domainCountryCodeMap.set('de.mathworks.com', 'de');
+countryCodeToDomainMap.set('de','de.mathworks.com')
+domainCountryCodeMap.set('in.mathworks.com', 'in');
+countryCodeToDomainMap.set('in','in.mathworks.com')
+domainCountryCodeMap.set('uk.mathworks.com', 'uk');
+countryCodeToDomainMap.set('uk','uk.mathworks.com')
+domainCountryCodeMap.set('it.mathworks.com', 'it');
+countryCodeToDomainMap.set('it','it.mathworks.com')
+domainCountryCodeMap.set('jp.mathworks.com', 'jp');
+countryCodeToDomainMap.set('jp','jp.mathworks.com')
+domainCountryCodeMap.set('kr.mathworks.com', 'kr');
+countryCodeToDomainMap.set('kr','kr.mathworks.com')
+domainCountryCodeMap.set('nl.mathworks.com', 'nl');
+countryCodeToDomainMap.set('nl','nl.mathworks.com')
+domainCountryCodeMap.set('nl.mathworks.com', 'nl');
+countryCodeToDomainMap.set('nl','nl.mathworks.com')
+domainCountryCodeMap.set('au.mathworks.com', 'au');
+countryCodeToDomainMap.set('au','au.mathworks.com')
+domainCountryCodeMap.set('se.mathworks.com', 'se');
+countryCodeToDomainMap.set('se','se.mathworks.com')
+domainCountryCodeMap.set('www.mathworks.com', 'www');
+countryCodeToDomainMap.set('www','www.mathworks.com')
+domainCountryCodeMap.set('es.mathworks.com', 'es');
+countryCodeToDomainMap.set('es','es.mathworks.com')
+domainCountryCodeMap.set('se.mathworks.com', 'se');
+countryCodeToDomainMap.set('se','se.mathworks.com')
+domainCountryCodeMap.set('ch.mathworks.com', 'ch');
+countryCodeToDomainMap.set('ch','ch.mathworks.com')
+domainCountryCodeMap.set('uk.mathworks.com', 'uk');
+countryCodeToDomainMap.set('uk','uk.mathworks.com')
+var countrySubdomains = {
+US: {name: 'United States', subdomain: 'www'},
+AD: {name: 'Andorra', subdomain: 'es'},
+AR: {name: 'Argentina', subdomain: 'la'},
+AU: {name: 'Australia', subdomain: 'au'},
+AT: {name: 'Austria', subdomain: 'de'},
+BE: {name: 'Belgium', subdomain: 'nl'},
+BO: {name: 'Bolivia', subdomain: 'la'},
+BV: {name: 'Bouvet Islands', subdomain: 'se'},
+CA: {name: 'Canada', subdomain: 'www'},
+CL: {name: 'Chile', subdomain: 'la'},
+CN: {name: 'China', subdomain: 'cn'},
+CX: {name: 'Christmas Island', subdomain: 'au'},
+CC: {name: 'Cocos-Keeling Islands', subdomain: 'au'},
+CO: {name: 'Colombia', subdomain: 'la'},
+CR: {name: 'Costa Rica', subdomain: 'la'},
+DK: {name: 'Denmark', subdomain: 'se'},
+DO: {name: 'Dominican Republic', subdomain: 'la'},
+EC: {name: 'Ecuador', subdomain: 'la'},
+SV: {name: 'El Salvador', subdomain: 'la'},
+EE: {name: 'Estonia', subdomain: 'se'},
+FO: {name: 'Faroe Islands', subdomain: 'se'},
+FJ: {name: 'Fiji', subdomain: 'au'},
+FI: {name: 'Finland', subdomain: 'se'},
+FR: {name: 'France', subdomain: 'fr'},
+GF: {name: 'French Guiana', subdomain: 'fr'},
+PF: {name: 'French Polynesia', subdomain: 'fr'},
+DE: {name: 'Germany', subdomain: 'de'},
+GL: {name: 'Greenland', subdomain: 'se'},
+GP: {name: 'Guadalupe', subdomain: 'fr'},
+GT: {name: 'Guatemala', subdomain: 'la'},
+HN: {name: 'Honduras', subdomain: 'la'},
+IS: {name: 'Iceland', subdomain: 'se'},
+IN: {name: 'India', subdomain: 'in'},
+IE: {name: 'Ireland', subdomain: 'uk'},
+IT: {name: 'Italy', subdomain: 'it'},
+JP: {name: 'Japan', subdomain: 'jp'},
+KR: {name: 'Korea', subdomain: 'kr'},
+LV: {name: 'Latvia', subdomain: 'se'},
+LI: {name: 'Liechtenstein', subdomain: 'ch'},
+LT: {name: 'Lithuania', subdomain: 'se'},
+LU: {name: 'Luxembourg', subdomain: 'nl'},
+MQ: {name: 'Martinique', subdomain: 'fr'},
+YT: {name: 'Mayotte Island', subdomain: 'fr'},
+MX: {name: 'Mexico', subdomain: 'la'},
+MC: {name: 'Monaco', subdomain: 'fr'},
+NL: {name: 'Netherlands', subdomain: 'nl'},
+NC: {name: 'New Caledonia', subdomain: 'fr'},
+NZ: {name: 'New Zealand', subdomain: 'au'},
+NI: {name: 'Nicaragua', subdomain: 'la'},
+NO: {name: 'Norway', subdomain: 'se'},
+PA: {name: 'Panama', subdomain: 'la'},
+PG: {name: 'Papua New Guinea', subdomain: 'au'},
+PY: {name: 'Paraguay', subdomain: 'la'},
+PE: {name: 'Peru', subdomain: 'la'},
+PT: {name: 'Portugal', subdomain: 'www'},
+PR: {name: 'Puerto Rico', subdomain: 'la'},
+RE: {name: 'Reunion Island', subdomain: 'fr'},
+ES: {name: 'Spain', subdomain: 'es'},
+LK: {name: 'Sri Lanka', subdomain: 'in'},
+SE: {name: 'Sweden', subdomain: 'se'},
+CH: {name: 'Switzerland', subdomain: 'ch'},
+GB: {name: 'United Kingdom', subdomain: 'uk'},
+UY: {name: 'Uruguay', subdomain: 'la'},
+VA: {name: 'Vatican City', subdomain: 'it'},
+VE: {name: 'Venezuela', subdomain: 'la'},
+};
+var domainUtils = {
+isExemptUrl: function (url) {
+if(window.overrideDomainSelector){
+return true;
+}
+var exemptions = [
+'/api/parts/',
+'nocookie=true',
+'client=addons',
+'requestedDomain'
+];
+return exemptions.some(function (exemption) {
+return url.indexOf(exemption) != -1;
+});
+},
+endsWith: function( str, suffix ) {
+return str.substring( str.length - suffix.length, str.length ) === suffix;
+},
+getDomain: function (url) {
+var segments = url.split('/');
+return segments[2];
+},
+getSubdomain: function (domain) {
+return domainCountryCodeMap.get(domain);
+},
+setCookies: function (domain, lang) {
+var domainCookie = 'mathworks.com';
+if (this.endsWith(location.host, 'mathworks.cn')) {
+domainCookie = 'mathworks.cn';
+}
+var selectedSubdomain = this.getSubdomain(domain);
+if (this.endsWith(domain, 'mathworks.cn')) {
+selectedSubdomain = 'cn';
+}
+if (selectedSubdomain === 'www') {
+// This is what ePS did in EQUUS and Ruby, so...
+// we're just following suit.
+selectedSubdomain = 'us';
+}
+if (selectedSubdomain !== 'cn' && selectedSubdomain !== 'ch') {
+lang = '';
+}
+var cookieNames = this.getCookieNames(domain);
+var expires = new Date();
+expires.setFullYear(expires.getFullYear() + 68);
+var myJSON = JSON.stringify({
+domain: selectedSubdomain,
+lang: lang,
+v: 2
+});
+$.cookie(cookieNames.mwaPrefsCookieName, myJSON, {path: '/', expires: 20*365, domain: domainCookie});
+},
+getCookieNames: function (domain) {
+var mwaLoginCookieName = 'mwa';
+var mwaPrefsCookieName = 'mwa_prefs';
+var subdomainSuffix = '';
+if (subdomainSuffix != "") {
+mwaLoginCookieName = mwaLoginCookieName + subdomainSuffix;
+mwaPrefsCookieName = mwaPrefsCookieName + subdomainSuffix;
+}
+return {
+mwaLoginCookieName: mwaLoginCookieName,
+mwaPrefsCookieName: mwaPrefsCookieName,
+};
+},
+switchDomain: function (targetDomain, targetLang) {
+var targetUri = location.pathname;
+targetLang = this.getValidLang(this.getSubdomain(targetDomain), targetLang);
+var url = '//' + targetDomain;
+url += targetUri + location.search;
+url = url.replace(/requestedDomain=[a-z]?[a-z]?&?/, '');
+url = url.replace(/\&$/, '');
+url = url.replace(/\?$/, '');
+var requestedDomainParam = 'requestedDomain=' + targetLang;
+if (url.indexOf('?') > -1) {
+url = url + '&' + requestedDomainParam;
+} else {
+url = url + '?' + requestedDomainParam;
+}
+window.location = url;
+},
+getPrefCookie: function(currentDomain) {
+var cookieNames = this.getCookieNames(currentDomain);
+// regex from: https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie
+var cookieRegex = new RegExp("(?:(?:^|.*;\\s*)"+cookieNames.mwaPrefsCookieName+"\\s*\\=\\s*([^;]*).*$)|^.*$");
+if (document.cookie) {
+var cookieValue = document.cookie.replace(cookieRegex, "$1");
+if (cookieValue) {
+return JSON.parse(decodeURIComponent(cookieValue));
+}
+}
+return "";
+},
+getPrefDomain: function (currentDomain) {
+var mwaPrefsCookieJsonObject = this.getPrefCookie(currentDomain);
+var visitorPrefDomain;
+if (!!mwaPrefsCookieJsonObject) {
+visitorPrefDomain = mwaPrefsCookieJsonObject.domain;
+if (visitorPrefDomain === 'us') {
+visitorPrefDomain = 'www';
+}else if (visitorPrefDomain === 'cn') {
+visitorPrefDomain = 'ww2';
+}
+}
+return countryCodeToDomainMap.get(visitorPrefDomain);
+},
+getPrefLang: function (currentDomain) {
+var mwaPrefsCookieJsonObject = this.getPrefCookie(currentDomain);
+var multilingualDomainLanguageSupport = {};
+multilingualDomainLanguageSupport['ch'] = ['en','de','fr'];
+multilingualDomainLanguageSupport['cn'] = ['zh','en'];
+var currentDomainLangOptions = multilingualDomainLanguageSupport[mwaPrefsCookieJsonObject.domain];
+if (currentDomainLangOptions) {
+var cookiePrefLang = mwaPrefsCookieJsonObject.lang;
+if (currentDomainLangOptions.indexOf(cookiePrefLang) >= 0) {
+return cookiePrefLang;
+} else {
+return currentDomainLangOptions[0];
+}
+}
+return '';
+},
+getCookieVersion: function (currentDomain) {
+var mwaPrefsCookieJsonObject = this.getPrefCookie(currentDomain);
+return mwaPrefsCookieJsonObject.v;
+},
+getTargetDomainForCookies: function() {
+var targetDomain = "";
+if (this.endsWith(location.host, 'mathworks.cn')) {
+targetDomain = window.location.protocol + "//" + countryCodeToDomainMap.get('www');
+}else{
+targetDomain = window.location.protocol + "//" + countryCodeToDomainMap.get('ww2');
+}
+return targetDomain;
+},
+getValidLang: function (subdomain, lang) {
+var multilingualDomainLanguageSupport = {};
+multilingualDomainLanguageSupport['ch'] = ['en','de','fr'];
+multilingualDomainLanguageSupport['cn'] = ['zh','en'];
+multilingualDomainLanguageSupport['ww2'] = ['zh','en'];
+var currentDomainLangOptions = multilingualDomainLanguageSupport[subdomain];
+if (currentDomainLangOptions) {
+if (currentDomainLangOptions.indexOf(lang) >= 0) {
+return lang;
+} else {
+return currentDomainLangOptions[0];
+}
+}
+return '';
+},
+isDefaultLang: function (subdomain, lang) {
+var multilingualDomainLanguageDefault = {};
+multilingualDomainLanguageDefault['ch'] = 'en';
+multilingualDomainLanguageDefault['cn'] = 'zh';
+multilingualDomainLanguageDefault['ww2'] = 'zh';
+var currentDomainLang = multilingualDomainLanguageDefault[subdomain];
+if (currentDomainLang) {
+if (currentDomainLang === lang) {
+return true;
+} else {
+return false;
+}
+} else if (lang) {
+return false;
+}
+return true;
+}
+};
+$(window).on('load', function() {
+var currentUrl = window.location.href;
+var currentDomain = domainUtils.getDomain(currentUrl);
+var currentSubdomain = domainUtils.getSubdomain(currentDomain);
+var requestedDomainLangRegEx = RegExp('[?&]requestedDomain=([^&]*)').exec(window.location.search);
+if (requestedDomainLangRegEx) {
+var setLang = domainUtils.getValidLang(currentSubdomain, requestedDomainLangRegEx[1])
+domainUtils.setCookies(currentDomain, setLang);
+var URLWithoutRequestedDomain = window.location.href.replace(/requestedDomain=[a-z]?[a-z]?&?/, '');
+URLWithoutRequestedDomain = URLWithoutRequestedDomain.replace(/\&$/, '');
+URLWithoutRequestedDomain = URLWithoutRequestedDomain.replace(/\?$/, '');
+history.replaceState({}, document.title, URLWithoutRequestedDomain);
+window.location = URLWithoutRequestedDomain;
+}
+$('body').on('click', '.domain_selector_link', function (e) {
+e.preventDefault();
+var selectedDomain = domainUtils.getDomain(this.href);
+var selectedLang = $(this).data('lang');
+domainUtils.setCookies(selectedDomain, selectedLang);
+domainUtils.switchDomain(selectedDomain, selectedLang);
+});
+var currentCountryText =
+$('a[data-subdomain=\'' + currentSubdomain + '\'][data-default-lang=\'true\'][data-selected-text]')
+.data('selected-text');
+$('#countrySelectorButtonText').text(currentCountryText);
+var visitorPrefDomain = domainUtils.getPrefDomain(currentDomain);
+var visitorPrefLang = domainUtils.getPrefLang(currentDomain);
+var akamaiCountryCode;
+var akamaiprofile = CQ_Analytics.ClientContextMgr.getRegisteredStore('akamaiprofile');
+if (akamaiprofile) {
+akamaiCountryCode = akamaiprofile.getProperty('countryCode');
+}
+var recommendedSubdomain;
+var recommendedLink;
+if (akamaiCountryCode) {
+if (countrySubdomains[akamaiCountryCode] !== undefined) {
+recommendedSubdomain = countrySubdomains[akamaiCountryCode].subdomain;
+} else {
+recommendedSubdomain = 'www';
+}
+if (recommendedSubdomain === 'us') {
+recommendedSubdomain = 'www';
+}else if (recommendedSubdomain === 'cn') {
+recommendedSubdomain = 'ww2';
+}
+recommendedLink = $('a[data-subdomain=\'' + recommendedSubdomain + '\'][data-recommended-text]');
+} else if (visitorPrefDomain) {
+recommendedSubdomain = domainUtils.getSubdomain(visitorPrefDomain);
+if (visitorPrefLang) {
+recommendedLink = $('a[data-subdomain=\'' + recommendedSubdomain + '\'][data-lang=\'' + visitorPrefLang + '\']');
+} else {
+recommendedLink = $('a[data-subdomain=\'' + recommendedSubdomain + '\'][data-default-lang=\'true\']');
+}
+}
+if (!recommendedLink) {
+recommendedSubdomain = 'www';
+recommendedLink = $('a[data-subdomain=\'' + recommendedSubdomain + '\'][data-recommended-text]');
+}
+$('.recommended-country').text(recommendedLink.data('recommended-text'));
+$('#recommended_domain_button').attr('href', recommendedLink.attr('href'));
+$('#recommended_domain_button').attr('data-lang', recommendedLink.attr('data-lang'));
+$('body').on('click', '#recommended_domain_button', function (e) {
+e.preventDefault();
+var selectedDomain = domainUtils.getDomain(this.href);
+var selectedLang = $(this).data('lang');
+domainUtils.setCookies(selectedDomain, selectedLang);
+domainUtils.switchDomain(selectedDomain, selectedLang);
+});
+$('a.worldwide_link').attr('href', recommendedLink.attr('href'));
+$('a.worldwide_link').data('lang', recommendedLink.data('lang'));
+$('body').on('click', 'a.worldwide_link', function (e) {
+e.preventDefault();
+var selectedDomain = domainUtils.getDomain(this.href);
+var selectedLang = $(this).data('lang');
+domainUtils.setCookies(selectedDomain, selectedLang);
+var href = e.target.getAttribute('href');
+var worldwideLink = '/company/worldwide.html?s_tid=dmselect_cta&requestedDomain=';
+if(href) {
+location.href = href + worldwideLink;
+}
+});
+if (akamaiCountryCode === 'CN') {
+$('#china_performance_alert').show();
+}
+var crossDomain = "";
+if(domainUtils.endsWith(currentDomain, '.mathworks.cn')){
+crossDomain = countryCodeToDomainMap.get('www');
+}else{
+crossDomain = countryCodeToDomainMap.get('ww2');
+}
+if ((!domainUtils.endsWith(currentDomain, '.mathworks.com') && !domainUtils.endsWith(currentDomain, '.mathworks.cn')) || domainUtils.isExemptUrl(currentUrl)) {
+return;
+}
+if (!visitorPrefDomain) {
+if (akamaiCountryCode) {
+var akamaiDeterminedSubdomain = $('a[data-country-code=\'' + akamaiCountryCode + '\']').data('subdomain');
+if ((akamaiCountryCode.toLowerCase() === currentSubdomain) || (akamaiDeterminedSubdomain === currentSubdomain)) {
+domainUtils.setCookies(currentDomain, "");
+} else {
+$('#country-unselected').modal('show');
+}
+return;
+}
+if (currentSubdomain === 'www') {
+domainUtils.setCookies(currentDomain, '');
+} else {
+$('#country-unselected').modal('show');
+}
+} else if (akamaiCountryCode === 'CN' && !(visitorPrefDomain === 'CN') && !domainUtils.getCookieVersion(currentDomain)) {
+$('#country-unselected').modal('show');
+}
+});
+</script> <script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/satellite-5a6285a664746d3edc002109.js.Download"></script><script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/s-code-contents-73da148cb454c4f6e395aa8df704854c99540662.js.Download"></script></head>
+  
+<body id="responsive_offcanvas" class="no_animate" style="">
+
+  <!-- Mobile TopNav: Start -->
+<div class="header visible-xs visible-sm" id="header_mobile" translate="no" style="">
+<nav class="navbar navbar-default" role="navigation">
+<div class="container-fluid">
+<div class="row">
+<div class="col-xs-12">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle topnav_toggle" data-toggle="collapse" data-target="#topnav_collapse">
+<span class="sr-only">Toggle Main Navigation</span>
+<span class="icon-menu"></span>
+</button>
+<a href="https://de.mathworks.com/?s_tid=gn_logo" class="svg_link navbar-brand">
+<img src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/pic-header-mathworks-logo.svg" class="mw_logo" alt="MathWorks">
+</a>
+</div>
+</div>
+</div>
+<div class="row visible-xs visible-sm">
+<div class="col-xs-12">
+<div class="navbar-collapse collapse" id="topnav_collapse">
+<ul class="nav navbar-nav" id="topnav">
+<li class="headernav_login dropdown">
+<a href="https://de.mathworks.com/help/stats/support-vector-machine-classification.html#" class="dropdown-toggle" data-toggle="dropdown">
+Markus
+<b class="caret"></b>
+</a>
+<ul class="dropdown-menu">
+<li class="mwa-nav_account"><a href="https://de.mathworks.com/mwaccount/?s_tid=gn_myac">Eigener Account</a></li>
+<li class="mwa-nav_associate"><a href="https://de.mathworks.com/licensecenter/workflows/associate_license?s_tid=gn_aslc">Lizenz zuordnen</a></li>
+<li class="mwa-nav_community"><a href="https://de.mathworks.com/matlabcentral/profile/authors/my_profile/?s_tid=gn_comm">Mein Community Profil</a></li>
+<li class="mwa-nav_logout"><a href="https://de.mathworks.com/login/logout?uri=http://de.mathworks.com/help/stats/support-vector-machine-classification.html" id="mwa-log_out">Abmelden</a></li>
+</ul>
+</li>
+<li class="topnav_products "><a href="https://de.mathworks.com/products.html?s_tid=gn_ps">Produkte</a></li>
+<li class="topnav_solutions "><a href="https://de.mathworks.com/solutions.html?s_tid=gn_sol">Lösungen</a></li>
+<li class="topnav_academia "><a href="https://de.mathworks.com/academia.html?s_tid=gn_acad">Forschung und Lehre</a></li>
+<li class="topnav_support "><a href="https://de.mathworks.com/support.html?s_tid=gn_supp">Support</a></li>
+<li class="topnav_community "><a href="https://de.mathworks.com/matlabcentral/?s_tid=gn_mlc">Community</a></li>
+<li class="topnav_events "><a href="https://de.mathworks.com/company/events.html?s_tid=gn_ev">Veranstaltungen</a></li>
+<li class="headernav_contact"><a href="https://de.mathworks.com/company/aboutus/contact_us.html?s_tid=gn_cntus">Kontakt</a></li>
+<li class="headernav_store"><a href="https://de.mathworks.com/store?s_cid=store_top_nav&amp;s_tid=gn_store">Store</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</div>
+<!-- Mobile TopNav: End -->
+<!-- Desktop TopNav: Start -->
+<div class="header hidden-xs hidden-sm" id="header_desktop" translate="no">
+<nav class="navbar navbar-default" role="navigation">
+<div class="container-fluid">
+<div class="row">
+<div class="col-xs-12">
+<div class="collapse navbar-collapse" id="headernav_collapse">
+<ul class="nav navbar-nav navbar-right" id="headernav">
+<li class="headernav_contact"><a href="https://de.mathworks.com/company/aboutus/contact_us.html?s_tid=gn_cntus">Kontakt</a></li>
+<li class="headernav_store"><a href="https://de.mathworks.com/store?s_cid=store_top_nav&amp;s_tid=gn_store">Store</a></li>
+<li class="headernav_login dropdown">
+<a href="https://de.mathworks.com/help/stats/support-vector-machine-classification.html#" class="dropdown-toggle" data-toggle="dropdown">
+Markus
+<b class="caret"></b>
+</a>
+<ul class="dropdown-menu">
+<li class="mwa-nav_account"><a href="https://de.mathworks.com/mwaccount/?s_tid=gn_myac">Eigener Account</a></li>
+<li class="mwa-nav_associate"><a href="https://de.mathworks.com/licensecenter/workflows/associate_license?s_tid=gn_aslc">Lizenz zuordnen</a></li>
+<li class="mwa-nav_community"><a href="https://de.mathworks.com/matlabcentral/profile/authors/my_profile/?s_tid=gn_comm">Mein Community Profil</a></li>
+<li class="mwa-nav_logout"><a href="https://de.mathworks.com/login/logout?uri=http://de.mathworks.com/help/stats/support-vector-machine-classification.html" id="mwa-log_out">Abmelden</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-12">
+<div class="navbar-header">
+<div class="logo_container hidden-xs hidden-sm">
+<a href="https://de.mathworks.com/?s_tid=gn_logo" class="svg_link pull-left">
+<img src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/pic-header-mathworks-logo.svg" class="mw_logo" alt="MathWorks">
+</a>
+</div>
+<div class="navbar-collapse collapse hidden-xs hidden-sm">
+<ul class="nav navbar-nav" id="topnav">
+<li class="topnav_products "><a href="https://de.mathworks.com/products.html?s_tid=gn_ps">Produkte</a></li>
+<li class="topnav_solutions "><a href="https://de.mathworks.com/solutions.html?s_tid=gn_sol">Lösungen</a></li>
+<li class="topnav_academia "><a href="https://de.mathworks.com/academia.html?s_tid=gn_acad">Forschung und Lehre</a></li>
+<li class="topnav_support "><a href="https://de.mathworks.com/support.html?s_tid=gn_supp">Support</a></li>
+<li class="topnav_community "><a href="https://de.mathworks.com/matlabcentral/?s_tid=gn_mlc">Community</a></li>
+<li class="topnav_events "><a href="https://de.mathworks.com/company/events.html?s_tid=gn_ev">Veranstaltungen</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</div>
+<!-- Desktop TopNav: End -->
+<!-- Conjoined Header: Start -->
+<div class="sticky_header_container includes_subnav affix-top">
+<!-- Section Header: Start -->
+<div class="section_header level_3">
+<div class="container-fluid">
+<div class="row" id="mobile_search_row">
+<div class="col-xs-12 has_horizontal_local_nav" id="section_header_title">
+<div class="section_header_content">
+<div class="section_header_title add_cursor_pointer">
+<p class="h1">Documentation</p>
+</div>
+<button type="button" class="navbar-toggle collapsed subnav visible-xs" data-toggle="collapse" data-target=".mobile_subnav_content"> <span class="icon-arrow-down icon_24"></span> </button>
+</div>
+<div class="crux_nav_container hidden-xs">
+<div class="crux_nav">
+<ul xmlns="http://www.w3.org/1999/xhtml" id="crux_nav_desktop"><li id="crux_nav_documentation" class="crux_nav_active active"><a>All</a></li><li id="crux_nav_example"><a href="https://de.mathworks.com/help/stats/examples.html?category=support-vector-machine-classification">Examples</a></li><li id="crux_nav_function"><a href="https://de.mathworks.com/help/stats/referencelist.html?type=function&amp;category=support-vector-machine-classification">Functions</a></li><li id="crux_nav_app"><a href="https://de.mathworks.com/help/stats/referencelist.html?type=app&amp;category=support-vector-machine-classification">Apps</a></li><li role="presentation" class="dropdown" id="topnav_more" style="display: none;"><a class="dropdown-toggle" data-toggle="dropdown" href="https://de.mathworks.com/help/stats/support-vector-machine-classification.html#" role="button" aria-haspopup="true" aria-expanded="false"> More <span class="caret"></span></a><ul class="dropdown-menu"></ul></li></ul>
+</div>
+</div>
+</div>
+<div class="col-xs-12" id="mobile_search">
+<div class="search_nested_content_container">
+<div id="search_scope_doc" class="collapse in">
+<form id="docsearch_form" name="docsearch_form" method="get" data-release="R2019a" data-language="en" action="https://de.mathworks.com/help/search.html">
+<div class="input-group tokenized_search_field">
+<label class="sr-only">Search MATLAB Documentation</label>
+<input type="text" class="form-control conjoined_search" autocomplete="off" name="qdoc" placeholder="Search R2019a Documentation" id="docsearch">
+<div class="input-group-btn">
+<button type="button" class="btn btn_search_adjacent dropdown-toggle" data-toggle="dropdown" tabindex="-1"><span class="caret"></span><span class="search_scope_label">Documentation</span></button>
+<ul class="dropdown-menu list-unstyled dropdown-menu-right" role="menu">
+<!-- <li data-toggle="collapse" data-target="#search_scope_doc"><a href="#">Documentation</a></li> -->
+<li data-toggle="collapse" data-target="#search_scope_support" class="doc_search_scope_trigger"><a href="https://de.mathworks.com/help/stats/support-vector-machine-classification.html#">Support</a></li>
+<li data-toggle="collapse" data-target="#search_scope_site" class="doc_search_scope_trigger"><a href="https://de.mathworks.com/help/stats/support-vector-machine-classification.html#">MathWorks</a></li>
+</ul>
+<script>
+$(".doc_search_scope_trigger").click(function() {
+$("#search_scope_doc").removeClass("in");
+$("#search").val($("#docsearch").val());
+$("#query").val($("#docsearch").val());
+});
+</script>
+<button type="submit" name="submitsearch" id="submitsearch" class="btn icon-search btn_search_adjacent btn_search icon_16" tabindex="-1" disabled=""></button>
+</div>
+</div>
+</form>
+</div>
+<div id="search_scope_support" class="collapse">
+<form id="support_search" action="https://de.mathworks.com/support/search_results.html" method="get" accept-charset="utf-8">
+<div class="input-group">
+<label class="sr-only">Search All Support Resources</label>
+<input id="suggestion" type="hidden" name="suggestion" value="">
+<span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+<input id="search" class="form-control conjoined_search" type="text" name="q" placeholder="Search All Support Resources" autocomplete="off">
+<div class="input-group-btn">
+<button type="button" class="btn btn_search_adjacent dropdown-toggle" data-toggle="dropdown" tabindex="-1"><span class="caret"></span><span class="search_scope_label">Support</span></button>
+<ul class="dropdown-menu list-unstyled dropdown-menu-right" role="menu">
+<li data-toggle="collapse" data-target="#search_scope_doc" class="support_search_scope_trigger"><a href="https://de.mathworks.com/help/stats/support-vector-machine-classification.html#">Documentation</a></li>
+<!--<li data-toggle="collapse" data-target="#search_scope_support"><a href="#">Support</a></li>-->
+<li data-toggle="collapse" data-target="#search_scope_site" class="support_search_scope_trigger"><a href="https://de.mathworks.com/help/stats/support-vector-machine-classification.html#">MathWorks</a></li>
+</ul>
+<script>
+$(".support_search_scope_trigger").click(function() {
+$("#search_scope_support").removeClass("in");
+$("#docsearch").val($("#search").val());
+$("#query").val($("#search").val());
+});
+</script>
+<button type="submit" name="submitsearch" id="support_submitsearch" class="btn icon-search btn_search_adjacent btn_search icon_16" tabindex="-1"></button>
+</div>
+</div>
+</form>
+</div>
+<div id="search_scope_site" class="collapse">
+<form name="search" id="site_search" class="site_search" action="https://de.mathworks.com/search/site_search.html" method="get">
+<div class="input-group">
+<label class="sr-only">MathWorks-Suche</label>
+<input type="hidden" name="c[]" value="entire_site">
+<input type="text" name="q" id="query" class="form-control conjoined_search" placeholder="MathWorks-Suche" autocomplete="off" \="">
+<div class="input-group-btn">
+<button type="button" class="btn btn_search_adjacent dropdown-toggle" data-toggle="dropdown" tabindex="-1"><span class="caret"></span><span class="search_scope_label">MathWorks</span></button>
+<ul class="dropdown-menu list-unstyled dropdown-menu-right" role="menu">
+<li data-toggle="collapse" data-target="#search_scope_doc" class="site_search_scope_trigger"><a href="https://de.mathworks.com/help/stats/support-vector-machine-classification.html#">Documentation</a></li>
+<li data-toggle="collapse" data-target="#search_scope_support" class="site_search_scope_trigger"><a href="https://de.mathworks.com/help/stats/support-vector-machine-classification.html#">Support</a></li>
+<!--<li data-toggle="collapse" data-target="#search_scope_site" class="support_search_scope_trigger"><a href="#">MathWorks</a></li>-->
+</ul>
+<script>
+$(".site_search_scope_trigger").click(function() {
+$("#search_scope_site").removeClass("in");
+$("#search").val($("#query").val());
+$("#docsearch").val($("#query").val());
+});
+</script>
+<button type="submit" id="searchbutton" class="btn icon-search btn_search_adjacent btn_search icon_16" tabindex="-1"></button>
+</div>
+</div>
+</form>
+</div>
+</div>
+<button class="btn icon-remove btn_search pull-right icon_32 visible-xs" data-toggle="collapse" href="#mobile_search" aria-expanded="false" aria-controls="mobile_search"></button>
+</div>
+<div class="visible-xs" id="search_actuator">
+<button class="btn icon-search btn_search pull-right icon_16" data-toggle="collapse" href="#mobile_search" aria-expanded="false" aria-controls="mobile_search"></button>
+</div>
+</div>
+<script>
+$(".section_header_title").click(function(){
+$(window.location).attr('href', '../index.html');
+});
+</script>
+<!-- Section Header: End -->
+<!-- Mobile Local Nav: Start -->
+<div class="row visible-xs" id="mobile_subnav">
+<div class="col-xs-12">
+<div class="navbar-collapse collapse mobile_subnav_content">
+<div class="crux_nav_container">
+<div class="crux_nav">
+<ul xmlns="http://www.w3.org/1999/xhtml" class="nav navbar-nav subnav" id="crux_nav_mobile"><li id="crux_nav_mobile_documentation" class="crux_nav_active"><a>All</a></li><li id="crux_nav_mobile_example"><a href="https://de.mathworks.com/help/stats/examples.html?category=support-vector-machine-classification">Examples</a></li><li id="crux_nav_mobile_function"><a href="https://de.mathworks.com/help/stats/referencelist.html?type=function&amp;category=support-vector-machine-classification">Functions</a></li><li id="crux_nav_mobile_app"><a href="https://de.mathworks.com/help/stats/referencelist.html?type=app&amp;category=support-vector-machine-classification">Apps</a></li></ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Mobile Local Nav: End -->
+</div>
+</div>
+<!-- Horo Nav: Start -->
+<div class="horizontal_nav">
+<div class="horizontal_nav_container">
+<div class="offcanvas_actuator active" data-toggle="offcanvas" data-target="#sidebar" id="nav_toggle">
+<button type="button" class="btn">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-menu"></span>
+</button>
+<a href="javascript:void(0)" class="offcanvas_actuator_label" id="translation_icon-menu" tabindex="0"></a>
+<a href="javascript:void(0)" class="offcanvas_actuator_close" tabindex="0"></a>
+</div>
+<div class="offcanvas_horizontal_nav">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12 hidden-xs hidden-sm">
+<div class="cta_box">
+<ul class="list-inline">
+<li class="cta_item cta_item_general"><a href="https://de.mathworks.com/campaigns/products/trials.html?prodcode=ST&amp;s_iid=doc_trial_ST_tb" class="icon-download">Trials</a></li>
+<li class="cta_item cta_item_general"><a href="https://de.mathworks.com/support/web_downloads_bounce.html?s_cid=1008_degr_docdn_270055" class="icon-download">Product Updates</a></li>
+<li class="cta_item cta_item_general"><a href="https://de.mathworks.com/help/stats/support-vector-machine-classification.html#" class="icon-globe" data-toggle="modal" data-target="#translation_modal">Translate This Page</a></li></ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Horo Nav: End -->
+</div>
+<!-- Conjoined Header: End -->
+
+  <div class="row-offcanvas row-offcanvas-left active">
+  
+    <div class="sidebar-offcanvas" id="sidebar" role="navigation">
+      <nav class="offcanvas_nav" role="navigation">
+          <ul xmlns="http://www.w3.org/1999/xhtml" class="nav_breadcrumb"><li itemscope="" itemtype="http://www.data-vocabulary.org/Breadcrumb" itemprop="breadcrumb"><a href="https://de.mathworks.com/help/index.html" itemprop="url"><span itemprop="title">Documentation Home</span></a></li><li><a href="https://de.mathworks.com/help/stats/index.html">Statistics and Machine Learning Toolbox</a>
+</li>
+<li itemscope="" itemtype="http://www.data-vocabulary.org/Breadcrumb" itemprop="breadcrumb"><a href="https://de.mathworks.com/help/stats/classification.html" itemprop="url"><span itemprop="title">Classification</span></a></li></ul><ul xmlns="http://www.w3.org/1999/xhtml" class="nav_toc"><li><a href="https://de.mathworks.com/help/stats/classification-learner-app.html" class="corrected_url">Classification Learner App</a></li><li><a href="https://de.mathworks.com/help/stats/classification-trees.html" class="corrected_url">Classification Trees</a></li><li><a href="https://de.mathworks.com/help/stats/classification-discriminant-analysis.html" class="corrected_url">Discriminant Analysis</a></li><li><a href="https://de.mathworks.com/help/stats/classification-naive-bayes.html" class="corrected_url">Naive Bayes</a></li><li><a href="https://de.mathworks.com/help/stats/classification-nearest-neighbors.html" class="corrected_url">Nearest Neighbors</a></li><li class="active"><a href="https://de.mathworks.com/help/stats/support-vector-machine-classification.html" class="corrected_url">Support Vector Machine Classification</a></li><li><a href="https://de.mathworks.com/help/stats/classification-ensembles.html" class="corrected_url">Classification Ensembles</a></li><li><a href="https://de.mathworks.com/help/stats/classification-model-building-and-assessment.html" class="corrected_url">Model Building and Assessment</a></li></ul>
+      </nav>
+      <script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/offcanvas.js.Download"></script>
+    </div>
+
+    <!-- MOBILE CTA - Begin -->
+    <!-- MOBILE CTA - End -->
+
+
+    <div class="content_container" id="content_container">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12">
+              
+         
+
+
+
+
+
+                   
+    
+                    <div id="TranslationIsOn">
+  <div class="alert alert-info"> <span class="alert_icon icon-alert-info-reverse"></span>
+    <h3>This is machine translation</h3>
+      <p></p><div translate="no"> 
+    	  Translated by <a href="http://aka.ms/MicrosoftTranslatorAttribution" target="_blank"> <img src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/msft_logo.png" alt="Microsoft" style="height:auto; width:100px; margin-top:-3px; display:inline-block;"> </a>
+    	  <span id="counter" style="color:red"> </span>
+         </div>
+         Mouseover text to see original. Click the button below to return to the English version of the page.
+      <p></p>
+      <p></p><div id="translation_exist"> <font size="2">
+    	 	Note: This page has been translated by <span translate="no">MathWorks</span>. <a href="https://de.mathworks.com/help/stats/support-vector-machine-classification.html" id="trLink">Click here to see</a> <br>
+            To view all translated materials including this page, select <span id="country">Country</span> from the country navigator on the bottom of this page. </font>
+    	</div>
+      <p></p>
+    <button type="button" id="pageBack" translate="no" onclick="back2english()" class="btn btn-sm btn_secondary pull-right"> Back to English </button>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<!-- Translation Modal: START -->
+<div class="modal fade" id="translation_modal" tabindex="-1" role="dialog" aria-labelledby="translation_modal_label" translate="no">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h3 class="modal-title" id="translation_modal_label">Translate This Page</h3>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <select name="to" id="target-language" class="form-control"> 
+            <option value="languages" disabled="" selected="">Select Language</option>
+            <option value="bg">Bulgarian</option>
+            <option value="ca">Catalan</option>
+            <option value="zh-CHS">Chinese Simplified</option>
+            <option value="zh-CHT">Chinese Traditional</option>
+            <option value="cs">Czech</option>
+            <option value="da">Danish</option>
+            <option value="nl">Dutch</option>
+            <option value="en">English</option>
+            <option value="et">Estonian</option>
+            <option value="fi">Finnish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="el">Greek</option>
+            <option value="ht">Haitian Creole</option>
+            <option value="hi">Hindi</option>
+            <option value="mww">Hmong Daw</option>
+            <option value="hu">Hungarian</option>
+            <option value="id">Indonesian</option>
+            <option value="it">Italian</option>
+            <option value="ja">Japanese</option>
+            <option value="ko">Korean</option>
+            <option value="lv">Latvian</option>
+            <option value="lt">Lithuanian</option>
+            <option value="ms">Malay</option>
+            <option value="mt">Maltese</option>
+            <option value="no">Norwegian</option>
+            <option value="pl">Polish</option>
+            <option value="pt">Portuguese</option>
+            <option value="ro">Romanian</option>
+            <option value="ru">Russian</option>
+            <option value="sk">Slovak</option>
+            <option value="sl">Slovenian</option>
+            <option value="es">Spanish</option>
+            <option value="sv">Swedish</option>
+            <option value="th">Thai</option>
+            <option value="tr">Turkish</option>
+            <option value="uk">Ukrainian</option>
+            <option value="vi">Vietnamese</option>
+            <option value="cy">Welsh</option>
+          </select>
+        </div>
+        <small class="add_font_color_general">
+        <p class="add_margin_5"><strong>MathWorks Machine Translation</strong></p>
+        <p>The automated translation of this page is provided by a general purpose third party translator tool.</p>
+        <p>MathWorks does not warrant, and disclaims all liability for, the accuracy, suitability, or fitness for purpose of the translation.</p>
+        </small> </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="translateBtn" onclick="thisPageTranslate()">Translate</button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  html body { /*overflow-y:visible;*/ }
+  #TranslationIsOn { display:none; }
+</style>
+
+<script>
+
+function thisPageTranslate(language) {
+			
+    var targetLanguage;
+
+    if (language) {
+    	targetLanguage = language;
+    }
+    else {
+    	targetLanguage = $("#target-language option:selected").val();
+        if (!helpbrowser()){
+    	setCookie("targetLang", targetLanguage, '/help');
+    }
+    }
+    
+    $('#translation_exist').hide();
+    
+    if (targetLanguage == "ja" || targetLanguage == "zh-CHS" || targetLanguage == "ko") {
+    	  var enURL = (window.location.href.indexOf(".html") > -1)? window.location.href : window.location.href+"index.html";
+    	  
+    	  var lang2country = {"ja":"Japan", "zh-CHS":"China", "ko":"Korea"};
+    	  $('#country').text(lang2country[targetLanguage]);
+    	  
+    	  var lang2locale = {"ja":"ja_JP", "zh-CHS":"zh_CN", "ko":"ko_KR"};
+    	  trFile = enURL.replace(/\.html.*/, "_"+lang2locale[targetLanguage]+".html");
+		    
+    	  $.ajax({
+    			type: 'HEAD',
+    			url: trFile,
+    			success: function() {
+    	  			var trURL = enURL.replace(/\.html.*/, ".html?lang="+lang2locale[targetLanguage]);
+    			    $('#trLink').prop('href', trURL);
+        			$('#translation_exist').show();
+				}
+		  });
+    }
+    
+    $('#translation_modal').modal('hide');
+    $(".icon-globe").hide();
+    
+    $.ajax({
+      url: "https://www.microsoftTranslator.com/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**&ui=true&settings=Manual&from=en",
+      dataType: "script"})
+        .done(function() {
+		       Microsoft.Translator.Widget.Translate('en', targetLanguage, onProgress, null, onComplete); 
+        })     
+
+    if (targetLanguage !== "en") {
+    	 $("#TranslationIsOn").show();
+    }
+}
+
+  function onProgress(value) {
+       document.getElementById('counter').innerHTML = Math.round(value) + "%";
+  }
+  	  
+  function onComplete() {
+  	   $("#counter").hide();
+  }
+  
+$('#target-language').on('change', function() {
+    $('#translateBtn').prop('disabled', false);
+});
+
+  function setTargetLangBasedLocale() {
+   	var locale = (navigator.language || navigator.userLanguage).toLowerCase();
+   	var localeLang = locale.split('-',1);
+    var num_langOptions = document.getElementById("target-language").length; 
+       
+    //default lang is set based on navigator's locale. If locale is English or no match found, set as "Select Language". 
+    
+    if (localeLang != "en") {
+    		var i = 0;
+  	    while (i<num_langOptions) {
+  		      var lang = document.getElementById("target-language").options[i].value; 
+  			    if ((lang == localeLang && localeLang != "zh") ||(lang == "zh-CHS" && locale == "zh-cn") || (lang == "zh-CHT" && locale == "zh-tw")) {
+  				 	    document.getElementById("target-language").options[i].selected = true;
+  				 	    break;
+  			    }
+  			    i++;
+  	    }
+  	  }
+  	  
+  	if ($("#target-language option:selected").val() == "languages")
+  		$('#translateBtn').prop('disabled', true);
+
+  } // setTargetLangBasedLocale
+
+	function back2english() {
+    if (!helpbrowser()){
+		setCookie("targetLang", "", '/help');
+    }
+		location.reload();
+	} 
+	
+	function setCookie(name, value, path) {
+    document.cookie = name + "=" + value + "; path=" + path + ";";
+	}
+
+	function getCookie(name) {
+    var cname = name + "=";
+    var all = document.cookie.split(';');
+    for(var i = 0; i <all.length; i++) {
+        var c = all[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(cname.length, c.length);
+        }
+    }
+    return null;
+	}
+
+  function helpbrowser() {
+    var docURL = window.location.href;
+    return docURL.includes("\/releases\/");
+  }
+
+  $(document).ready(function() {
+    $(".cta_box .list-inline").append('<li class="cta_item cta_item_general"><a href="#" class="icon-globe" data-toggle="modal" data-target="#translation_modal">Translate This Page</a></li>');
+    
+    var cookie_targetLang;
+   
+    if (helpbrowser()){
+      setTargetLangBasedLocale();
+    }
+    else {
+      cookie_targetLang = getCookie("targetLang");
+    if (cookie_targetLang){
+    	(window.location.href.indexOf("html?lang=en") > -1)? setCookie("targetLang", "", '/help'): thisPageTranslate(cookie_targetLang);
+    }
+    else {
+    	setTargetLangBasedLocale();
+    }
+    }
+  });
+</script>
+<style>
+  #WidgetFloaterPanels { display:none !important; }
+</style>
+<!-- Translation Modal: END --> 
+               
+<section xmlns="http://www.w3.org/1999/xhtml" id="doc_center_content" lang="en"><div id="pgtype-category">                
+
+       
+<h1 class="r2019a" itemprop="content title">Support Vector Machine Classification</h1><div class="doc_topic_desc" itemprop="content purpose">Support vector machines for binary or multiclass classification</div>
+<div class="start_here_container" id="starthere">
+<div itemprop="content">
+
+<p>For greater accuracy and kernel-function choices on low- through
+medium-dimensional data sets, train a binary SVM model or a multiclass
+error-correcting output codes (ECOC) model containing SVM binary learners
+using the <strong class="app"><a href="https://de.mathworks.com/help/stats/classificationlearner-app.html">Classification Learner</a></strong> app.
+For greater flexibility, use the command-line interface to train a
+binary SVM model using <code class="literal">fitcsvm</code> or train a multiclass
+ECOC model composed of binary SVM learners using <code class="literal">fitcecoc</code>.</p>
+<p>For reduced computation time on high-dimensional data sets, efficiently train a binary, linear
+     classification model, such as a linear SVM model, using <code class="literal">fitclinear</code> or train
+     a multiclass ECOC model composed of SVM models using <code class="literal">fitcecoc</code>.</p>
+    <p>For nonlinear classification with big data, train a binary, Gaussian kernel classification
+     model using <code class="literal">fitckernel</code>.</p>
+</div>
+</div>
+<div class="doc_blocksgroup_container"><h2>Apps</h2>
+<div class="table-responsive"><strong class="app"></strong><table class="table table-bordered table-condensed"><tbody><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classificationlearner-app.html">Classification Learner</a></td><td class="description">Train models to classify data using supervised machine
+learning</td></tr></tbody></table></div></div>
+<div class="doc_functionsgroup_container"><h2>Functions</h2>
+<div class="expandableContent mwExpandToggle1" id="expandableExamples"><p class="switch"><a href="javascript:void(0);" class="expandAllLink" data-allexpanded="false">expand all</a></p><div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true"><!--Expander Element: START-->
+<div class="panel panel-default"><div class="panel-heading add_cursor_pointer collapsed" role="tab" id="expand_panel_heading_1" data-toggle="collapse" data-target="#expand_panel_body_1" aria-expanded="false" aria-controls="expand_panel_body_1"><h3 class="panel-title">Binary SVM</h3>
+<span class="icon-arrow-open-down icon_24"></span><span class="icon-arrow-open-right icon_24"></span></div><div id="expand_panel_body_1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="expand_panel_heading_1"><div class="panel-body"><!--Expander Content: START-->
+<div class="table-responsive"><table class="table table-bordered table-condensed"><tbody><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/fitcsvm.html"><code class="function">fitcsvm</code></a></td><td class="description">Train support vector machine (SVM) classifier for one-class and binary
+            classification</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/fitsvmposterior.html"><code class="function">fitSVMPosterior</code></a></td><td class="description">Fit posterior probabilities</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classreg.learning.classif.compactclassificationsvm.predict.html"><code class="method">predict</code></a></td><td class="description">Classify observations using support vector machine (SVM) classifier</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/templatesvm.html"><code class="function">templateSVM</code></a></td><td class="description">Support vector machine template</td></tr></tbody></table></div></div></div></div>
+<!--Expander Element: END-->
+<!--Expander Element: START-->
+<div class="panel panel-default"><div class="panel-heading add_cursor_pointer collapsed" role="tab" id="expand_panel_heading_2" data-toggle="collapse" data-target="#expand_panel_body_2" aria-expanded="false" aria-controls="expand_panel_body_2"><h3 class="panel-title">Binary Linear Classification</h3>
+<span class="icon-arrow-open-down icon_24"></span><span class="icon-arrow-open-right icon_24"></span></div><div id="expand_panel_body_2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="expand_panel_heading_2"><div class="panel-body"><!--Expander Content: START-->
+<div class="table-responsive"><table class="table table-bordered table-condensed"><tbody><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/fitclinear.html"><code class="function">fitclinear</code></a></td><td class="description">Fit linear classification model to high-dimensional data</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classificationlinear.predict.html"><code class="method">predict</code></a></td><td class="description">Predict labels for linear classification models</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/templatelinear.html"><code class="function">templateLinear</code></a></td><td class="description">Linear classification learner template</td></tr></tbody></table></div></div></div></div>
+<!--Expander Element: END-->
+<!--Expander Element: START-->
+<div class="panel panel-default"><div class="panel-heading add_cursor_pointer collapsed" role="tab" id="expand_panel_heading_3" data-toggle="collapse" data-target="#expand_panel_body_3" aria-expanded="false" aria-controls="expand_panel_body_3"><h3 class="panel-title">Binary Kernel Classification</h3>
+<span class="icon-arrow-open-down icon_24"></span><span class="icon-arrow-open-right icon_24"></span></div><div id="expand_panel_body_3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="expand_panel_heading_3"><div class="panel-body"><!--Expander Content: START-->
+<div class="table-responsive"><table class="table table-bordered table-condensed"><tbody><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/fitckernel.html"><code class="function">fitckernel</code></a></td><td class="description">Fit Gaussian kernel classification model using random feature
+            expansion</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classificationkernel.predict.html"><code class="function">predict</code></a></td><td class="description">Predict labels for Gaussian kernel classification model</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/templatekernel.html"><code class="function">templateKernel</code></a></td><td class="description">Kernel model template</td></tr></tbody></table></div></div></div></div>
+<!--Expander Element: END-->
+<!--Expander Element: START-->
+<div class="panel panel-default"><div class="panel-heading add_cursor_pointer collapsed" role="tab" id="expand_panel_heading_4" data-toggle="collapse" data-target="#expand_panel_body_4" aria-expanded="false" aria-controls="expand_panel_body_4"><h3 class="panel-title">Multiclass ECOC</h3>
+<span class="icon-arrow-open-down icon_24"></span><span class="icon-arrow-open-right icon_24"></span></div><div id="expand_panel_body_4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="expand_panel_heading_4"><div class="panel-body"><!--Expander Content: START-->
+<div class="table-responsive"><table class="table table-bordered table-condensed"><tbody><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/fitcecoc.html"><code class="function">fitcecoc</code></a></td><td class="description">Fit multiclass models for support vector machines or other
+classifiers</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classificationecoc.predict.html"><code class="method">predict</code></a></td><td class="description">Classify observations using multiclass error-correcting output codes (ECOC)
+      model</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/templateecoc.html"><code class="function">templateECOC</code></a></td><td class="description">Error-correcting output codes learner template</td></tr></tbody></table></div></div></div></div>
+<!--Expander Element: END-->
+</div></div></div>
+<div class="doc_classesgroup_container"><h2>Classes</h2>
+<div class="expandableContent mwExpandToggle1" id="expandableExamples"><p class="switch"><a href="javascript:void(0);" class="expandAllLink" data-allexpanded="false">expand all</a></p><div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true"><!--Expander Element: START-->
+<div class="panel panel-default"><div class="panel-heading add_cursor_pointer collapsed" role="tab" id="expand_panel_heading_5" data-toggle="collapse" data-target="#expand_panel_body_5" aria-expanded="false" aria-controls="expand_panel_body_5"><h3 class="panel-title">Binary SVM</h3>
+<span class="icon-arrow-open-down icon_24"></span><span class="icon-arrow-open-right icon_24"></span></div><div id="expand_panel_body_5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="expand_panel_heading_5"><div class="panel-body"><!--Expander Content: START-->
+<div class="table-responsive"><table class="table table-bordered table-condensed"><tbody><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classificationsvm.html"><code class="object">ClassificationSVM</code></a></td><td class="description">Support vector machine (SVM) for one-class and binary
+            classification</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classreg.learning.classif.compactclassificationsvm.html"><code class="object">CompactClassificationSVM</code></a></td><td class="description">Compact support vector machine (SVM) for one-class and binary
+            classification</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classreg.learning.partition.classificationpartitionedmodel-class.html"><code class="class">ClassificationPartitionedModel</code></a></td><td class="description">Cross-validated classification model</td></tr></tbody></table></div></div></div></div>
+<!--Expander Element: END-->
+<!--Expander Element: START-->
+<div class="panel panel-default"><div class="panel-heading add_cursor_pointer collapsed" role="tab" id="expand_panel_heading_6" data-toggle="collapse" data-target="#expand_panel_body_6" aria-expanded="false" aria-controls="expand_panel_body_6"><h3 class="panel-title">Binary Linear Classification</h3>
+<span class="icon-arrow-open-down icon_24"></span><span class="icon-arrow-open-right icon_24"></span></div><div id="expand_panel_body_6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="expand_panel_heading_6"><div class="panel-body"><!--Expander Content: START-->
+<div class="table-responsive"><table class="table table-bordered table-condensed"><tbody><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classificationlinear-class.html"><code class="class">ClassificationLinear</code></a></td><td class="description">Linear model for binary classification of high-dimensional data</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classreg.learning.partition.classificationpartitionedlinear-class.html"><code class="class">ClassificationPartitionedLinear</code></a></td><td class="description">Cross-validated linear model for binary classification of high-dimensional
+            data</td></tr></tbody></table></div></div></div></div>
+<!--Expander Element: END-->
+<!--Expander Element: START-->
+<div class="panel panel-default"><div class="panel-heading add_cursor_pointer collapsed" role="tab" id="expand_panel_heading_7" data-toggle="collapse" data-target="#expand_panel_body_7" aria-expanded="false" aria-controls="expand_panel_body_7"><h3 class="panel-title">Binary Kernel Classification</h3>
+<span class="icon-arrow-open-down icon_24"></span><span class="icon-arrow-open-right icon_24"></span></div><div id="expand_panel_body_7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="expand_panel_heading_7"><div class="panel-body"><!--Expander Content: START-->
+<div class="table-responsive"><table class="table table-bordered table-condensed"><tbody><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classificationkernel.html"><code class="object">ClassificationKernel</code></a></td><td class="description">Gaussian kernel classification model using random feature expansion</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classreg.learning.partition.classificationpartitionedkernel.html"><code class="object">ClassificationPartitionedKernel</code></a></td><td class="description">Cross-validated, binary kernel classification model</td></tr></tbody></table></div></div></div></div>
+<!--Expander Element: END-->
+<!--Expander Element: START-->
+<div class="panel panel-default"><div class="panel-heading add_cursor_pointer collapsed" role="tab" id="expand_panel_heading_8" data-toggle="collapse" data-target="#expand_panel_body_8" aria-expanded="false" aria-controls="expand_panel_body_8"><h3 class="panel-title">Multiclass ECOC</h3>
+<span class="icon-arrow-open-down icon_24"></span><span class="icon-arrow-open-right icon_24"></span></div><div id="expand_panel_body_8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="expand_panel_heading_8"><div class="panel-body"><!--Expander Content: START-->
+<div class="table-responsive"><table class="table table-bordered table-condensed"><tbody><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classificationecoc.html"><code class="class">ClassificationECOC</code></a></td><td class="description">Multiclass model for support vector machines (SVMs) and other
+      classifiers</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classreg.learning.classif.compactclassificationecoc.html"><code class="class">CompactClassificationECOC</code></a></td><td class="description">Compact multiclass model for support vector machines (SVMs) and other
+      classifiers</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classreg.learning.partition.classificationpartitionedecoc.html"><code class="class">ClassificationPartitionedECOC</code></a></td><td class="description">Cross-validated multiclass ECOC model for support vector machines (SVMs) and
+            other classifiers</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classreg.learning.partition.classificationpartitionedlinearecoc-class.html"><code class="class">ClassificationPartitionedLinearECOC</code></a></td><td class="description">Cross-validated linear error-correcting output codes model for multiclass
+            classification of high-dimensional data</td></tr><tr><td class="term notranslate"><a href="https://de.mathworks.com/help/stats/classreg.learning.partition.classificationpartitionedkernelecoc.html"><code class="object">ClassificationPartitionedKernelECOC</code></a></td><td class="description">Cross-validated kernel error-correcting output codes (ECOC) model for multiclass
+      classification</td></tr></tbody></table></div></div></div></div>
+<!--Expander Element: END-->
+</div></div></div>
+<div class="examples_container"><h2 class="remove_border">Topics</h2>
+<div itemprop="content">
+<p class="add_margin_0"><strong><a href="https://de.mathworks.com/help/stats/train-support-vector-machines-in-classification-learner-app.html" class="a">Train Support Vector Machines Using Classification Learner App</a></strong></p>
+<p>Create and compare support vector machine (SVM) classifiers, and export
+                    trained models to make predictions for new data.</p><p class="add_margin_0"><strong><a href="https://de.mathworks.com/help/stats/support-vector-machines-for-binary-classification.html" class="a">Support Vector Machines for Binary Classification</a></strong></p>
+<p>Perform binary classification via SVM using separating
+hyperplanes and kernel transformations.</p></div>
+</div>
+<div class="moreabout_container"><h2 class="remove_border">Related Information</h2>
+<div itemprop="content">
+<p class="add_margin_0"><strong><a href="https://de.mathworks.com/help/wavelet/examples/ecg-classification-using-wavelet-features.html" class="a">Signal Classification Using Wavelet-Based Features and Support Vector Machines</a> (Wavelet Toolbox)</strong></p>
+<p class="add_margin_0"><strong><a href="https://de.mathworks.com/help/wavelet/examples/wavelet-time-scattering-classification-of-phonocardiogram-data.html" class="a">Wavelet Time Scattering Classification of Phonocardiogram Data</a> (Wavelet Toolbox)</strong></p>
+</div>
+</div>
+</div><div class="clearfix"></div>
+<div align="center" class="feedbackblock"><iframe id="doc_survey" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/bounce_hub_help.html" style=""></iframe></div><script type="text/javascript" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/docsurvey.js.Download"></script>
+
+</section>
+<div class="modal fade" id="matlab-command-dialog" tabindex="-1" role="dialog" aria-labelledby="matlabCommandDialogLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">MATLAB Command</h4>
+      </div>
+      <div class="modal-body" id="dialog-body">
+        <p>You clicked a link that corresponds to this MATLAB command: </p>
+        <pre id="dialog-matlab-command"></pre>
+        <p>Run the command by entering it in the MATLAB Command Window.
+        Web browsers do not support MATLAB commands.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn_secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+<div id="location_content" style="display:none;"></div>
+
+
+<div class="modal fade" id="country-unselected" translate="no">
+<div id="country-select-container">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <object type="image/svg+xml" width="167px" class="mw_logo" alt="MathWorks" data="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/pic-header-mathworks-logo2.svg">
+          <img alt="MathWorks" width="167px" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/pic-header-mathworks-logo.png">
+        </object>
+      </div>
+      <div class="modal-body">
+        <div class="row add_margin_40">
+          <div class="col-xs-12">
+            <h1 class="icon-globe icon_color_secondary">Select a Web Site</h1>
+            <p>Choose a web site to get translated content where available and see local events and offers. Based on your location, we recommend that you select: <strong class="recommended-country">Deutschland</strong>.</p>
+            <a href="https://de.mathworks.com/" id="recommended_domain_button" class="btn btn_color_blue containsResourceName resourceClass-button" data-lang="de">Select <span class="recommended-country">Deutschland</span> web site</a>
+          </div>
+        </div>
+        <p>You can also select a web site from the following list:</p>
+				<div class="alert alert-warning" id="china_performance_alert" style="display:none;"> <span class="alert_icon icon-alert-warning"></span>
+					<h3>How to Get Best Site Performance</h3>
+					<p>Select the China site (in Chinese or English) for best site performance. Other MathWorks country sites are not optimized for visits from your location.</p>
+				</div>
+        <div class="row add_margin_30">
+          <div class="col-sm-4 col-md-3">
+            <h3 class="add_bottom_rule">Americas</h3>
+            <ul class="list-unstyled">
+              <li><a href="https://la.mathworks.com/" class="domain_selector_link" data-country-code="LA" data-subdomain="la" data-lang="es" data-default-lang="true" data-selected-text="América Latina" data-recommended-text="América Latina" data-do-not-rewrite="true">América Latina</a> (Español)</li>
+              <li><a href="https://www.mathworks.com/" class="domain_selector_link" data-country-code="CA" data-subdomain="www" data-lang="en" data-do-not-rewrite="true">Canada</a> (English)</li>
+              <li><a href="https://www.mathworks.com/" class="domain_selector_link" data-country-code="US" data-subdomain="www" data-lang="en" data-default-lang="true" data-selected-text="United States" data-recommended-text="United States" data-do-not-rewrite="true">United States</a> (English)</li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-md-6">
+            <h3 class="add_bottom_rule">Europe</h3>
+            <div class="row">
+              <div class="col-xs-6 col-sm-12 col-md-6">
+                <ul class="list-unstyled add_margin_0_sm">
+                  <li><a href="https://nl.mathworks.com/" class="domain_selector_link" data-country-code="BE" data-subdomain="nl" data-lang="en" data-do-not-rewrite="true">Belgium</a> (English)</li>
+                  <li><a href="https://se.mathworks.com/" class="domain_selector_link" data-country-code="DK" data-subdomain="se" data-lang="en" data-do-not-rewrite="true">Denmark</a> (English)</li>
+                  <li><a href="https://de.mathworks.com/" class="domain_selector_link" data-country-code="DE" data-subdomain="de" data-lang="de" data-default-lang="true" data-selected-text="Deutschland" data-recommended-text="Deutschland" data-do-not-rewrite="true">Deutschland</a> (Deutsch)</li>
+                  <li><a href="https://es.mathworks.com/" class="domain_selector_link" data-country-code="ES" data-subdomain="es" data-lang="es" data-default-lang="true" data-selected-text="España" data-recommended-text="España" data-do-not-rewrite="true">España</a> (Español)</li>
+                  <li><a href="https://se.mathworks.com/" class="domain_selector_link" data-country-code="FI" data-subdomain="se" data-lang="en" data-do-not-rewrite="true">Finland</a> (English)</li>
+                  <li><a href="https://fr.mathworks.com/" class="domain_selector_link" data-country-code="FR" data-subdomain="fr" data-lang="fr" data-default-lang="true" data-selected-text="France" data-recommended-text="France" data-do-not-rewrite="true">France</a> (Français)</li>
+                  <li><a href="https://uk.mathworks.com/" class="domain_selector_link" data-country-code="IE" data-subdomain="uk" data-lang="en" data-do-not-rewrite="true">Ireland</a> (English)</li>
+                  <li><a href="https://it.mathworks.com/" class="domain_selector_link" data-country-code="IT" data-subdomain="it" data-lang="it" data-default-lang="true" data-selected-text="Italia" data-recommended-text="Italia" data-do-not-rewrite="true">Italia</a> (Italiano)</li>
+                  <li><a href="https://nl.mathworks.com/" class="domain_selector_link" data-country-code="LU" data-subdomain="nl" data-lang="en" data-do-not-rewrite="true">Luxembourg</a> (English)</li>
+                </ul>
+              </div>
+              <div class="col-xs-6 col-sm-12 col-md-6">
+                <ul class="list-unstyled">
+                  <li><a href="https://nl.mathworks.com/" class="domain_selector_link" data-country-code="NL" data-subdomain="nl" data-lang="en" data-default-lang="true" data-selected-text="Benelux" data-recommended-text="Netherlands" data-do-not-rewrite="true">Netherlands</a> (English)</li>
+                  <li><a href="https://se.mathworks.com/" class="domain_selector_link" data-country-code="NO" data-subdomain="se" data-lang="en" data-do-not-rewrite="true">Norway</a> (English)</li>
+                  <li><a href="https://de.mathworks.com/" class="domain_selector_link" data-country-code="AT" data-subdomain="de" data-lang="de" data-do-not-rewrite="true">Österreich</a> (Deutsch)</li>
+                  <li><a href="https://www.mathworks.com/" class="domain_selector_link" data-country-code="PT" data-subdomain="www" data-lang="en" data-do-not-rewrite="true">Portugal</a> (English)</li>
+                  <li><a href="https://se.mathworks.com/" class="domain_selector_link" data-country-code="Sweden" data-subdomain="se" data-lang="en" data-default-lang="true" data-selected-text="Nordic" data-recommended-text="Sweden" data-do-not-rewrite="true">Sweden</a> (English)</li>
+                  <li>Switzerland
+                    <ul class="list-unstyled add_indent_20">
+                      <li><a href="https://ch.mathworks.com/" class="domain_selector_link" data-country-code="CH" data-subdomain="ch" data-lang="de" data-selected-text="Schweiz" data-recommended-text="Schweiz" data-do-not-rewrite="true">Deutsch</a></li>
+                      <li><a href="https://ch.mathworks.com/" id="swiss_english" class="domain_selector_link" data-country-code="CH" data-subdomain="ch" data-lang="en" data-default-lang="true" data-selected-text="Switzerland" data-recommended-text="Switzerland" data-do-not-rewrite="true">English</a></li>
+                      <li><a href="https://ch.mathworks.com/" class="domain_selector_link" data-country-code="CH" data-subdomain="ch" data-lang="fr" data-selected-text="Suisse" data-recommended-text="Suisse" data-do-not-rewrite="true">Français</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="https://uk.mathworks.com/" class="domain_selector_link" data-country-code="GB" data-subdomain="uk" data-lang="en" data-default-lang="true" data-selected-text="United Kingdom" data-recommended-text="United Kingdom" data-do-not-rewrite="true">United Kingdom</a> (English)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-3">
+            <h3 class="add_bottom_rule">Asia Pacific</h3>
+            <ul class="list-unstyled">
+              <li><a href="https://au.mathworks.com/" class="domain_selector_link" data-country-code="AU" data-subdomain="au" data-lang="en" data-default-lang="true" data-selected-text="Australia" data-recommended-text="Australia" data-do-not-rewrite="true">Australia</a> (English)</li>
+              <li><a href="https://in.mathworks.com/" class="domain_selector_link" data-country-code="IN" data-subdomain="in" data-lang="en" data-default-lang="true" data-selected-text="India" data-recommended-text="India" data-do-not-rewrite="true">India</a> (English)</li>
+              <li><a href="https://au.mathworks.com/" class="domain_selector_link" data-country-code="NZ" data-subdomain="au" data-lang="en" data-do-not-rewrite="true">New Zealand</a> (English)</li>
+              <li>中国
+                    <ul class="list-unstyled add_indent_20">
+                      <li><a href="https://ww2.mathworks.cn/" class="domain_selector_link" data-country-code="CN" data-subdomain="ww2" data-lang="zh" data-default-lang="true" data-selected-text="中国" data-recommended-text="中国" data-do-not-rewrite="true">简体中文</a></li>
+                      <li><a href="https://ww2.mathworks.cn/" class="domain_selector_link" data-country-code="CN" data-subdomain="ww2" data-lang="en" data-default-lang="true" data-selected-text="China" data-recommended-text="China" data-do-not-rewrite="true">English</a></li>
+                    </ul>
+               </li>
+              <li><a href="https://jp.mathworks.com/" class="domain_selector_link" data-country-code="JP" data-subdomain="jp" data-lang="ja" data-default-lang="true" data-selected-text="日本" data-recommended-text="日本" data-do-not-rewrite="true">日本</a> (日本語)</li>
+              <li><a href="https://kr.mathworks.com/" class="domain_selector_link" data-country-code="KR" data-subdomain="kr" data-lang="ko" data-default-lang="true" data-selected-text="한국" data-recommended-text="한국" data-do-not-rewrite="true">한국</a> (한국어)</li>
+            </ul>
+          </div>
+        </div>
+        <p class="text-center"><a href="https://de.mathworks.com/" class="worldwide_link">Contact your local office</a></p>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+  
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE CTA - Begin -->
+    <div class="cta_container_mobile visible-sm visible-xs">
+      <div class="container-fluid">      
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="cta_box">
+<ul class="list-inline">
+<li class="cta_item cta_item_general"><a href="https://de.mathworks.com/campaigns/products/trials.html?prodcode=ST&amp;s_iid=doc_trial_ST_tb" class="icon-download">Trials</a></li>
+<li class="cta_item cta_item_general"><a href="https://de.mathworks.com/support/web_downloads_bounce.html?s_cid=1008_degr_docdn_270055" class="icon-download">Product Updates</a></li>
+<li class="cta_item cta_item_general"><a href="https://de.mathworks.com/help/stats/support-vector-machine-classification.html#" class="icon-globe" data-toggle="modal" data-target="#translation_modal">Translate This Page</a></li></ul>
+</div> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MOBILE CTA - End -->
+
+        <!-- BODY TRAIL - Begin -->
+        <div class="body_trail_container">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="row"><div class="col-xs-12 col-sm-4"><h5><a href="https://de.mathworks.com/help/stats/index.html?s_cid=doc_ftr">Statistics and Machine Learning Toolbox Documentation</a></h5>
+<ul class="list-unstyled hidden-xs"><li><a href="https://de.mathworks.com/help/stats/examples.html?s_cid=doc_ftr">Examples</a></li>
+<li><a href="https://de.mathworks.com/help/stats/referencelist.html?type=function&amp;s_cid=doc_ftr">Functions and Other Reference</a></li>
+<li><a href="https://de.mathworks.com/help/stats/release-notes.html?s_cid=doc_ftr">Release Notes</a></li>
+<li><a href="https://de.mathworks.com/help/pdf_doc/stats/index.html?s_cid=doc_ftr">PDF Documentation</a></li>
+</ul>
+</div>
+<div class="col-xs-12 col-sm-4"><h5><a href="https://de.mathworks.com/support.html?s_cid=doc_ftr">Support</a></h5>
+<ul class="list-unstyled hidden-xs"><li><a href="https://de.mathworks.com/matlabcentral/answers/index?s_cid=doc_ftr">MATLAB Answers</a></li><li><a href="https://de.mathworks.com/support/install-matlab.html?s_cid=doc_ftr">Installation Help</a></li><li><a href="https://de.mathworks.com/support/bugreports/?s_cid=doc_ftr">Bug Reports</a></li><li><a href="https://de.mathworks.com/products/availability.html?s_cid=doc_ftr">Product Requirements</a></li><li><a href="https://de.mathworks.com/downloads/?s_cid=doc_ftr">Software Downloads</a></li></ul>
+</div>
+<div class="col-xs-12 col-sm-4">
+<!---- Offer: 10 Best Practices for Deploying AUTOSAR Using Simulink ---->
+<!-- Simulink Coder (RT) -->
+<div class="panel panel_color_transparent panel_color_fill">
+<div class="panel-body">
+<div class="thumbnail add_margin_5">
+<a href="https://www.mathworks.com/campaigns/offers/mastering-machine-learning-with-matlab.html?s_iid=doc_eb2_ST_footer"><img class="fluid_image" alt="Mastering Machine Learning: A Step-by-Step Guide with MATLAB" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/mastering-machine-learning-with-matlab-thumbanail.jpg"></a>
+</div>
+<h4><a href="https://www.mathworks.com/campaigns/offers/mastering-machine-learning-with-matlab.html?s_iid=doc_eb2_ST_footer">Mastering Machine Learning: A Step-by-Step Guide with MATLAB</a></h4>
+<a class="icon-download" href="https://www.mathworks.com/campaigns/offers/mastering-machine-learning-with-matlab.html?s_iid=doc_eb2_ST_footer">Download ebook</a>
+</div>
+</div>
+<!---- Offer: Mathematical Modeling with Symbolic Math Toolbox ---->
+<!-- Symbolic Math Toolbox (SM) -->
+</div>
+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- BODY TRAIL - End -->
+
+    <footer id="footer" class="bs-footer">
+        <!-- FAT FOOTER - Begin --> 
+        <div class="container-fluid">
+          <div class="fat_footer_container">
+            <div class="execmatlabweb"> <!--Requried for Doc Test -->
+<div class="row">
+<div class="col-xs-12 col-md-12 col-lg-9 col-lg-push-3 add_margin_20">
+<div class="row">
+<div class="col-xs-12 col-sm-2">
+<h5>Produkte</h5>
+<ul class="list-unstyled">
+<li><a href="https://de.mathworks.com/products/matlab.html?s_tid=hp_ff_p_matlab">MATLAB</a></li>
+<li><a href="https://de.mathworks.com/products/simulink.html?s_tid=hp_ff_p_simulink">Simulink</a></li>
+<li><a href="https://de.mathworks.com/academia/student_version.html?s_tid=hp_ff_p_student">Software für Studierende</a></li>
+<li><a href="https://de.mathworks.com/hardware-support/home.html?s_tid=hp_ff_p_hwsupport">Hardware-Unterstützung</a></li>
+<li><a href="https://de.mathworks.com/matlabcentral/fileexchange/?s_tid=hp_ff_p_fx">File Exchange</a></li>
+</ul>
+</div>
+<div class="col-xs-12 col-sm-2">
+<h5>Testen oder Kaufen</h5>
+<ul class="list-unstyled">
+<li><a href="https://de.mathworks.com/downloads/web_downloads/?s_iid=hp_ff_t_downloads">Downloads</a></li>
+<li><a href="https://de.mathworks.com/campaigns/products/trials.html?s_iid=hp_ff_p_trial">Demo-Software</a></li>
+<li><a href="https://de.mathworks.com/company/aboutus/contact_us/contact_sales.html?s_iid=hp_ff_t_sales">Vertrieb kontaktieren</a></li>
+<li><a href="https://de.mathworks.com/pricing-licensing.html?s_iid=hp_ff_t_pricing">Preise und Lizenzierung</a></li>
+<li><a href="https://de.mathworks.com/store?s_tid=hp_ff_t_buy">Store</a></li>
+</ul>
+</div>
+<div class="col-xs-12 col-sm-2">
+<h5>Lernen</h5>
+<ul class="list-unstyled">
+<li><a href="https://de.mathworks.com/help/?s_tid=hp_ff_l_doc">Dokumentation</a></li>
+<li><a href="https://de.mathworks.com/support/learn-with-matlab-tutorials.html?s_tid=hp_ff_l_tutorials">Tutorials</a></li>
+<li><a href="https://de.mathworks.com/help/examples.html?s_tid=hp_ff_l_examples">Beispiele</a></li>
+<li><a href="https://de.mathworks.com/videos.html?s_tid=hp_ff_l_videos">Videos und Webinare</a></li>
+<li><a href="https://de.mathworks.com/services/training.html?s_tid=hp_ff_l_training">Schulungen</a></li>
+</ul>
+</div>
+<div class="clearfix" id="offcanvas_clearfix" style="display:none"></div>
+<div class="col-xs-12 col-sm-2">
+<h5>Support</h5>
+<ul class="list-unstyled">
+<li><a href="https://de.mathworks.com/support/install-matlab.html?s_tid=hp_ff_s_install">Hilfe zur Installation</a></li>
+<li><a href="https://de.mathworks.com/matlabcentral/answers/index?s_tid=hp_ff_s_answers">Antworten</a></li>
+<li><a href="https://de.mathworks.com/services/consulting.html?s_tid=hp_ff_s_consulting">Consulting</a></li>
+<li><a href="https://de.mathworks.com/licensecenter/?s_tid=hp_ff_s_license">License Center</a></li>
+</ul>
+</div>
+<div class="col-xs-12 col-sm-2">
+<h5>Über MathWorks</h5>
+<ul class="list-unstyled">
+<li><a href="https://de.mathworks.com/company/jobs/opportunities/?s_tid=hp_ff_a_careers">Jobs &amp; Karriere</a></li>
+<li><a href="https://de.mathworks.com/company/newsroom.html?s_tid=hp_ff_a_newsroom">Presse</a></li>
+<li><a href="https://de.mathworks.com/company/aboutus/soc_mission.html?s_tid=hp_ff_a_socialmission">Social Mission</a></li>
+<li><a href="https://de.mathworks.com/company/aboutus/contact_us.html?s_tid=hp_ff_a_contact">Kontakt</a></li>
+<li><a href="https://de.mathworks.com/company.html?s_tid=hp_ff_a_company">Über MathWorks</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-xs-12 col-md-12 col-lg-3 col-lg-pull-9">
+<h4 class="add_font_futura_medium add_margin_0"><span translate="no">MathWorks</span></h4>
+<p><em>Accelerating the pace of engineering and science</em></p>
+<p>MathWorks ist der führende Entwickler von Software für mathematische Berechnungen für Ingenieure und Wissenschaftler.</p>
+<p><a href="https://de.mathworks.com/discovery.html?s_tid=all_disc_mw_ff">Entdecken Sie...</a></p>
+</div>
+</div>
+</div>
+          </div>
+        </div>
+        <!-- FAT FOOTER - End -->
+      <div class="container-fluid">
+       <div class="footer" translate="no">
+<div class="row">
+<div class="col-xs-12 col-lg-9">
+<ul class="countrynav" id="countrynav">
+<li class="footernav_country">
+<a onclick="$(&#39;#country-unselected&#39;).modal(&#39;show&#39;);">
+<span class="icon-globe icon_color_quinary icon_16"></span>Deutschland
+</a>
+</li>
+</ul>
+<div class="clearfix"></div>
+<ul class="footernav">
+<li class="footernav_patents"><a href="https://de.mathworks.com/company/aboutus/policies_statements/patents.html?s_tid=gf_pat">Patente</a></li>
+<li class="footernav_trademarks"><a href="https://de.mathworks.com/company/aboutus/policies_statements/trademarks.html?s_tid=gf_trd">Handelsmarken</a></li>
+<li class="footernav_privacy"><a href="https://de.mathworks.com/company/aboutus/policies_statements.html?s_tid=gf_priv">Datenschutz</a></li>
+<li class="footernav_piracy"><a href="https://de.mathworks.com/company/aboutus/policies_statements/piracy.html?s_tid=gf_pir">Preventing Piracy</a></li>
+<li class="footernav_status"><a href="https://status.mathworks.com/?s_tid=gf_application">Status von Anwendungen</a></li>
+</ul>
+<div class="clearfix"></div>
+<div class="clearfix"></div>
+<p class="copyright" translate="no">© 1994-2019 The MathWorks, Inc.</p>
+</div>
+<div class="clearfix visible-sm add_margin_10"></div>
+<div class="col-xs-12 col-lg-3">
+<div class="social_media">
+<ul class="social_media_icons">
+<li>
+<a href="http://www.facebook.com/MATLAB" target="_blank" class="svg_link">
+<img src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/ico-facebook.svg" alt="Facebook" class="ico_facebook">
+</a>
+</li>
+<li>
+<a href="http://www.twitter.com/MATLAB" target="_blank" class="svg_link">
+<img src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/ico-twitter.svg" alt="Twitter" class="ico_twitter">
+</a>
+</li>
+<li>
+<a href="https://www.instagram.com/matlab/" class="svg_link" target="_blank">
+<img class="ico_instagram" alt="Instagram" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/ico-instagram.svg">
+</a>
+</li>
+<li>
+<a href="https://www.youtube.com/user/MATLAB" class="svg_link" target="_blank">
+<img class="ico_youtube" alt="YouTube" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/ico-youtube.svg">
+</a>
+</li>
+<li>
+<a href="http://www.linkedin.com/company/the-mathworks_2" target="_blank" class="svg_link">
+<img src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/ico-linkedin.svg" alt="LinkedIn" class="ico_linkedin">
+</a>
+</li>
+<li>
+<a href="https://de.mathworks.com/company/rss.html" class="svg_link">
+<img src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/ico-rss.svg" alt="RSS" class="ico_rss">
+</a>
+</li>
+</ul>
+<div class="clearfix"></div>
+<p><em>Folgen Sie uns</em></p>
+</div>
+</div>
+</div>
+</div>
+<div id="cookie-banner-text" style="display:none;">This website uses cookies to improve your user experience, personalize content and ads, and analyze website traffic. By continuing to use this website, you consent to our use of cookies. Please see our <a href="https://de.mathworks.com/company/aboutus/policies_statements.html">Privacy Policy</a> to learn more about cookies and how to change your settings.</div>
+<!-- BEGIN Adobe DTM -->
+<script type="text/javascript">
+try {
+_satellite.pageBottom();
+} catch (e) {
+//something went wrong
+}
+</script><script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/satellite-5672ffbd64746d5bd3002853.js.Download"></script><!--DTM LinkedIn Pixel-->
+<img height="1" width="1" style="display:none;" alt="" src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/saved_resource"><script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/8664" type="text/javascript"> </script>
+<!-- END Adobe DTM -->
+      </div>
+    </footer>
+
+  </div>
+
+
+
+<a class="btn btn_color_mediumgray" id="go-top"><span class="icon-arrow-open-up icon_24"></span></a><div id="cookie-banner" class="alert-warning"><div id="cookie-icon" class="text-right"><span class="icon-alert-warning icon_24">&nbsp;</span></div><div id="cookie-text">This website uses cookies to improve your user experience, personalize content and ads, and analyze website traffic. By continuing to use this website, you consent to our use of cookies. Please see our <a href="https://de.mathworks.com/company/aboutus/policies_statements.html">Privacy Policy</a> to learn more about cookies and how to change your settings.</div><div id="cookie-remove"><span class="icon-remove icon_16">&nbsp;</span></div></div><script src="./Support Vector Machine Classification - MATLAB &amp; Simulink - MathWorks Deutschland_files/adsct" type="text/javascript"></script></body></html>
