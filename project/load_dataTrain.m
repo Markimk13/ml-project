@@ -1,5 +1,5 @@
 function [data_train, y] = load_dataTrain(posBackupFile, posDataPath, ...
-        letter, posMode, negBackupFile, negDataPath, maxNegResizeFactor, ...
+        letter, posMode, posRescaleFactor, negBackupFile, negDataPath, maxNegResizeFactor, ...
         maxNegImgsPerFile, maxNegImageFactor)
 
     % load data stores
@@ -8,7 +8,7 @@ function [data_train, y] = load_dataTrain(posBackupFile, posDataPath, ...
     [dataPos, dataNeg] = load_dataStore(posDataPath, negDataPath, letter_index);
     
     % load pos data
-    data_trainPos = load_dataTrainPos(add_suffix(posBackupFile, ['_' char(string(letter_index))]), dataPos, posMode);
+    data_trainPos = load_dataTrainPos(add_suffix(posBackupFile, ['_' char(string(letter_index))]), dataPos, posMode, posRescaleFactor);
     mPos = size(data_trainPos, 1);
     height = size(data_trainPos, 2);
     width = size(data_trainPos, 3);

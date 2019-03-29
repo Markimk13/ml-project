@@ -1,4 +1,4 @@
-function [data] = load_dataTrainPos(backupFile, dataStore, mode)
+function [data] = load_dataTrainPos(backupFile, dataStore, mode, rescaleFactor)
     
     % improvements: add noise/negative examples to the background of the image
     
@@ -12,7 +12,7 @@ function [data] = load_dataTrainPos(backupFile, dataStore, mode)
     end
     
     % transform the dataStore
-    [transformed, m, height, width] = transform_dataStorePos(dataStore, mode);
+    [transformed, m, height, width] = transform_dataStorePos(dataStore, mode, rescaleFactor);
     fprintf('Loading pos data (%d images) ...\n', m);
     
     % read the data

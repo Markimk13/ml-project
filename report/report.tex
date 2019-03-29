@@ -48,6 +48,12 @@ In spite of those restrictions in \ref{sec:goals}, there are still some challeng
 \end{itemize}
 So one way to handle those challenges is to find similarities of letters in all varieties which we can use to extract features on it. In the following chapter, we will do this by using HOG features and image segmentation.
 
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{res/1005.jpg}}
+\caption{A positive example by ``ctw1500'' \cite{bib:ctw}.}
+\label{fig:pos}
+\end{figure}
+
 \section{Data}
 
 \noindent
@@ -60,6 +66,12 @@ The selection of the data consists of 3 parts. The GitHub page ``image-text-loca
 Firstly, we need positive training examples which contain letters and we also know their positions within the images. It is an advantage if those letters already fulfill most of the properties described in \ref{sec:challenges}. Otherwise, we need to construct them out of the available examples or we have a feature extraction technique which removes those properties.
 
 We used a part of the data set ``Chars74k'' \cite{bib:chars74k} of 62992 computer-generated images. Each image has the size 128x128 and contains exactly one character of \mbox{0-9, A-Z, a-z} with a specific font and may be italic, bold, both or normal. Each character occurs in 1016 images. \\[-5pt]
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{res/bsp.png}}
+\caption{Some positive examples by ``Chars74k'' \cite{bib:chars74k}.}
+\label{fig:bsp}
+\end{figure}
 
 Secondly, we also need negative training examples which should not contain any kind of letters. One single letter usually contains a small space in a whole image where we want to locate the letters. So we can use a part of the image as one negative training example which means that we can reuse the same image for different parts of it and we need less initial images if they are large enough.
 
@@ -77,6 +89,12 @@ An advantage of this technique is that we do not have to care about the colors o
 
 An issue in this technique is that differences in the fonts of the same letter are still visible in the HOG features. So it is necessary that the data set \cite{bib:chars74k} contains a lot of different fonts. Also the differences between the letters are still visible. Since we later want to use an SVM with Gaussian kernel, we have to train a separate model for each letter since the differences  between the letters are too huge to fit all in one model. Another issue is that we have to use a fixed aspect ratio of a model, but it is no problem for the data set \cite{bib:chars74k} since all images have the same size.
 
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{res/hog.png}}
+\caption{A visualization of HOG features.}
+\label{fig:hog}
+\end{figure}
+
 \subsection{Image manipulation}
 
 We still are able to do some manipulation of the images before we extract HOG features from them. Since it is very easy to find the most narrow bounding boxes for the letters in data set \cite{bib:chars74k}, we can easily create new training examples out of them. Firstly, the images may be rescaled by a certain factor (with fixed aspect ratio). Secondly, we implemented 4 options for further operations:
@@ -90,25 +108,24 @@ There would have even been the possibility to use a negative example as a backgr
 
 As already mentioned in \ref{sec:img-sel}, we use every negative example more than once by cropping a random part with the size of the positive examples. The other positive examples, that are not containing the letter for a model, are also used as negative examples.
 
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{res/mani.png}}
+\caption{The 4 options for image manipulation with rescale factor 1.}
+\label{fig:mani}
+\end{figure}
+
 \section{Models}
 
 \noindent
 Now, we can use the data to train several models.
 
-\subsection{Support Vector Machine (SVM)}
+\subsection{Support Vector Machine (SVM) \cite{bib:svm}}
 
-%what is an SVM?
+As a first model, we use a binary SVM with Gaussian kernel. As mentioned in \ref{sec:hog} before, we train a separate model for each letter. For this model, it is important that we have enough data on the boundary of between positive and negative examples such that we have enough support vectors.
 
-As mentioned in \ref{sec:hog} before, we train a separate model for each letter. 
+\subsection{Cascade Object Detector \cite{bib:cod}}
 
-%RBF vs. Gaussian
-%other hyper-parameters
-
-\subsection{Cascade Object Detector}
-
-%what is a COD?
-
-We also train a separate model for each letter here.
+As a second model, we use the Cascade Object Detector provided by MATLAB. We also train a separate model for each letter here.
 
 \section{Evaluation}
 
@@ -119,23 +136,25 @@ After we have trained our models, we can now use them on the test data. Firstly,
 
 We have a slider with a fixed size here. We use it to slide over the whole test image and predict the output in the SVM for each segment of the image where the slider stopped. For every segment, which the SVM has predicted as positive example, we remember its borders as a bounding box and how high the score was. We repeat this process for the whole pyramid which is created by creating smaller copies of the test image.
 
-%hyper parameters
-
 \subsection{Non-maximum suppression}\label{sec:non-max-sup}
 
 Since many predicted bounding boxes from the previous step may overlap, we have to reduce them. We do this by first selecting the bounding boxes with the highest scores and later only choosing one with a lower score if it overlaps with a previous one by a maximum percentage which we set to 50\%.  
 
-\subsection{Many letters to one location}\label{sec:many-to-one} %choose a better section name
+\subsection{Many to one}\label{sec:many-to-one}
 
-%still missing
+We now can predict the occurance for every of the 62 letters. But this is not that what we wanted. We wanted just to know if there is a letter in some position or not. So we have to put all bounding boxes together in a way that the true-positive predicted letters still remain, but the maybe many false-positive predicted letters are removed. However, this part is not implemented so we cannot do further analysis here.
 
-\subsection{Intersection over Union (IoU)}\label{sec:iou}
+\subsection{Intersection over Union (IoU) \cite{bib:iou}}\label{sec:iou}
 
-The metric we used is called ``Intersection over Union''. As the name says, it calculates the union of all ground truth bounding boxes and the intersection area between this union and the union of the predicted bounding boxes which is always smaller than the first one. So we get a value from 0 to 1.
+The metric we use is called ``Intersection over Union''. As the name says, we define
+$$\textrm{Precision}=\frac{|TP|}{|TP \cup FP|}$$
+and
+$$\textrm{Recall}=\frac{|TP|}{|TP \cup FN|}$$
+where $TP = T \cap P$, $FN = F \cap pos$, $FP = F \cap neg$. $T$ is the union of all ground truth bounding boxes and $F = \overline{T}$ is the remaining area. $pos$ is the union of all predicted bounding boxes and $neg = \overline{pos}$ is again the remaining area.
 
 \section{Framework}
 
-At the end, we will give a short overview about our framework.
+At the end, we will give a short overview about our framework which can be found at https://github.com/Markimk13/ml-project/tree/master/project.
 
 \subsection{Support Vector Machine (SVM)}
 
@@ -149,13 +168,14 @@ The executable script is named \texttt{cod\_project.m}. All parameters are contr
 
 There are also other deprecated scripts, namely \texttt{cod\_project2.m}, \texttt{cod\_project3.m}, \texttt{cod\_projectGrid.m}, \texttt{cod\_evaluateGrid.m}.
 
-% also add pictures and tables everywhere
-
 \begin{thebibliography}{00}
 \bibitem{bib:github} https://github.com/whitelok/image-text-localization-recognition
 \bibitem{bib:chars74k} T. E. de Campos, B. R. Babu and M. Varma, ``Character recognition in natural images'', In Proceedings of the International Conference on Computer Vision Theory and Applications (VISAPP), Lisbon, Portugal, February 2009. http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/.
 \bibitem{bib:openImg} https://storage.googleapis.com/openimages/web/download.html
 \bibitem{bib:ctw} https://github.com/Yuliang-Liu/Curve-Text-Detector
+\bibitem{bib:svm} https://de.mathworks.com/help/stats/fitcsvm.html
+\bibitem{bib:cod} https://de.mathworks.com/help/vision/ug/train-a-cascade-object-detector.html
+\bibitem{bib:iou} https://www.pyimagesearch.com/2016/11/07/intersection-over-union-iou-for-object-detection/
 \end{thebibliography}
 
 \end{document}

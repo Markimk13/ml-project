@@ -1,9 +1,9 @@
 %% 1. Delete/Load data.
 [deleted_old_variables] = svm_init();
-[~, ~, ~, featureFile, modelFile] = svm_filenames();
+[~,~,~,letter] = svm_params();
+[~, ~, ~, featureFile, modelFile] = svm_filenames(letter);
 if deleted_old_variables
-    letter = '0';
-    [data_train, y, data_test, options] = load_data(@svm_params, @svm_filenames, letter);
+    [data_train, y, data_test, options] = load_data(@svm_params, @svm_filenames);
     use_hog_visus = options.use_hog_visus;
 end
 height = size(data_train, 2);

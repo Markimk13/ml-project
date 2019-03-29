@@ -30,7 +30,7 @@ function [img] = transform_dataTrainPos(oldImg, height, width, mode, resizeFacto
 
     if strcmp(mode, 'crop') || strcmp(mode, 'resize')
         % resize if the mode is 'resize' or the bb does not fit in the img_size
-        if strcmp(mode, 'resize')
+        if strcmp(mode, 'resize') || bb(3) > height || bb(4) > width
             img_height = min(height, bb(3)*width/bb(4));
             img_width = min(width, bb(4)*height/bb(3));
             img = imresize(img, [img_height, img_width]);
@@ -40,7 +40,12 @@ function [img] = transform_dataTrainPos(oldImg, height, width, mode, resizeFacto
         img_top = floor((height-size(img, 1)) / 2);
         img_left = floor((width-size(img, 2)) / 2);
         img2 = 255 * ones(img_size, 'uint8');
+        try
         img2(img_top+(1:size(img, 1)),img_left+(1:size(img, 2)),:) = img;
+        catch e
+            disp(e);
+            rethrow(e);
+        end
         img = img2;
 
     elseif strcmp(mode, 'locate')

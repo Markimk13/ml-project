@@ -1,4 +1,4 @@
-function [transformed, m, height, width] = transform_dataStorePos(dataStore, mode)
+function [transformed, m, height, width] = transform_dataStorePos(dataStore, mode, rescaleFactor)
 
     % check for supported mode
     if ~(strcmp(mode, 'resize') || strcmp(mode, 'crop') ...
@@ -10,10 +10,7 @@ function [transformed, m, height, width] = transform_dataStorePos(dataStore, mod
     m = length(imageFilenames);
     
     mPerImg = 1;
-    resizeFactor = 1;
     if strcmp(mode, 'crop') || strcmp(mode, 'resize')
-        resizeFactor = 4;
-        
         % find height and width of all bounding boxes
         sizes = zeros(m, 2);
         for i = 1:m
@@ -23,7 +20,7 @@ function [transformed, m, height, width] = transform_dataStorePos(dataStore, mod
         end
 
         % find the most useful height and width for extracting HOG features
-        size_max = ceil(max(sizes)/resizeFactor);
+        size_max = ceil(max(sizes, 1)/rescaleFactor);
         height = size_max(1);
         width = size_max(2);
         
@@ -31,13 +28,13 @@ function [transformed, m, height, width] = transform_dataStorePos(dataStore, mod
         mPerImg = 10;
         
         img = imread(imageFilenames{1});
-        height = ceil(size(img, 1)/resizeFactor);
-        width = ceil(size(img, 2)/resizeFactor);
+        height = ceil(size(img, 1)/rescaleFactor);
+        width = ceil(size(img, 2)/rescaleFactor);
         
     elseif strcmp(mode, 'plain')
         img = imread(imageFilenames{1});
-        height = ceil(size(img, 1)/resizeFactor);
-        width = ceil(size(img, 2)/resizeFactor);
+        height = ceil(size(img, 1)/rescaleFactor);
+        width = ceil(size(img, 2)/rescaleFactor);
     end
     
     fprintf('Transforming pos data (%d images à %d rounds) ...\n', m, mPerImg);
@@ -45,12 +42,12 @@ function [transformed, m, height, width] = transform_dataStorePos(dataStore, mod
     % use the settings to create a dataStore with mPerImg variations of an
     % image
     transformed = transform(dataStore, @(img) transform_dataTrainPos(img, ...
-            height, width, mode, resizeFactor));
+            height, width, mode, rescaleFactor));
     fprintf('\tFinished round 1.\n');
     for i = 2:mPerImg
         transformed = combine(transformed, ...
                 transform(dataStore, @(img) transform_dataTrainPos(img, ...
-                        height, width, mode, resizeFactor)));
+                        height, width, mode, rescaleFactor)));
         fprintf('\tFinished round %d.\n', i);
     end
     

@@ -15,6 +15,7 @@ backupFolder = 'data/cod_saved/';
 
 % parameter for data manipulation
 posMode = 'locate';
+rescaleFactor = 1;
 
 possible_letters = ['0':'9' 'A':'Z' 'a':'z'];
 letters = ['0':'9' 'A':'Z' 'a':'z'];
@@ -30,7 +31,7 @@ for i = 1:length(letters)
         pos = imageDatastore(pos_folder, 'FileExtensions', '.png');
     else
         [pos, ~] = load_dataStore(trainPosPath, trainNegPath, letter_index);
-        [pos, m, height, width] = transform_dataStorePos(pos, posMode);
+        [pos, m, height, width] = transform_dataStorePos(pos, posMode, rescaleFactor);
         data = get_imagesFromDataStore(pos, m, height, width);
         pos = create_dataStoreInFolder(data, pos_folder);
     end
